@@ -1,12 +1,21 @@
-import {
-  ClerkProvider
-} from '@clerk/nextjs'
-import './globals.css'
-import { inter } from '@/components/fonts'
+import { ClerkProvider } from "@clerk/nextjs";
+import "./globals.css";
+import { inter } from "@/components/fonts";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    template: "%s | DineSphere",
+    default: "DinesSphere",
+  },
+  description:
+    "A comprehensive dining platform that connects food enthusiasts with their favorite restaurants and allows them to explore a wide variety of culinary experiences",
+};
+
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <ClerkProvider>
@@ -19,5 +28,5 @@ export default function RootLayout({
         </body>
       </html>
     </ClerkProvider>
-  )
+  );
 }

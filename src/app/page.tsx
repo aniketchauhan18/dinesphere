@@ -1,11 +1,23 @@
 import Navbar from "@/components/Navbar";
 import { Button } from "@/components/ui/button";
-import { SearchIcon, SettingsIcon, StarIcon, Calendar, PizzaIcon, FishIcon, TurtleIcon, SaladIcon, BeanIcon, SandwichIcon, UserCheck2Icon } from "lucide-react";
+import {
+  SearchIcon,
+  SettingsIcon,
+  StarIcon,
+  Calendar,
+  PizzaIcon,
+  FishIcon,
+  TurtleIcon,
+  SaladIcon,
+  BeanIcon,
+  SandwichIcon,
+  UserCheck2Icon,
+} from "lucide-react";
 import Link from "next/link";
 
-
 export default function Home() {
-  const cuisineIconClasses: string = "flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-orange-500 hover:text-white ease-in-out duration-300"
+  const cuisineIconClasses: string =
+    "flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-orange-500 hover:text-white ease-in-out duration-300";
 
   return (
     <main className="min-h-screen">
@@ -17,10 +29,16 @@ export default function Home() {
           </h1>
         </div>
         <div className="text-center  max-w-[900px]">
-          <p className="pt-3 text-neutral-600 flex justify-center items-center text-base sm:text-lg lg:text-xl">Our app connects food enthusiasts with top-rated restaurants, and provides restaurant owners with powerful tools to manage and grow their business.</p>
+          <p className="pt-3 text-neutral-600 flex justify-center items-center text-base sm:text-lg lg:text-xl">
+            Our app connects food enthusiasts with top-rated restaurants, and
+            provides restaurant owners with powerful tools to manage and grow
+            their business.
+          </p>
         </div>
         <div className="text-center pt-10 space-x-4">
-          <Button variant="outline" className="rounded-full">Find Restaurants</Button>
+          <Button variant="outline" className="rounded-full">
+            Find Restaurants
+          </Button>
           <Link href="/">
             <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full">
               Join as Owner
@@ -60,44 +78,35 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-10">
           <div className="flex flex-col items-center space-y-8">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">Explore Cuisines</h2>
-              <p className="text-lg text-muted-foreground">Find the perfect meal for any craving.</p>
+              <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+                Explore Cuisines
+              </h2>
+              <p className="text-lg text-muted-foreground">
+                Find the perfect meal for any craving.
+              </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-3">
-              <Link
-                href="/"
-                className={cuisineIconClasses}
-              >
+              <Link href="/" className={cuisineIconClasses}>
                 <SandwichIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Sandwich</span>
               </Link>
-              <Link
-                href="/"
-                className={cuisineIconClasses}              >
+              <Link href="/" className={cuisineIconClasses}>
                 <PizzaIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Pizza</span>
               </Link>
-              <Link
-                href="/"
-                className={cuisineIconClasses}              >
+              <Link href="/" className={cuisineIconClasses}>
                 <FishIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Sushi</span>
               </Link>
-              <Link
-                href="/"
-                className={cuisineIconClasses}              >
+              <Link href="/" className={cuisineIconClasses}>
                 <TurtleIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Mexican</span>
               </Link>
-              <Link
-                href="/"
-                className={cuisineIconClasses}              >
+              <Link href="/" className={cuisineIconClasses}>
                 <BeanIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Asian</span>
               </Link>
-              <Link
-                href="/"
-                className={cuisineIconClasses}              >
+              <Link href="/" className={cuisineIconClasses}>
                 <SaladIcon className="w-8 h-8" />
                 <span className="text-sm font-medium">Healthy</span>
               </Link>
@@ -112,7 +121,11 @@ export default function Home() {
           </h1>
         </div>
         <div className="flex justify-center">
-          <p className="pt-3 text-neutral-600 text-center text-base sm:text-lg l max-w-[700px]">Our app makes it easy for food enthusiasts to discover the best restaurants and for restaurant owners to manage and grow their business.</p>
+          <p className="pt-3 text-neutral-600 text-center text-base sm:text-lg l max-w-[700px]">
+            Our app makes it easy for food enthusiasts to discover the best
+            restaurants and for restaurant owners to manage and grow their
+            business.
+          </p>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-5">
           <div className="bg-white border border-zinc-50 shadow rounded p-3">
@@ -120,8 +133,13 @@ export default function Home() {
               <SearchIcon className="text-3xl" />
             </div>
             <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold text-neutral-700">Search & Discover</h1>
-              <p className="text-center text-neutral-600">Browse our extensive database of restaurants and filter by cuisine, location, and more.</p>
+              <h1 className="text-center font-bold text-neutral-700">
+                Search & Discover
+              </h1>
+              <p className="text-center text-neutral-600">
+                Browse our extensive database of restaurants and filter by
+                cuisine, location, and more.
+              </p>
             </div>
           </div>
           <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
@@ -129,8 +147,13 @@ export default function Home() {
               <SettingsIcon className="text-3xl" />
             </div>
             <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold text-neutral-700">Manage Your Business</h1>
-              <p className="text-center text-neutral-600">Restaurant owners can use our app to manage orders, update menus, and more.</p>
+              <h1 className="text-center font-bold text-neutral-700">
+                Manage Your Business
+              </h1>
+              <p className="text-center text-neutral-600">
+                Restaurant owners can use our app to manage orders, update
+                menus, and more.
+              </p>
             </div>
           </div>
           <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
@@ -139,7 +162,10 @@ export default function Home() {
             </div>
             <div className="pt-2 space-y-2">
               <h1 className="text-center font-bold">Review</h1>
-              <p className="text-center text-neutral-600">Share your dining experiences and help others discover the best restaurants.</p>
+              <p className="text-center text-neutral-600">
+                Share your dining experiences and help others discover the best
+                restaurants.
+              </p>
             </div>
           </div>
           <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
@@ -172,7 +198,9 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;Delicious Bites has made it so easy to discover new restaurants and book reservations. I&apos;ve found some amazing places I never would have known about otherwise.&quot;
+                &quot;Delicious Bites has made it so easy to discover new
+                restaurants and book reservations. I&apos;ve found some amazing
+                places I never would have known about otherwise.&quot;
               </p>
             </div>
           </div>
@@ -186,7 +214,9 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;As a restaurant owner, Delicious Bites has been a game-changer. The platform makes it easy to manage reservations, reach new customers, and grow my business.&quot;
+                &quot;As a restaurant owner, Delicious Bites has been a
+                game-changer. The platform makes it easy to manage reservations,
+                reach new customers, and grow my business.&quot;
               </p>
             </div>
           </div>
@@ -200,7 +230,10 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit ea neque natus a earum vero quasi officia eum itaque totam voluptates unde praesentium molestias quam error sit modi, eos mollitia!&quot;
+                &quot;Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                Odit ea neque natus a earum vero quasi officia eum itaque totam
+                voluptates unde praesentium molestias quam error sit modi, eos
+                mollitia!&quot;
               </p>
             </div>
           </div>
