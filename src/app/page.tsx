@@ -172,7 +172,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;Delicious Bites has made it so easy to discover new restaurants and book reservations. I've found some amazing places I never would have known about otherwise.&quot;
+                &quot;Delicious Bites has made it so easy to discover new restaurants and book reservations. I&apos;ve found some amazing places I never would have known about otherwise.&quot;
               </p>
             </div>
           </div>
