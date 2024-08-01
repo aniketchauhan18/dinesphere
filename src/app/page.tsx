@@ -172,7 +172,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                "Delicious Bites has made it so easy to discover new restaurants and book reservations. I've found some amazing places I never would have known about otherwise."
+                &quot;Delicious Bites has made it so easy to discover new restaurants and book reservations. I've found some amazing places I never would have known about otherwise.&quot;
               </p>
             </div>
           </div>
@@ -186,7 +186,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                "As a restaurant owner, Delicious Bites has been a game-changer. The platform makes it easy to manage reservations, reach new customers, and grow my business."
+                &quot;As a restaurant owner, Delicious Bites has been a game-changer. The platform makes it easy to manage reservations, reach new customers, and grow my business.&quot;
               </p>
             </div>
           </div>
@@ -200,7 +200,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit ea neque natus a earum vero quasi officia eum itaque totam voluptates unde praesentium molestias quam error sit modi, eos mollitia!"
+                &quot;Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit ea neque natus a earum vero quasi officia eum itaque totam voluptates unde praesentium molestias quam error sit modi, eos mollitia!&quot;
               </p>
             </div>
           </div>
