@@ -1,17 +1,7 @@
-import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server'
+import { clerkMiddleware } from '@clerk/nextjs/server';
 
-const isWebhookRoute = createRouteMatcher(['/api/webhooks(.*)']);
-
-export default clerkMiddleware((auth, req) => {
-  // Ignore specific routes like webhooks
-  if (isWebhookRoute(req)) {
-    return; // Skip authentication for these routes
-  }
-
-  // You can add additional logic here for protecting other routes
-  // For example, you can check roles or other conditions
-  auth().protect(); // Protect all other routes by default
-});
+// Make sure that the `/api/webhooks/(.*)` route is not protected here
+export default clerkMiddleware();
 
 export const config = {
   matcher: [
