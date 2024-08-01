@@ -18,7 +18,7 @@ export default function Navbar() {
             <DropdownMenuTrigger>
               <UserIcon className="text-neutral-700 w-8 h-8 bg-zinc-100 rounded-full p-1" />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="mr-3 rounded p-2 border text-sm space-y-1">
+            <DropdownMenuContent className="mr-3 rounded p-2 bg-white border text-sm space-y-1">
               <DropdownMenuLabel className="font-semibold p-1">My Account</DropdownMenuLabel>
               <DropdownMenuSeparator className="border-b w-full text-neutral-600 " />
               <SignedIn>
