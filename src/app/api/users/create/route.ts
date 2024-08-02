@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { connect } from "../../../../lib/db";
 import User from "@/lib/models/user.model";
 
-export const userValidationSchema = z.object({
+const userValidationSchema = z.object({
   clerkId: z.string({ required_error: "Clerk ID is required" }),
   imageUrl: z.string({ required_error: "Image URL is required" }),
   username: z.string().optional(),

@@ -73,6 +73,10 @@ const config = {
         "accordion-up": "accordion-up 0.2s ease-out",
       },
     },
+    // backgroundImage: {
+    //   'mobile-bg': "url('/bg/authbg-sm.svg')",
+    //   'desktop-bg': "url('/bg/authbg-lg.svg')",
+    // },
   },
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
