@@ -20,7 +20,7 @@ export default function Home() {
     "flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-orange-500 hover:text-white ease-in-out duration-300";
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen pb-12">
       <Navbar />
       <div className="grid justify-center p-5">
         <div className="text-center">

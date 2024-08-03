@@ -7,6 +7,7 @@ import { FaceIcon } from "@radix-ui/react-icons";
 export default function CreateUser() {
   const router = useRouter();
   const { user } = useUser();
+  console.log("hii");
 
   useEffect(() => {
     const createUserInBackend = async () => {
@@ -26,6 +27,11 @@ export default function CreateUser() {
               email: user.emailAddresses[0]?.emailAddress,
             }),
           });
+          const data = await response.json();
+
+          // store user in the local storage
+
+          localStorage.setItem("dineSphere-userId", data.user._id);
           if (!response.ok) {
             console.error("Failed to create user in backend");
           }
