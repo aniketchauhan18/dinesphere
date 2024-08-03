@@ -4,8 +4,6 @@ import { Button } from "../button"
 import { Textarea } from '../textarea';
 import { Label } from '../label'
 import { createRestaurant, State } from '@/lib/actions';
-import { Leaf } from 'lucide-react';
-
 export default function CreateForm({ userId }: { userId: string }) {
   const createRestaurantWithUserId = createRestaurant.bind(null, userId);
   return (

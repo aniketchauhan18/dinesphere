@@ -1,5 +1,5 @@
 import z from "zod";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { connect } from "../../../../lib/db";
 import User from "@/lib/models/user.model";
 
@@ -12,7 +12,7 @@ const userValidationSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   try {
     // connect to the database
 

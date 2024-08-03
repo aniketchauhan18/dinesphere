@@ -5,19 +5,19 @@ import {
   SignInButton,
 } from "@clerk/nextjs";
 import { HomeIcon, Search, UserIcon } from "lucide-react";
-import { DropdownMenu } from "./ui/dropdown-menu";
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
 import { inter, poppins } from "./fonts";
 import { Input } from "./ui/input";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 // import { HamburgerMenuIcon } from "@radix-ui/react-icons";
+// import { DropdownMenu } from "./ui/dropdown-menu";
+// import {
+//   DropdownMenuContent,
+//   DropdownMenuItem,
+//   DropdownMenuLabel,
+//   DropdownMenuSeparator,
+//   DropdownMenuTrigger,
+// } from "@radix-ui/react-dropdown-menu";
 
 export default function Navbar() {
   // user button for logout and all that thing;
@@ -29,7 +29,7 @@ export default function Navbar() {
     "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (
-    <nav className={`${poppins.className}`}>
+    <nav className={`${inter.className}`}>
       <header
         className={`border-b min-h-16 bg-primary-foreground hidden lg:flex z-50  p-3 justify-between items-center gap-5`}
       >
@@ -90,12 +90,12 @@ export default function Navbar() {
             </DropdownMenu>
             {/* <UserButton /> */}
           {/* </div> */} 
-          <div className="hidden sm:flex w-full max-w-xs">
+          {/* <div className="hidden sm:flex w-full max-w-xs">
             <Input
               placeholder="Search restaurants..."
               className="shadow-none text-sm py-0"
             />
-          </div>
+          </div> */}
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>
               <div className="flex gap-3 items-center">
