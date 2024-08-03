@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { fetchRestaurants } from "@/lib/data";
-import { MapPinIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import RestauranCards from "@/components/ui/restaurants/restaurant-cards";
 import Image from "next/image";
 import React from "react";
@@ -34,8 +34,10 @@ export default async function Restaurants() {
             className="rounded-none rounded-l-lg border-r-0"
             placeholder="Search for restaurants"
           />
-          <Button className=" rounded-none rounded-r-lg bg-gradient-to-r from-orange-400 to-orange-500">
-            Search
+          <Button className=" rounded-none rounded-r-lg gap-1 flex items-center justify-center bg-gradient-to-r from-orange-400 to-orange-500">
+            <div className="flex justify-center items-center">
+            <SearchIcon className="w-3.5 h-3.5"/>
+            </div>
           </Button>
         </div>
       </section>

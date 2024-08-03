@@ -1,6 +1,6 @@
 'use server'
 import { RestaurantProps } from "@/app/restaurants/page"
-import { MapPinIcon } from "lucide-react";
+import { MapPinIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -15,7 +15,7 @@ export default async function RestaurantCards({ restaurants }: { restaurants: Re
 async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
   return (
     <div className="p-5 flex justify-center">
-      <Link href={`/restaurants/${restaurant._id}`} className=" rounded-lg h-full bg-neutral-100 max-w-xs">
+      <Link href={`/restaurants/${restaurant._id}`} className=" rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs">
           <Image
             src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
             alt="restaurant-image"
@@ -26,16 +26,26 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
             objectFit="cover"
             placeholder="empty"
           />
-        <div className="p-3">
-          <p className="font-bold text-neutral-700 text-lg">
+        <div className="p-3 space-y-0.5">
+          <p className="font-bold text-neutral-800 text-lg">
           {restaurant.name}
           </p>
-          <p>
-            {restaurant.description.length > 25 ? restaurant.description.slice(0, 25) + "..." : restaurant.description}
+          <p className="text-neutral-700">
+            {restaurant.description.length > 35 ? restaurant.description.slice(0, 35) + "..." : restaurant.description}
           </p>
-          <div className="flex items-center text-neutral-500">
-            <MapPinIcon className="w-4 h-4 mr-1 text-4xl" />
-            <div>{restaurant.address}</div>
+          <div className="flex items-center justify-between text-neutral-500">
+            <div className="flex items-center">
+              <MapPinIcon className="w-4 h-4 mr-1" />
+              <p className="text-sm">{restaurant.address}</p>
+            </div>
+            <div className="flex text-sm items-center ">
+              <StarIcon className="w-4 h-4 text-green-600"/>
+              <StarIcon className="w-4 h-4 text-green-600"/>
+              <StarIcon className="w-4 h-4 text-green-600"/>
+              <StarIcon className="w-4 h-4 text-green-600"/>
+              <StarIcon className="w-4 h-4"/>
+              <p className="ml-1">4.3</p>
+            </div>
           </div>
         </div>
       </Link>

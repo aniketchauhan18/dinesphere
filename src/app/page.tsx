@@ -36,9 +36,11 @@ export default function Home() {
           </p>
         </div>
         <div className="text-center pt-10 space-x-4">
-          <Button variant="outline" className="rounded-full">
-            Find Restaurants
-          </Button>
+          <Link href="/restaurants">
+            <Button variant="outline" className="rounded-full">
+              Search Restaurants
+            </Button>
+          </Link>
           <Link href="/">
             <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full">
               Join as Owner

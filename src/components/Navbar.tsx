@@ -25,8 +25,8 @@ export default function Navbar() {
   const { userId } = auth();
   console.log(userId);
 
-  const DropDownMenuItemClasses: string =
-    "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
+  // const DropDownMenuItemClasses: string =
+  //   "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (
     <nav className={`${inter.className}`}>
@@ -134,7 +134,7 @@ export default function Navbar() {
             <HomeIcon className="w-5 h-5" />
             <p className="text-xs mt-1">Home</p>
           </Link>
-          <Link href={"/"} className={linkClasses}>
+          <Link href={"/restaurants"} className={linkClasses}>
             <Search className="w-5 h-5" />
             <p className="text-xs mt-1">Search</p>
           </Link>
