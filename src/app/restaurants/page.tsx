@@ -1,8 +1,8 @@
-import { Button } from "@/app/components/ui/button";
-import { Input } from "@/app/components/ui/input";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
 import { fetchRestaurants } from "@/lib/data";
 import { SearchIcon } from "lucide-react";
-import RestauranCards from "@/app/components/ui/restaurants/restaurant-cards";
+import RestauranCards from "../../components/ui/restaurants/restaurant-cards";
 import Image from "next/image";
 import React from "react";
 
@@ -24,7 +24,6 @@ export interface RestaurantProps {
 
 export default async function Restaurants() {
   const restaurants: RestaurantProps[] = await fetchRestaurants();
-  console.log(restaurants);
 
   return (
     <main>

@@ -1,5 +1,5 @@
-import Navbar from "@/app/components/Navbar";
-import { Button } from "@/app/components/ui/button";
+import Navbar from "../components/Navbar";
+import { Button } from "../components/ui/button";
 import {
   SearchIcon,
   SettingsIcon,
@@ -170,17 +170,8 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
-            <div className="flex justify-center w-full text-neutral-700">
-              <Calendar className="text-3xl" />
-            </div>
-            <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold">Book</h1>
-              <p className="text-center text-neutral-600">
-                Easily make reservations and manage your dining schedule.
-              </p>
-            </div>
-          </div>
+          {/*
+           */}
         </div>
       </div>
       <div className="grid py-10 px-5">

@@ -8,7 +8,8 @@ import { HomeIcon, Search, UserIcon } from "lucide-react";
 import { inter, poppins } from "./fonts";
 import { Input } from "./ui/input";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
+import Image from "next/image";
 // import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 // import { DropdownMenu } from "./ui/dropdown-menu";
 // import {
@@ -19,11 +20,12 @@ import { auth } from "@clerk/nextjs/server";
 //   DropdownMenuTrigger,
 // } from "@radix-ui/react-dropdown-menu";
 
-export default function Navbar() {
+export default async function Navbar() {
   // user button for logout and all that thing;
 
   const { userId } = auth();
-  console.log(userId);
+  const user = await currentUser();
+  console.log(user?.imageUrl, "imageurl");
 
   // const DropDownMenuItemClasses: string =
   //   "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
@@ -140,13 +142,24 @@ export default function Navbar() {
           </Link>
           <SignedIn>
             <Link href={`/user/${userId}`} className={linkClasses}>
-              <UserIcon className="w-5 h-5" />
+              {user ? (
+                <Image
+                  src={user?.imageUrl}
+                  alt="profile photo"
+                  height={25}
+                  width={25}
+                  className="rounded-full"
+                />
+              ) : (
+                <UserIcon className="w-5 h-5" />
+              )}
               <p className="text-xs mt-1">Profile</p>
             </Link>
           </SignedIn>
           <SignedOut>
-            <Link href="/sign-in">
-              <UserIcon className="w-5 h-5 " />
+            <Link href="/sign-in" className={linkClasses}>
+              <UserIcon className="w-5 h-5" />
+              <p className="text-xs mt-1">Profile</p>
             </Link>
           </SignedOut>
         </div>

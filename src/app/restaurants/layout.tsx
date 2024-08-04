@@ -1,6 +1,6 @@
 import React from "react";
-import Navbar from "../components/Navbar";
-import { poppins, inter } from "../components/fonts";
+import Navbar from "../../components/Navbar";
+import { inter } from "../../components/fonts";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
