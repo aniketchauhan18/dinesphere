@@ -1,7 +1,7 @@
 // import { useActionState } from 'react';
 import { Metadata } from "next";
-import CreateForm from "../../../components/ui/restaurants/create-form";
-import { inter, poppins } from "@/app/components/fonts";
+import CreateForm from "../../../../components/ui/restaurants/create-form";
+import { inter, poppins } from "../../../../components/fonts";
 // import { createRestaurant, State } from '@/lib/actions';
 
 export const metadata: Metadata = {

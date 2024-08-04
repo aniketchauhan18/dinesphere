@@ -1,4 +1,4 @@
-import { Button } from "@/app/components/ui/button";
+import { Button } from "../../../components/ui/button";
 import { fetchUserById } from "@/lib/data";
 // import { UserDetails } from "../../lib/definition";
 import { SignOutButton } from "@clerk/nextjs";
