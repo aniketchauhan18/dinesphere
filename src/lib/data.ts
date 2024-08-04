@@ -34,6 +34,6 @@ export async function fetchRestaurantById(id: string) {
     }
     return restaurant;
   } catch (err) {
-    throw new Error("Error fetching restuarant data")
+    throw new Error("Error fetching restuarant data");
   }
 }

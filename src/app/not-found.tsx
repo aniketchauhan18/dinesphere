@@ -1,6 +1,6 @@
 import { HomeIcon, FaceIcon } from "@radix-ui/react-icons";
 import { Metadata } from "next";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/app/components/ui/button";
 import Link from "next/link";
 
 export const metadata: Metadata = {

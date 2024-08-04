@@ -1,5 +1,5 @@
-import { inter } from "@/components/fonts";
-import Navbar from "@/components/Navbar";
+import { inter } from "@/app/components/fonts";
+import Navbar from "@/app/components/Navbar";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {

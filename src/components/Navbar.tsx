@@ -89,7 +89,7 @@ export default function Navbar() {
               </DropdownMenuContent>
             </DropdownMenu>
             {/* <UserButton /> */}
-          {/* </div> */} 
+          {/* </div> */}
           {/* <div className="hidden sm:flex w-full max-w-xs">
             <Input
               placeholder="Search restaurants..."
