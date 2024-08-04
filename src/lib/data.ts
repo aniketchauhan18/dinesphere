@@ -1,5 +1,6 @@
 import User from "./models/user.model";
 import Restaurant from "./models/restaurant.model";
+import Menu from "./models/menu.model";
 import { connect } from "./db";
 
 export async function fetchUserById(clerkId: string) {
@@ -35,5 +36,18 @@ export async function fetchRestaurantById(id: string) {
     return restaurant;
   } catch (err) {
     throw new Error("Error fetching restuarant data");
+  }
+}
+
+export async function fetchRestaurantMenuById(id: string) {
+  try {
+    await connect();
+    const menus = await Menu.find({ restaurantId: id });
+    if (!menus) {
+      throw new Error("Menus not found");
+    }
+    return menus;
+  } catch (err) {
+    throw new Error("Error while fetching menu data");
   }
 }

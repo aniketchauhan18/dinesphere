@@ -129,7 +129,7 @@ export default function Home() {
             business.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pt-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-5">
           <div className="bg-white border border-zinc-50 shadow rounded p-3">
             <div className="flex justify-center w-full">
               <SearchIcon className="text-3xl" />

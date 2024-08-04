@@ -25,7 +25,6 @@ export default async function Navbar() {
 
   const { userId } = auth();
   const user = await currentUser();
-  console.log(user?.imageUrl, "imageurl");
 
   // const DropDownMenuItemClasses: string =
   //   "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";

@@ -27,6 +27,8 @@ const UserSchema = new Schema({
     default: "user",
     required: true,
   },
+}, {
+  timestamps: true
 });
 
 const User = models?.User || model("User", UserSchema);

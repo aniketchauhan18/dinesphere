@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   title: "Restaurants",
 };
 
-export default function ProfileLayout({
+export default function RestaurantsLayout({
   children,
 }: {
   children: React.ReactNode;
