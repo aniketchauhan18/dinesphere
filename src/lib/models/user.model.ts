@@ -1,35 +1,38 @@
 import { Schema, model, models } from "mongoose";
 
-const UserSchema = new Schema({
-  clerkId: {
-    type: String,
-    unique: true,
+const UserSchema = new Schema(
+  {
+    clerkId: {
+      type: String,
+      unique: true,
+    },
+    email: {
+      type: String,
+      unique: true,
+    },
+    username: {
+      type: String || null,
+    },
+    firstName: {
+      type: String,
+    },
+    lastName: {
+      type: String || null,
+    },
+    imageUrl: {
+      type: String,
+    },
+    role: {
+      type: String,
+      enum: ["admin", "user"],
+      default: "user",
+      required: true,
+    },
   },
-  email: {
-    type: String,
-    unique: true,
+  {
+    timestamps: true,
   },
-  username: {
-    type: String || null,
-  },
-  firstName: {
-    type: String,
-  },
-  lastName: {
-    type: String || null,
-  },
-  imageUrl: {
-    type: String,
-  },
-  role: {
-    type: String,
-    enum: ["admin", "user"],
-    default: "user",
-    required: true,
-  },
-}, {
-  timestamps: true
-});
+);
 
 const User = models?.User || model("User", UserSchema);
 export default User;

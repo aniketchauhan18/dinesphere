@@ -10,7 +10,6 @@ export default async function RestaurantPage({
 }: {
   params: { id: string };
 }) {
-
   const restaurant: RestaurantProps = await fetchRestaurantById(params.id);
   console.log(restaurant._id);
   const menus: MenuProps[] = await fetchRestaurantMenuById(params.id);
@@ -45,7 +44,7 @@ export default async function RestaurantPage({
       <p>Restaurant ID: {params.id}</p> */}
       <section className="pt-5 pb-24">
         <h1>Our Menu</h1>
-        <MenuCards menus={menus}/>
+        <MenuCards menus={menus} />
       </section>
     </main>
   );

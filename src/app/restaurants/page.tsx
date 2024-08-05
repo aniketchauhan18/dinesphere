@@ -1,8 +1,9 @@
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { fetchRestaurants } from "@/lib/data";
+import { fetchFilteredRestuarants, fetchRestaurants } from "@/lib/data";
 import { SearchIcon } from "lucide-react";
 import RestauranCards from "../../components/ui/restaurants/restaurant-cards";
+import Search from "@/components/Search";
 import Image from "next/image";
 import React from "react";
 
@@ -22,13 +23,20 @@ export interface RestaurantProps {
   cuisine: String[];
 }
 
-export default async function Restaurants() {
+export default async function Restaurants({
+  searchParams,
+}: {
+  searchParams: { query?: string };
+}) {
+  const query = searchParams.query || ".*";
   const restaurants: RestaurantProps[] = await fetchRestaurants();
+  const filteredRestaurants = await fetchFilteredRestuarants(query);
+  console.log(filteredRestaurants);
 
   return (
     <main>
       <section className="bg-neutral-100 py-16 flex justify-center items-center">
-        <div className="flex justify-center items-center max-w-lg w-full px-5">
+        {/* <div className="flex justify-center items-center max-w-lg w-full px-5">
           <Input
             className="rounded-none rounded-l-lg border-r-0"
             placeholder="Search for restaurants"
@@ -38,7 +46,8 @@ export default async function Restaurants() {
               <SearchIcon className="w-3.5 h-3.5" />
             </div>
           </Button>
-        </div>
+        </div> */}
+        <Search />
       </section>
       {/* <div className="p-5">
           <div className="bg-neutral-100 rounded-lg">
@@ -152,7 +161,7 @@ export default async function Restaurants() {
             </div>
           </div>
         </div> */}
-      <RestauranCards restaurants={restaurants} />
+      <RestauranCards restaurants={filteredRestaurants} />
     </main>
   );
 }

@@ -10,13 +10,19 @@ export default async function RestaurantCards({
   restaurants: RestaurantProps[];
 }) {
   return (
-    <div className="py-16 px-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {restaurants.map((restaurant) => (
-        <RestaurantCard
-          key={restaurant._id.toString()}
-          restaurant={restaurant}
-        />
-      ))}
+    <div>
+      {restaurants.length > 0 ? (
+        <div className="py-16 px-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {restaurants.map((restaurant) => (
+            <RestaurantCard
+              key={restaurant._id.toString()}
+              restaurant={restaurant}
+            />
+          ))}
+        </div>
+      ) : (
+        <div className="">No restaurant found</div>
+      )}
     </div>
   );
 }

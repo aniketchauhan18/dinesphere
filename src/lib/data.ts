@@ -51,3 +51,17 @@ export async function fetchRestaurantMenuById(id: string) {
     throw new Error("Error while fetching menu data");
   }
 }
+
+// fetching filtered restaurants based on query with searching for queries for name and city
+
+export async function fetchFilteredRestuarants(query: string) {
+  try {
+    await connect();
+    const filteredRestaurants = await Restaurant.find({
+      $or: [{ name: new RegExp(query, "i") }, { city: new RegExp(query, "i") }],
+    });
+    return filteredRestaurants;
+  } catch (err) {
+    throw new Error("Error fetching filtered restaurants");
+  }
+}
