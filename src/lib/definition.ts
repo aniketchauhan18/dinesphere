@@ -12,11 +12,22 @@ export interface UserDetails {
 
 // change price to number
 export interface MenuProps {
-  _id: String;
-  name: String;
-  description: String;
-  price: String | number;
-  restaurantId: String;
+  _id: string;
+  name: string;
+  description: string;
+  price: string | number;
+  restaurantId: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface MenuOrderItemProps {
+  _id: string;
+  userId: string;
+  menuId: MenuProps;
+  quantity: number;
+  price: number;
+  status: ["pending", "paid", "canceled"];
   createdAt: Date;
   updatedAt: Date;
 }

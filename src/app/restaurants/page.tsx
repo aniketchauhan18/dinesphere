@@ -34,7 +34,7 @@ export default async function Restaurants({
 }) {
   const query = searchParams.query || ".*";
   const cuisine = searchParams.cuisine || ".*";
-  const restaurants: RestaurantProps[] = await fetchRestaurants();
+  // const restaurants: RestaurantProps[] = await fetchRestaurants();
   const filteredRestaurants = await fetchFilteredRestuarants(query, cuisine);
   const cuisines = await fetchRestaurantsCuisines();
   console.log(cuisines);

@@ -26,12 +26,16 @@ export default function Filter({ cuisines }: { cuisines: string[] }) {
   };
 
   return (
-    <Select onValueChange={(value: string) => handleFilter(value)}>
+    <Select
+      onValueChange={(value: string) => handleFilter(value)}
+      defaultValue={searchParams.get("cuisine") || ".*"}
+    >
       <SelectTrigger className="w-auto text-neutral-700 flex items-center gap-2">
         <FilterIcon className="w-4 h-4 text-neutral-700" />
         <SelectValue placeholder="Filter" />
       </SelectTrigger>
       <SelectContent>
+        <SelectItem value=".*">All</SelectItem>
         {cuisines.map((cuisine) => {
           return (
             <SelectItem key={cuisine.toString()} value={cuisine}>

@@ -89,3 +89,12 @@ export async function createRestaurant(userId: string, formData: FormData) {
     };
   }
 }
+
+export async function addMenuToOrderItem() {
+  try {
+  } catch (err) {
+    return {
+      message: "Failed to add orderItem to the order",
+    };
+  }
+}

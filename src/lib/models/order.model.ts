@@ -20,6 +20,13 @@ const orderSchema = new Schema(
       type: String,
       enum: ["pending", "accepted", "rejected", "delivered"],
     },
+    orderItems: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "OrderItem",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,

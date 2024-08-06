@@ -2,6 +2,7 @@ import User from "./models/user.model";
 import Restaurant from "./models/restaurant.model";
 import Menu from "./models/menu.model";
 import { connect } from "./db";
+import OrderItem from "./models/orderItem.model";
 
 export async function fetchUserById(clerkId: string) {
   await connect();
@@ -87,5 +88,25 @@ export async function fetchFilteredRestuarants(query: string, cuisine: string) {
     return filteredRestaurants;
   } catch (err) {
     throw new Error("Error fetching filtered restaurants");
+  }
+}
+
+// we can use clerk id here also but in orderItem model userId is defined so using that
+export async function fetchUserOrderMenuItems(userId: string) {
+  try {
+    await connect();
+    const orderItems = await OrderItem.find({
+      $and: [
+        {
+          userId: userId,
+        },
+        {
+          status: "pending",
+        },
+      ],
+    }).populate("menuId"); // populating to get menuId here
+    return orderItems;
+  } catch (err) {
+    throw new Error("Error fetching user orderItems");
   }
 }

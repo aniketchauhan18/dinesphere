@@ -11,9 +11,11 @@ export default async function RestaurantPage({
   params: { id: string };
 }) {
   const restaurant: RestaurantProps = await fetchRestaurantById(params.id);
-  console.log(restaurant._id);
+  // console.log(restaurant._id);
+
   const menus: MenuProps[] = await fetchRestaurantMenuById(params.id);
-  console.log(menus);
+
+  // console.log(menus);
   return (
     <main className="pt-5 px-5">
       <section className="w-full min-h-72 bg-neutral-200 rounded flex justify-center items-center">

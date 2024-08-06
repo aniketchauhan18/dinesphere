@@ -1,10 +1,11 @@
 import { Schema, models, model } from "mongoose";
 
+// removed orderId from this because orderId contains links to orderItemId will get orderItem by populating it
 const orderItemSchema = new Schema(
   {
-    orderId: {
+    userId: {
       type: Schema.Types.ObjectId,
-      ref: "Order",
+      ref: "User",
       required: true,
     },
     menuId: {
@@ -19,6 +20,12 @@ const orderItemSchema = new Schema(
     },
     price: {
       type: Number,
+      required: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "paid", "canceled"],
+      default: "pending",
       required: true,
     },
   },

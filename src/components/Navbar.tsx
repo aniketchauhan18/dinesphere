@@ -10,6 +10,7 @@ import { Input } from "./ui/input";
 import Link from "next/link";
 import { auth, currentUser } from "@clerk/nextjs/server";
 import Image from "next/image";
+import { fetchUserById } from "@/lib/data";
 // import { HamburgerMenuIcon } from "@radix-ui/react-icons";
 // import { DropdownMenu } from "./ui/dropdown-menu";
 // import {
@@ -24,7 +25,8 @@ export default async function Navbar() {
   // user button for logout and all that thing;
 
   const { userId } = auth();
-  const user = await currentUser();
+  // const clerkUser = await currentUser();
+  const user = await fetchUserById(userId as string);
 
   // const DropDownMenuItemClasses: string =
   //   "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
@@ -103,7 +105,10 @@ export default async function Navbar() {
                 <Link href="/restaurants" className="text-neutral-700 text-sm ">
                   Restaurants
                 </Link>
-                <Link href="/orders" className="text-neutral-700 text-sm ">
+                <Link
+                  href={`/user/${user?._id}/orders`}
+                  className="text-neutral-700 text-sm "
+                >
                   Orders
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
@@ -140,7 +145,7 @@ export default async function Navbar() {
             <p className="text-xs mt-1">Search</p>
           </Link>
           <SignedIn>
-            <Link href={`/user/${userId}`} className={linkClasses}>
+            <Link href={`/user/${user?._id}`} className={linkClasses}>
               {user ? (
                 <Image
                   src={user?.imageUrl}

@@ -2,18 +2,38 @@
 // remove any from menus and menu types
 import { MenuProps } from "@/lib/definition";
 import Image from "next/image";
-import { Button } from "../button";
+import { auth } from "@clerk/nextjs/server";
+import { fetchUserById } from "@/lib/data";
+import { revalidatePath } from "next/cache";
+import AddOrderItemButton from "./add-order-button";
+
+// import { Button } from "../button";
 export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
-      {menus.map((menu) => (
-        <MenuCard key={menu._id.toString()} menu={menu} />
-      ))}
+    <div>
+      {menus.length > 0 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          {menus.map((menu) => (
+            <MenuCard key={menu._id.toString()} menu={menu} />
+          ))}
+        </div>
+      ) : (
+        <div className="min-h-[50dvh] flex justify-center items-center">
+          No menu data available
+        </div>
+      )}
     </div>
   );
 }
 
-function MenuCard({ menu }: { menu: MenuProps }) {
+// adding menus to the orderItem
+
+// we can also use clerk id for searhing for user but using user._id here
+
+async function MenuCard({ menu }: { menu: MenuProps }) {
+  const { userId } = auth();
+  const user = await fetchUserById(userId as string);
+
   return (
     <div className="p-5 flex justify-center">
       <div className="rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs">
@@ -38,9 +58,15 @@ function MenuCard({ menu }: { menu: MenuProps }) {
             <div className="flex items-center">
               <p className="font-bold text-base">₹ {menu.price}</p>
             </div>
-            <button className="px-3 text-white bg-gradient-to-b from-green-500 to-green-600 py-1 text-sm rounded-sm shadow-sm">
+            {/* <button className="px-3 text-white bg-gradient-to-b from-green-500 to-green-600 py-1 text-sm rounded-sm shadow-sm" onClick={handleAddOrderItem}>
               Add
-            </button>
+            </button> */}
+            <AddOrderItemButton
+              quantity={1}
+              price={menu.price}
+              userId={user._id.toString()}
+              menuId={menu._id.toString()}
+            />
           </div>
         </div>
       </div>
