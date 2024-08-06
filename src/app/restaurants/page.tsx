@@ -1,11 +1,15 @@
 import { Button } from "../../components/ui/button";
 import { Input } from "../../components/ui/input";
-import { fetchFilteredRestuarants, fetchRestaurants } from "@/lib/data";
-import { SearchIcon } from "lucide-react";
+import {
+  fetchFilteredRestuarants,
+  fetchRestaurants,
+  fetchRestaurantsCuisines,
+} from "@/lib/data";
 import RestauranCards from "../../components/ui/restaurants/restaurant-cards";
 import Search from "@/components/Search";
 import Image from "next/image";
 import React from "react";
+import Filter from "@/components/Filter";
 
 export interface RestaurantProps {
   _id: String;
@@ -26,16 +30,19 @@ export interface RestaurantProps {
 export default async function Restaurants({
   searchParams,
 }: {
-  searchParams: { query?: string };
+  searchParams: { query?: string; cuisine?: string };
 }) {
   const query = searchParams.query || ".*";
+  const cuisine = searchParams.cuisine || ".*";
   const restaurants: RestaurantProps[] = await fetchRestaurants();
-  const filteredRestaurants = await fetchFilteredRestuarants(query);
+  const filteredRestaurants = await fetchFilteredRestuarants(query, cuisine);
+  const cuisines = await fetchRestaurantsCuisines();
+  console.log(cuisines);
   console.log(filteredRestaurants);
 
   return (
     <main>
-      <section className="bg-neutral-100 py-16 flex justify-center items-center">
+      <section className="bg-neutral-100 py-16 flex justify-center items-center w-full flex-col sm:flex-row gap-3">
         {/* <div className="flex justify-center items-center max-w-lg w-full px-5">
           <Input
             className="rounded-none rounded-l-lg border-r-0"
@@ -48,6 +55,9 @@ export default async function Restaurants({
           </Button>
         </div> */}
         <Search />
+        <div className="w-full sm:w-auto flex justify-end px-5 sm:justify-normal items-center max-w-lg">
+          <Filter cuisines={cuisines} />
+        </div>
       </section>
       {/* <div className="p-5">
           <div className="bg-neutral-100 rounded-lg">

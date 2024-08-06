@@ -21,7 +21,9 @@ export default async function RestaurantCards({
           ))}
         </div>
       ) : (
-        <div className="">No restaurant found</div>
+        <div className="py-16 flex items-center justify-center min-h-[80dvh]">
+          No restaurants found!!
+        </div>
       )}
     </div>
   );

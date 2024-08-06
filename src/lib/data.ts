@@ -52,13 +52,37 @@ export async function fetchRestaurantMenuById(id: string) {
   }
 }
 
+export async function fetchRestaurantsCuisines() {
+  try {
+    await connect();
+    // fetch all the distinct cuisines from all the restauarant models
+    const cuisines = await Restaurant.distinct("cuisine");
+    if (!cuisines) {
+      throw new Error("Cuisine not found");
+    }
+    return cuisines;
+  } catch (err) {
+    throw new Error("Error while fetching restaurants cuisine");
+  }
+}
+
 // fetching filtered restaurants based on query with searching for queries for name and city
 
-export async function fetchFilteredRestuarants(query: string) {
+export async function fetchFilteredRestuarants(query: string, cuisine: string) {
   try {
     await connect();
     const filteredRestaurants = await Restaurant.find({
-      $or: [{ name: new RegExp(query, "i") }, { city: new RegExp(query, "i") }],
+      $and: [
+        {
+          $or: [
+            { name: new RegExp(query, "i") },
+            { city: new RegExp(query, "i") },
+          ],
+        },
+        {
+          cuisine: { $elemMatch: { $regex: new RegExp(cuisine, "i") } },
+        },
+      ],
     });
     return filteredRestaurants;
   } catch (err) {
