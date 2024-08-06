@@ -37,8 +37,6 @@ export default async function Restaurants({
   // const restaurants: RestaurantProps[] = await fetchRestaurants();
   const filteredRestaurants = await fetchFilteredRestuarants(query, cuisine);
   const cuisines = await fetchRestaurantsCuisines();
-  console.log(cuisines);
-  console.log(filteredRestaurants);
 
   return (
     <main>

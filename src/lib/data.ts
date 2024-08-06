@@ -4,10 +4,18 @@ import Menu from "./models/menu.model";
 import { connect } from "./db";
 import OrderItem from "./models/orderItem.model";
 
-export async function fetchUserById(clerkId: string) {
+export async function fetchUserByClerkId(clerkId: string) {
   await connect();
-  console.log(clerkId);
   const user = await User.findOne({ clerkId });
+  if (!user) {
+    throw new Error("User not found");
+  }
+  return user;
+}
+
+export async function fetchUserById(userId: string) {
+  await connect();
+  const user = await User.findById(userId);
   if (!user) {
     throw new Error("User not found");
   }

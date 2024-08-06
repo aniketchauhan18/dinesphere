@@ -4,32 +4,20 @@ import {
   SignOutButton,
   SignInButton,
 } from "@clerk/nextjs";
-import { HomeIcon, Search, UserIcon } from "lucide-react";
-import { inter, poppins } from "./fonts";
-import { Input } from "./ui/input";
+import { HomeIcon, Search, ShoppingBag, UserIcon } from "lucide-react";
+import { inter } from "./fonts";
 import Link from "next/link";
-import { auth, currentUser } from "@clerk/nextjs/server";
+import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { fetchUserById } from "@/lib/data";
-// import { HamburgerMenuIcon } from "@radix-ui/react-icons";
-// import { DropdownMenu } from "./ui/dropdown-menu";
-// import {
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuLabel,
-//   DropdownMenuSeparator,
-//   DropdownMenuTrigger,
-// } from "@radix-ui/react-dropdown-menu";
+import { fetchUserByClerkId } from "@/lib/data";
 
 export default async function Navbar() {
-  // user button for logout and all that thing;
-
   const { userId } = auth();
-  // const clerkUser = await currentUser();
-  const user = await fetchUserById(userId as string);
+  let user;
+  if (userId) {
+    user = await fetchUserByClerkId(userId as string);
+  }
 
-  // const DropDownMenuItemClasses: string =
-  //   "duration-300 hover:bg-neutral-200/50 rounded-sm p-1";
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (
     <nav className={`${inter.className}`}>
@@ -40,65 +28,6 @@ export default async function Navbar() {
           <Link href="/" className={`font-semibold  text-neutral-700`}>
             DineSphere
           </Link>
-          {/* <div className=" gap-4 items-center hidden">
-            <DropdownMenu>
-              <DropdownMenuTrigger>
-                <UserIcon className="text-neutral-700 w-8 h-8 bg-zinc-100 rounded-full p-1" />
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="mr-3 rounded p-2 bg-white border text-sm space-y-1">
-                <DropdownMenuLabel className="font-semibold p-1">
-                  My Account
-                </DropdownMenuLabel>
-                <DropdownMenuSeparator className="border-b w-full text-neutral-600 " />
-                <SignedIn>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    Profile
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    <Link
-                      href="/restaurants"
-                      className="text-neutral-700 text-sm item"
-                    >
-                      Restaurants
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    Settings
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    <SignOutButton />
-                  </DropdownMenuItem>
-                </SignedIn>
-                <SignedOut>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    <Link
-                      href="/restaurants"
-                      className="text-neutral-700 text-sm item"
-                    >
-                      Restaurants
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    <Link href="/sign-in" className="text-neutral-700 text-sm">
-                      Login
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem className={DropDownMenuItemClasses}>
-                    <Link href="/sign-up" className="text-neutral-700 text-sm">
-                      Sign Up
-                    </Link>
-                  </DropdownMenuItem>
-                </SignedOut>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            {/* <UserButton /> */}
-          {/* </div> */}
-          {/* <div className="hidden sm:flex w-full max-w-xs">
-            <Input
-              placeholder="Search restaurants..."
-              className="shadow-none text-sm py-0"
-            />
-          </div> */}
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>
               <div className="flex gap-3 items-center">
@@ -133,7 +62,7 @@ export default async function Navbar() {
         </div>
       </header>
       <footer
-        className={`lg:hidden fixed bottom-0 left-0 w-full p-2 bg-primary-foreground z-50  border-t-2 border-border`}
+        className={`lg:hidden fixed bottom-0 left-0 w-full p-2 bg-primary-foreground z-50 border-t-2 border-border`}
       >
         <div className="flex justify-around items-center">
           <Link href={"/"} className={linkClasses}>
@@ -143,6 +72,10 @@ export default async function Navbar() {
           <Link href={"/restaurants"} className={linkClasses}>
             <Search className="w-5 h-5" />
             <p className="text-xs mt-1">Search</p>
+          </Link>
+          <Link href={`/user/${user?._id}/orders`} className={linkClasses}>
+            <ShoppingBag className="w-5 h-5" />
+            <p className="text-xs mt-1">Orders</p>
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>

@@ -7,7 +7,6 @@ import { FaceIcon } from "@radix-ui/react-icons";
 export default function CreateUser() {
   const router = useRouter();
   const { user } = useUser();
-  console.log("hii");
 
   useEffect(() => {
     const createUserInBackend = async () => {
