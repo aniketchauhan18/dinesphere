@@ -4,6 +4,7 @@ import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
 import CheckoutButton from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
+import Script from "next/script";
 
 function totalAmountWithGST(price: number) {
   const gstAmount = (price * 18) / 100;
@@ -16,6 +17,8 @@ export default async function Orders({ params }: { params: { id: string } }) {
     params.id as string,
   );
 
+  console.log(menuOrders);
+
   const totalAmount = menuOrders.reduce((acc, menuOrder) => {
     return acc + menuOrder.price;
   }, 0);
@@ -27,6 +30,12 @@ export default async function Orders({ params }: { params: { id: string } }) {
 
   return (
     <main className="pt-4 px-5">
+      <>
+        <Script
+          id="razorpay-checkout-js"
+          src="https://checkout.razorpay.com/v1/checkout.js"
+        />
+      </>
       <section className="flex justify-start">
         <h1 className="text-xl font-bold">Your Orders</h1>
       </section>
@@ -42,7 +51,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
               <div className="flex flex-col gap-3">
                 <div className="flex justify-between pt-3">
                   <p className="font-semibold">Subtotal</p>
-                  <p>₹ {totalAmount}</p>
+                  <p>₹ {totalAmount.toFixed(2)}</p>
                 </div>
                 <div className="flex justify-between ">
                   <p className="font-semibold">GST</p>
@@ -57,8 +66,8 @@ export default async function Orders({ params }: { params: { id: string } }) {
               <div className="flex justify-center w-full pt-2">
                 <CheckoutButton
                   userId={params.id}
-                  restaurantId={menuOrders[0].menuId.restaurantId}
-                  totalPrice={totalAmountWithGST.toString()}
+                  restaurantId={menuOrders[0].menuId.restaurantId.toString()}
+                  totalPrice={totalWithGST.toString()}
                   status="pending"
                   orderItemsIds={orderItemsIds}
                 />

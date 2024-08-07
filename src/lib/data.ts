@@ -3,6 +3,7 @@ import Restaurant from "./models/restaurant.model";
 import Menu from "./models/menu.model";
 import { connect } from "./db";
 import OrderItem from "./models/orderItem.model";
+import { revalidatePath } from "next/cache";
 
 export async function fetchUserByClerkId(clerkId: string) {
   await connect();
@@ -103,6 +104,7 @@ export async function fetchFilteredRestuarants(query: string, cuisine: string) {
 export async function fetchUserOrderMenuItems(userId: string) {
   try {
     await connect();
+
     const orderItems = await OrderItem.find({
       $and: [
         {
@@ -113,6 +115,7 @@ export async function fetchUserOrderMenuItems(userId: string) {
         },
       ],
     }).populate("menuId"); // populating to get menuId here
+    revalidatePath(`/user/${userId}/orders`);
     return orderItems;
   } catch (err) {
     throw new Error("Error fetching user orderItems");

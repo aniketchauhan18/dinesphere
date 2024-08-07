@@ -3,8 +3,7 @@
 import { MenuProps } from "@/lib/definition";
 import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
-import { fetchUserById } from "@/lib/data";
-import { revalidatePath } from "next/cache";
+import { fetchUserByClerkId, fetchUserById } from "@/lib/data";
 import AddOrderItemButton from "./add-order-button";
 
 // import { Button } from "../button";
@@ -32,7 +31,7 @@ export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
 
 async function MenuCard({ menu }: { menu: MenuProps }) {
   const { userId } = auth();
-  const user = await fetchUserById(userId as string);
+  const user = await fetchUserByClerkId(userId as string);
 
   return (
     <div className="p-5 flex justify-center">

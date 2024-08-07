@@ -1,7 +1,6 @@
 "use server";
 import { MenuOrderItemProps } from "@/lib/definition";
 import Image from "next/image";
-import { Button } from "../button";
 
 export async function OrdersCards({
   orders,

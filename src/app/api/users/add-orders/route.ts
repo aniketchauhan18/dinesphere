@@ -1,6 +1,7 @@
 import { connect } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import OrderItem from "../../../../lib/models/orderItem.model";
+import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
@@ -36,7 +37,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       );
 
-      console.log(newOrderItem);
       return NextResponse.json(
         {
           message: "Order quantity incremented successfully",
@@ -55,7 +55,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       menuId,
       status: "pending",
     });
-    console.log(newOrderItem);
 
     if (!newOrderItem) {
       return NextResponse.json(
@@ -67,7 +66,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       );
     }
-
+    revalidatePath(`/user/${userId}/orders`);
     return NextResponse.json(
       {
         message: "Order added successfully",

@@ -1,6 +1,5 @@
 "use client";
 import { revalidatePath } from "next/cache";
-
 // change any types here
 export default function AddOrderItemButton({
   userId,
@@ -30,9 +29,8 @@ export default function AddOrderItemButton({
       if (!response.ok) {
         alert("Error adding menu to the orderItem");
       }
-      // revaildating the path
-      revalidatePath(`/user/${userId}/orders`);
       alert("menu adder to the orderItem");
+      revalidatePath(`/user/${userId}/orders`);
     } catch (err) {
       console.error("Error adding menu item:", err);
     }

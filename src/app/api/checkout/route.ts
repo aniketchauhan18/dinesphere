@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/lib/db";
 import Order from "@/lib/models/order.model";
 import OrderItem from "@/lib/models/orderItem.model";
-import { ObjectId } from "mongoose";
 import { revalidatePath } from "next/cache";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -14,12 +13,14 @@ export async function POST(req: NextRequest, res: NextResponse) {
       totalPrice,
       status,
       orderItems,
+      paymentId,
     }: {
       userId: string;
       restaurantId: string;
       totalPrice: string;
       status: string;
       orderItems: string[];
+      paymentId: string;
     } = await req.json();
 
     const order = Order.create({
@@ -29,10 +30,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       status,
       orderItems,
     });
-
-    // converting string to mongoose Ids
-
-    // const orderItemMongooseId = orderItems.map((order) => ObjectId(order));
 
     if (!order) {
       return NextResponse.json(

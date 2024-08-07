@@ -27,6 +27,11 @@ const orderSchema = new Schema(
         required: true,
       },
     ],
+    paymentId: {
+      type: Schema.Types.ObjectId,
+      ref: "Payment",
+      required: true,
+    },
   },
   {
     timestamps: true,

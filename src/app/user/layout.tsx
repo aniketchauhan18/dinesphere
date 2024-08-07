@@ -12,11 +12,9 @@ export default function ProfileLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${inter.className} antialiased min-h-screen`}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <div className={`${inter.className} antialiased min-h-screen`}>
+      <Navbar />
+      {children}
+    </div>
   );
 }
