@@ -2,6 +2,7 @@ import { fetchUserOrderMenuItems } from "@/lib/data";
 import { MenuOrderItemProps } from "@/lib/definition";
 import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
+import CheckoutButton from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
 
 function totalAmountWithGST(price: number) {
@@ -14,13 +15,15 @@ export default async function Orders({ params }: { params: { id: string } }) {
   const menuOrders: MenuOrderItemProps[] = await fetchUserOrderMenuItems(
     params.id as string,
   );
-  console.log(menuOrders);
+
   const totalAmount = menuOrders.reduce((acc, menuOrder) => {
     return acc + menuOrder.price;
   }, 0);
-  console.log(totalAmount);
 
   const totalWithGST = parseInt(totalAmountWithGST(totalAmount));
+
+  // array of orderItems ids
+  const orderItemsIds = menuOrders.map((menuOrder) => menuOrder._id);
 
   return (
     <main className="pt-4 px-5">
@@ -52,9 +55,13 @@ export default async function Orders({ params }: { params: { id: string } }) {
                 </div>
               </div>
               <div className="flex justify-center w-full pt-2">
-                <Button className="w-full max-w-sm bg-gradient-to-b from-orange-500 to-orange-600">
-                  Checkout
-                </Button>
+                <CheckoutButton
+                  userId={params.id}
+                  restaurantId={menuOrders[0].menuId.restaurantId}
+                  totalPrice={totalAmountWithGST.toString()}
+                  status="pending"
+                  orderItemsIds={orderItemsIds}
+                />
               </div>
             </div>
           </section>

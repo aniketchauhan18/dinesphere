@@ -13,6 +13,7 @@ import { fetchUserByClerkId } from "@/lib/data";
 
 export default async function Navbar() {
   const { userId } = auth();
+
   let user;
   if (userId) {
     user = await fetchUserByClerkId(userId as string);

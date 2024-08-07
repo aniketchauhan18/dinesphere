@@ -7,7 +7,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // connect to database
     await connect();
     const { menuId, quantity, price, userId } = await req.json();
-    console.log(menuId, quantity, price, userId);
 
     // check if same menu exists if so then add one to the quantity
     const sameMenuExists = await OrderItem.find({
