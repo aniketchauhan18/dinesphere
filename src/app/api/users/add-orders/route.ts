@@ -18,6 +18,9 @@ export async function POST(req: NextRequest, res: NextResponse) {
         {
           userId: userId,
         },
+        {
+          status: "pending",
+        },
       ],
     });
 
@@ -26,6 +29,8 @@ export async function POST(req: NextRequest, res: NextResponse) {
       // increse the quantity by one
       const newQuantity = sameMenuExists[0].quantity + 1;
       const newPrice = newQuantity * price; // set the price accordingly
+
+      // only increase item whose status is pending because the paid one is previous order same menu order Item can exist there
       const newOrderItem = await OrderItem.findByIdAndUpdate(
         sameMenuExists[0]._id,
         {
@@ -37,6 +42,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       );
 
+      revalidatePath(`/users/${userId}/orders`, "page");
       return NextResponse.json(
         {
           message: "Order quantity incremented successfully",
@@ -66,7 +72,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
         },
       );
     }
-    revalidatePath(`/user/${userId}/orders`);
+    revalidatePath(`/users/${userId}/orders`, "page");
     return NextResponse.json(
       {
         message: "Order added successfully",

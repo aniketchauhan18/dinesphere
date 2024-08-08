@@ -1,8 +1,8 @@
-import { fetchUserOrderMenuItems } from "@/lib/data";
-import { MenuOrderItemProps } from "@/lib/definition";
+import { fetchUserOrderMenuItems, fetchUserById } from "@/lib/data";
+import { MenuOrderItemProps, UserDetails } from "@/lib/definition";
 import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
-import CheckoutButton from "@/components/ui/orders/checkout-button";
+import CheckoutButton, { User } from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
 import Script from "next/script";
 
@@ -13,11 +13,18 @@ function totalAmountWithGST(price: number) {
 }
 
 export default async function Orders({ params }: { params: { id: string } }) {
-  const menuOrders: MenuOrderItemProps[] = await fetchUserOrderMenuItems(
-    params.id as string,
-  );
+  const [user, menuOrders]: [User, MenuOrderItemProps[]] = await Promise.all([
+    fetchUserById(params.id),
+    fetchUserOrderMenuItems(params.id),
+  ]);
 
-  console.log(menuOrders);
+  console.log("user-----------------------------", user);
+  console.log("menu-orders ---------------------------", menuOrders);
+  // const menuOrders: MenuOrderItemProps[] = await fetchUserOrderMenuItems(
+  //   params.id as string,
+  // );
+
+  // console.log(menuOrders);
 
   const totalAmount = menuOrders.reduce((acc, menuOrder) => {
     return acc + menuOrder.price;
@@ -65,7 +72,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
               </div>
               <div className="flex justify-center w-full pt-2">
                 <CheckoutButton
-                  userId={params.id}
+                  user={user}
                   restaurantId={menuOrders[0].menuId.restaurantId.toString()}
                   totalPrice={totalWithGST.toString()}
                   status="pending"

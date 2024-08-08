@@ -25,6 +25,7 @@ export default function AddOrderItemButton({
           quantity: 1, // 1 by default
           menuId,
         }),
+        cache: "no-cache",
       });
       if (!response.ok) {
         alert("Error adding menu to the orderItem");

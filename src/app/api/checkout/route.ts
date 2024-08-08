@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 export async function POST(req: NextRequest, res: NextResponse) {
   try {
     await connect();
+
     const {
       userId,
       restaurantId,
@@ -29,6 +30,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       totalPrice: parseInt(totalPrice),
       status,
       orderItems,
+      paymentId: paymentId,
     });
 
     if (!order) {
@@ -56,9 +58,11 @@ export async function POST(req: NextRequest, res: NextResponse) {
       );
     }
 
-    // revalidating the cache
+    // revalidating the cache of the current page
+    // specifying page level revailidating
 
     revalidatePath(`/user/${userId}/orders`);
+
     return NextResponse.json({
       message: "Order created successfully",
       order,

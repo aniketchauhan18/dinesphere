@@ -26,14 +26,13 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
   return (
     <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">
       <div className="flex gap-3">
-        <div className="flex items-center">
+        <div className="flex items-center max-w-[200px]">
           <Image
             src="https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
-            alt="menu-image"
+            alt="menu-order-image"
             className="rounded-lg"
             width="300"
             height="150"
-            objectFit="cover"
             placeholder="empty"
           />
         </div>
@@ -44,7 +43,7 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
           </p>
           <div className="flex justify-between items-center">
             <p className="font-semibold text-sm sm:text-base ">
-              ₹ {order.price.toString()}
+              ₹ {order.price.toFixed(2).toString()}
             </p>
             {/* <Button variant="destructive" className="text-sm">Remove</Button> */}
             <p className="text-neutral-700 text-sm">

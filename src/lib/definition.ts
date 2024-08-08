@@ -6,6 +6,7 @@ export interface UserDetails {
   firstName: string;
   lastName: string;
   imageUrl: string | null;
+  number?: string;
   role: ["user", "admin"];
   __v: number | null;
 }

@@ -1,9 +1,20 @@
 "use client";
 import { Button } from "../button";
-import { useState, useEffect } from "react";
+
+export interface User {
+  firstName: string;
+  lastName: string;
+  email: string;
+  _id: string;
+  number?: string;
+  imageUrl: string;
+  clerkId: string;
+  username: string;
+  role: ["admin", "user"];
+}
 
 export interface CheckOutOrderProps {
-  userId: string;
+  user: User;
   restaurantId: string;
   totalPrice: string;
   status: string;
@@ -49,22 +60,10 @@ declare global {
   }
 }
 
-interface User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  _id: string;
-  number?: string;
-  imageUrl: string;
-  clerkId: string;
-  username: string;
-  role: ["admin", "user"];
-}
-
-const initialUserState: User | null = null;
+// const initialUserState: User | null = null;
 
 export default function CheckoutButton({
-  userId,
+  user,
   restaurantId,
   totalPrice,
   status,
@@ -72,17 +71,17 @@ export default function CheckoutButton({
 }: CheckOutOrderProps) {
   // userId, restaurantId, totalPrice, status, orderItems
 
-  const [user, setUser] = useState<User | null>(initialUserState);
+  // const [user, setUser] = useState<User | null>(initialUserState);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      const userFetching = await fetch(`/api/users/${userId}`);
-      const userData = await userFetching.json();
-      setUser(userData);
-    };
+  // useEffect(() => {
+  //   const fetchUser = async () => {
+  //     const userFetching = await fetch(`/api/users/${userId}`);
+  //     const userData = await userFetching.json();
+  //     setUser(userData);
+  //   };
 
-    fetchUser();
-  }, [userId]);
+  //   fetchUser();
+  // }, [userId]);
 
   const handleAddOrder = async (totalPrice: number | string) => {
     try {
@@ -94,6 +93,7 @@ export default function CheckoutButton({
         body: JSON.stringify({
           totalPrice,
         }),
+        cache: "no-cache",
       });
 
       const { order } = await orderResponse.json();
@@ -142,13 +142,13 @@ export default function CheckoutButton({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              userId,
+              userId: user._id,
               paymentId: razorpay_payment_id,
               paymentOrderId: razorpay_order_id,
               paymentSignature: razorpay_signature,
             }),
           });
-          // extracting payment from the response this payment contaibns the payment id
+          // extracting payment from the response this payment contains the payment id
           const { payment } = await storePaymentResponse.json();
           const createOrderResponse = await fetch(`/api/checkout`, {
             method: "POST",
@@ -156,7 +156,7 @@ export default function CheckoutButton({
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              userId,
+              userId: user._id,
               restaurantId,
               totalPrice,
               status,
