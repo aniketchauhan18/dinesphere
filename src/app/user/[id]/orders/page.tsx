@@ -1,9 +1,10 @@
 import { fetchUserOrderMenuItems, fetchUserById } from "@/lib/data";
-import { MenuOrderItemProps, UserDetails } from "@/lib/definition";
+import { MenuOrderItemProps } from "@/lib/definition";
 import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
 import CheckoutButton, { User } from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
+import { notFound } from "next/navigation"
 import Script from "next/script";
 
 function totalAmountWithGST(price: number) {
@@ -18,8 +19,9 @@ export default async function Orders({ params }: { params: { id: string } }) {
     fetchUserOrderMenuItems(params.id),
   ]);
 
-  console.log("user-----------------------------", user);
-  console.log("menu-orders ---------------------------", menuOrders);
+  if (!user || !menuOrders) {
+    notFound();
+  }
   // const menuOrders: MenuOrderItemProps[] = await fetchUserOrderMenuItems(
   //   params.id as string,
   // );

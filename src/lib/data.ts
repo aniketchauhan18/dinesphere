@@ -4,6 +4,7 @@ import Menu from "./models/menu.model";
 import { connect } from "./db";
 import OrderItem from "./models/orderItem.model";
 import { revalidatePath } from "next/cache";
+import Order from "./models/order.model";
 
 export async function fetchUserByClerkId(clerkId: string) {
   await connect();
@@ -119,5 +120,16 @@ export async function fetchUserOrderMenuItems(userId: string) {
     return orderItems;
   } catch (err) {
     throw new Error("Error fetching user orderItems");
+  }
+}
+
+export async function fetchOrderById(id: string) {
+  try {
+    await connect();
+    const order = await Order.findById(id);
+    return order;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error fetching order details");
   }
 }
