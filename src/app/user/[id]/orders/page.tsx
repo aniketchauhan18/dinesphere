@@ -4,8 +4,10 @@ import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
 import CheckoutButton, { User } from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
-import { notFound } from "next/navigation"
+import { notFound } from "next/navigation";
 import Script from "next/script";
+
+export const revalidate = 0;
 
 function totalAmountWithGST(price: number) {
   const gstAmount = (price * 18) / 100;
@@ -22,11 +24,6 @@ export default async function Orders({ params }: { params: { id: string } }) {
   if (!user || !menuOrders) {
     notFound();
   }
-  // const menuOrders: MenuOrderItemProps[] = await fetchUserOrderMenuItems(
-  //   params.id as string,
-  // );
-
-  // console.log(menuOrders);
 
   const totalAmount = menuOrders.reduce((acc, menuOrder) => {
     return acc + menuOrder.price;

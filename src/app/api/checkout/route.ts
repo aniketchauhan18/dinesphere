@@ -24,7 +24,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
       paymentId: string;
     } = await req.json();
 
-    const order = Order.create({
+    const order = await Order.create({
       userId,
       restaurantId,
       totalPrice: parseInt(totalPrice),

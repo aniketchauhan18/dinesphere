@@ -36,7 +36,7 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
             placeholder="empty"
           />
         </div>
-        <div className="flex flex-col gap-1 sm:gap-2">
+        <div className="flex flex-col gap-1 sm:gap-2 w-full">
           <p className="font-bold sm:text-lg">{order.menuId.name}</p>
           <p className="text-neutral-700 text-xs sm:text-sm">
             {order.menuId.description}

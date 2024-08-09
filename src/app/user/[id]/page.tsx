@@ -1,6 +1,6 @@
 import { Button } from "../../../components/ui/button";
-import { fetchUserById } from "@/lib/data";
-// import { UserDetails } from "../../lib/definition";
+import { fetchOrderByUserId, fetchUserById } from "@/lib/data";
+import { OrderProps } from "@/lib/definition";
 import { SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -18,7 +18,9 @@ export interface UserDetails {
 
 export default async function Profile({ params }: { params: { id: string } }) {
   const { id } = params;
-  const user: UserDetails = await fetchUserById(id);
+  // const user: UserDetails = await fetchUserById(id);
+  const [user, order]: [user: UserDetails, order: OrderProps[]] =
+    await Promise.all([fetchUserById(id), fetchOrderByUserId(id)]);
 
   return (
     <div className="pt-10">
@@ -35,6 +37,19 @@ export default async function Profile({ params }: { params: { id: string } }) {
         <div>
           <Link href={`/restaurants`} className="hover:cursor-pointer">
             Restaurants
+          </Link>
+        </div>
+        <div>
+          <Link href={`/restaurants`} className="hover:cursor-pointer">
+            Restaurants
+          </Link>
+        </div>
+        <div>
+          <Link
+            href={`/user/${user._id}/orders/${order[0]._id}/track`}
+            className="hover:cursor-pointer"
+          >
+            Track Order
           </Link>
         </div>
         <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 py-2 text-white w-10/12 max-w-xs bg-gradient-to-b from-orange-600 to-orange-500">

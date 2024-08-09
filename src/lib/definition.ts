@@ -32,3 +32,36 @@ export interface MenuOrderItemProps {
   createdAt: Date;
   updatedAt: Date;
 }
+
+// change status to enum later after deciding the enum values
+export interface OrderProps {
+  _id: string;
+  userId: string;
+  restaurantId: string;
+  totalPrice: number;
+  status: string;
+  orderItems: string[];
+  paymentId: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
+}
+
+export interface TrackOrderItemProps {
+  orderItemId: string;
+  quantity: number;
+  price: number;
+  menuDetails: MenuProps;
+}
+
+// add created at field in future if needed
+// change status to string if the enum for status is decided
+export interface TrackOrderProps {
+  _id: string;
+  orderItems: TrackOrderItemProps[];
+  status: string;
+  restaurantId: string;
+  totalPrice: number;
+  userId: string;
+  createdAt: Date;
+}

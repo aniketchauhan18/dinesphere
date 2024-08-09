@@ -10,10 +10,9 @@ export default async function RestaurantPage({
 }: {
   params: { id: string };
 }) {
-  const [restaurant, menus]: [RestaurantProps, MenuProps[]] = await Promise.all([
-    fetchRestaurantById(params.id),
-    fetchRestaurantMenuById(params.id)
-  ])
+  const [restaurant, menus]: [RestaurantProps, MenuProps[]] = await Promise.all(
+    [fetchRestaurantById(params.id), fetchRestaurantMenuById(params.id)],
+  );
 
   // console.log(menus);
   return (

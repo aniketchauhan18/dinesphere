@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "../button";
-
+import { useRouter } from "next/navigation";
 export interface User {
   firstName: string;
   lastName: string;
@@ -70,18 +70,7 @@ export default function CheckoutButton({
   orderItemsIds,
 }: CheckOutOrderProps) {
   // userId, restaurantId, totalPrice, status, orderItems
-
-  // const [user, setUser] = useState<User | null>(initialUserState);
-
-  // useEffect(() => {
-  //   const fetchUser = async () => {
-  //     const userFetching = await fetch(`/api/users/${userId}`);
-  //     const userData = await userFetching.json();
-  //     setUser(userData);
-  //   };
-
-  //   fetchUser();
-  // }, [userId]);
+  const router = useRouter();
 
   const handleAddOrder = async (totalPrice: number | string) => {
     try {
@@ -150,7 +139,7 @@ export default function CheckoutButton({
           });
           // extracting payment from the response this payment contains the payment id
           const { payment } = await storePaymentResponse.json();
-          const createOrderResponse = await fetch(`/api/checkout`, {
+          const checkoutResponse = await fetch(`/api/checkout`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -164,8 +153,10 @@ export default function CheckoutButton({
               paymentId: payment._id,
             }),
           });
-          if (createOrderResponse.ok) {
+          const { order } = await checkoutResponse.json();
+          if (checkoutResponse.ok) {
             alert("Order added sucessfully");
+            router.push(`/user/${user._id}/orders/${order._id}/status`);
           }
         },
       };

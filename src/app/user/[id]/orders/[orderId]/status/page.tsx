@@ -5,6 +5,8 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import CopyButton from "@/components/ui/copy-button";
 
+export const revalidate = 0;
+
 export default async function OrderIdPage({
   params,
 }: {
@@ -51,7 +53,7 @@ export default async function OrderIdPage({
             <Progress value={34} />
           </div>
           <div className="pt-5 flex justify-start text-xs sm:text-sm gap-2">
-            <p className="text-neutral-700">OrderId: wehfh928r232dhqoiwurt78</p>
+            <p className="text-neutral-700">OrderId: {params.orderId}</p>
             <CopyButton text={"wehfh928r232dhqoiwurt78"} />
           </div>
           <div className="pt-5">

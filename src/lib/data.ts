@@ -5,6 +5,7 @@ import { connect } from "./db";
 import OrderItem from "./models/orderItem.model";
 import { revalidatePath } from "next/cache";
 import Order from "./models/order.model";
+import { Types } from "mongoose";
 
 export async function fetchUserByClerkId(clerkId: string) {
   await connect();
@@ -131,5 +132,173 @@ export async function fetchOrderById(id: string) {
   } catch (err) {
     console.log(err);
     throw new Error("Error fetching order details");
+  }
+}
+
+export async function fetchOrderByUserId(id: string) {
+  try {
+    await connect();
+    const order = await Order.find({
+      $and: [
+        {
+          userId: id,
+        },
+        {
+          status: "pending",
+        },
+      ],
+    });
+    console.log(order);
+    return order;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error fethcing user orders");
+  }
+}
+
+export async function fetchPopulatedOrderById(id: string) {
+  try {
+    await connect();
+
+    // aggregation pipeline
+    // const orders = await Order.aggregate([
+    //   {
+    //     $match: {
+    //       _id: new Types.ObjectId(id),
+    //       status: "pending"
+    //     }
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "orderitems",
+    //       localField: "orderItems",
+    //       foreignField: "_id",
+    //       as: "orderItems"
+    //     }
+    //   },
+    //   {
+    //     $unwind: "$orderItems"
+    //   },
+    //   {
+    //     $lookup: {
+    //       from: "menus",
+    //       localField: "orderItems.menuId",
+    //       foreignField: "_id",
+    //       as: "menu"
+    //     }
+    //   },
+    //   {
+    //     $unwind: "$menu"
+    //   },
+    //   {
+    //     $project: {
+    //       userId: 1,
+    //       restaurantId: 1,
+    //       totalPrice: 1,
+    //       status: 1,
+    //       menu: {
+    //         _id: "$menu._id",
+    //         name: "$menu.name",
+    //         description: "$menu.description",
+    //         price: "$menu.price"
+    //       },
+    //       orderItems: {
+    //         orderItems: "$order.orderItems"
+    //       }
+    //     }
+    //   },
+    //   {
+    //     $group: {
+    //       _id: "$_id",
+    //       orderItems: {
+    //         $push: {
+    //           menu: "$menu",
+    //         }
+    //       },
+    //       orderItemsId: {
+    //         $push: {
+    //           orderItemId: "$order"
+    //         }
+    //       },
+    //       userId: {
+    //         $first: "$userId"
+    //       },
+    //       restaurantId: {
+    //         $first: "$restaurantId"
+    //       },
+    //       totalPrice: {
+    //         $first: "$totalPrice"
+    //       },
+    //       status: {
+    //         $first: "$status"
+    //       }
+    //     }}
+    // ])
+
+    const order = await Order.aggregate([
+      {
+        $match: {
+          _id: new Types.ObjectId(id),
+          status: "pending",
+        },
+      },
+      {
+        $lookup: {
+          from: "orderitems",
+          localField: "orderItems",
+          foreignField: "_id",
+          as: "orderItems",
+        },
+      },
+      {
+        $unwind: "$orderItems",
+      },
+      {
+        $lookup: {
+          from: "menus",
+          localField: "orderItems.menuId",
+          foreignField: "_id",
+          as: "orderItems.menuId",
+        },
+      },
+      {
+        $unwind: "$orderItems.menuId",
+      },
+      {
+        $group: {
+          _id: "$_id",
+          orderItems: {
+            $push: {
+              orderItemId: "$orderItems._id", // change the orderItem to _id if wants
+              quantity: "$orderItems.quantity",
+              price: "$orderItems.price",
+              menuDetails: "$orderItems.menuId",
+            },
+          },
+          status: {
+            $first: "$status",
+          },
+          restaurantId: {
+            $first: "$restaurantId",
+          },
+          totalPrice: {
+            $first: "$totalPrice",
+          },
+          userId: {
+            $first: "$userId",
+          },
+          createdAt: {
+            $first: "$createdAt",
+          },
+        },
+      },
+    ]);
+    // for one order know can add further in future
+    console.log(order[0]);
+
+    return order[0]; // returning one order for development purposes
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error fetching populated orders");
   }
 }

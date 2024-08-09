@@ -24,9 +24,7 @@ export default function CopyButton({ text }: { text: string }) {
         </button>
       ) : (
         <button onClick={() => setButtonState((prev) => !prev)} title="copied">
-          <CheckCheckIcon
-            className="w-4 cursor-pointer h-4 text-neutral-500"
-          />
+          <CheckCheckIcon className="w-4 cursor-pointer h-4 text-neutral-500" />
         </button>
       )}
     </div>
