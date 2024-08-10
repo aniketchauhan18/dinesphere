@@ -156,7 +156,7 @@ export default function CheckoutButton({
           const { order } = await checkoutResponse.json();
           if (checkoutResponse.ok) {
             alert("Order added sucessfully");
-            router.push(`/user/${user._id}/orders/${order._id}/status`);
+            router.push(`/user/${user._id}/orders/${order._id}/track`);
           }
         },
       };

@@ -5,7 +5,6 @@ import { connect } from "./db";
 import Restaurant from "./models/restaurant.model";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { error } from "console";
 
 // const FormSchema = z.object({
 //   id: z.string(),
@@ -39,7 +38,7 @@ const createRestaurantSchema = z.object({
   number: z.string({ required_error: "Number is required" }),
   email: z.string({ required_error: "Email is required" }),
   websiteUrl: z.string().optional(),
-  imageUrls: z.array(z.string()).optional(),
+  image: z.any(),
   cuisine: z.array(z.string()).optional(),
 });
 
@@ -57,7 +56,7 @@ export async function createRestaurant(userId: string, formData: FormData) {
     number: formData.get("number"),
     email: formData.get("email"),
     websiteUrl: formData.get("websiteUrl"),
-    imageUrls: formData.getAll("imageUrls"),
+    image: formData.get("image"),
     cuisine: formData.getAll("cuisine"),
   });
 
@@ -86,15 +85,6 @@ export async function createRestaurant(userId: string, formData: FormData) {
   } catch (err) {
     return {
       message: "Database Error: Failed to create restaurant",
-    };
-  }
-}
-
-export async function addMenuToOrderItem() {
-  try {
-  } catch (err) {
-    return {
-      message: "Failed to add orderItem to the order",
     };
   }
 }

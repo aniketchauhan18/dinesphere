@@ -8,10 +8,13 @@ import MenuCards from "@/components/ui/menus/menu-cards";
 export default async function RestaurantPage({
   params,
 }: {
-  params: { id: string };
+  params: { restaurantId: string };
 }) {
   const [restaurant, menus]: [RestaurantProps, MenuProps[]] = await Promise.all(
-    [fetchRestaurantById(params.id), fetchRestaurantMenuById(params.id)],
+    [
+      fetchRestaurantById(params.restaurantId),
+      fetchRestaurantMenuById(params.restaurantId),
+    ],
   );
 
   // console.log(menus);

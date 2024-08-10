@@ -10,7 +10,6 @@ export default async function TrackOrder({
 }) {
   const order: TrackOrderProps = await fetchPopulatedOrderById(params.orderId);
 
-  // {order} orderItems={order.orderItems}
   return (
     <main className="p-5 min-h-screen pb-24">
       <section className="flex justify-between items-center">

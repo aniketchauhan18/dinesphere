@@ -302,3 +302,16 @@ export async function fetchPopulatedOrderById(id: string) {
     throw new Error("Error fetching populated orders");
   }
 }
+
+export async function fetchMenusByRestaurantId(restaurantId: string) {
+  try {
+    await connect();
+    const menus = await Menu.find({
+      restaurantId,
+    });
+    return menus;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error fetching menus by restaurant Id");
+  }
+}

@@ -45,12 +45,7 @@ export default function CreateForm({ userId }: { userId: string }) {
       </div>
       <div className="w-full space-y-0.5">
         <Label>Image Url</Label>
-        <Input
-          type="text"
-          name="imageUrls"
-          placeholder="Image Url 1"
-          required
-        />
+        <Input type="text" name="image" placeholder="Image Url 1" required />
       </div>
       <div className="w-full space-y-0.5">
         <Label>Website Url</Label>

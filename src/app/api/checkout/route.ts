@@ -61,7 +61,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // revalidating the cache of the current page
     // specifying page level revailidating
 
-    revalidatePath(`/user/${userId}/orders`);
+    revalidatePath(`/user/${userId}/orders/`);
 
     return NextResponse.json({
       message: "Order created successfully",
