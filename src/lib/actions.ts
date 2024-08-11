@@ -38,7 +38,6 @@ const createRestaurantSchema = z.object({
   number: z.string({ required_error: "Number is required" }),
   email: z.string({ required_error: "Email is required" }),
   websiteUrl: z.string().optional(),
-  image: z.any(),
   cuisine: z.array(z.string()).optional(),
 });
 
@@ -56,7 +55,6 @@ export async function createRestaurant(userId: string, formData: FormData) {
     number: formData.get("number"),
     email: formData.get("email"),
     websiteUrl: formData.get("websiteUrl"),
-    image: formData.get("image"),
     cuisine: formData.getAll("cuisine"),
   });
 

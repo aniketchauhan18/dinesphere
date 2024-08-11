@@ -1,33 +1,58 @@
 import { ImageMenu } from "@/lib/models/image.model";
 import { NextRequest, NextResponse } from "next/server";
+import { UploadImage } from "@/lib/upload-image";
+import { CloudinaryResponse } from "@/lib/definition";
 
 export async function POST(req: NextRequest, res: NextRequest) {
   try {
-    const { public_id, menuId, url, height, width } = await req.json();
+    const formData = await req.formData();
+    const image = formData.get("image") as unknown as File;
 
-    if (!url) {
+    const menuId = formData.get("placeholderId") as string;
+
+    console.log(menuId);
+
+    if (!image || !menuId) {
       return NextResponse.json(
         {
-          message: "Image url is not provided",
+          message: "Please provide image and menu id",
         },
         {
-          status: 404,
+          status: 400,
         },
       );
     }
 
-    const restarantImage = await ImageMenu.create({
-      publicId: public_id,
-      menuId,
-      url,
-      height,
-      width,
-    });
+    const data: CloudinaryResponse = await UploadImage(
+      image,
+      "DineSphere-Menus",
+    );
 
-    if (!restarantImage) {
+    if (!data) {
       return NextResponse.json(
         {
-          message: "Error while adding the image in the db",
+          message: "Error while uploading image to cloudinary",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const { public_id, secure_url, width, height } = data;
+
+    const storeMenuImage = await ImageMenu.create({
+      publicId: public_id,
+      url: secure_url,
+      width,
+      height,
+      menuId,
+    });
+
+    if (!storeMenuImage) {
+      return NextResponse.json(
+        {
+          message: "Error while adding image to db",
         },
         {
           status: 400,
@@ -37,8 +62,7 @@ export async function POST(req: NextRequest, res: NextRequest) {
 
     return NextResponse.json(
       {
-        message: "Image added to the db",
-        data: restarantImage,
+        message: "Restaurant Image uplaoded successfully",
       },
       {
         status: 200,

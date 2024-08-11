@@ -4,7 +4,6 @@ import {
   SearchIcon,
   SettingsIcon,
   StarIcon,
-  Calendar,
   PizzaIcon,
   FishIcon,
   TurtleIcon,
@@ -24,7 +23,7 @@ export default function Home() {
       <Navbar />
       <div className="grid justify-center p-5">
         <div className="text-center">
-          <h1 className="flex justify-center items-center font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl min-h-16 h-auto">
+          <h1 className="flex justify-center items-center font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent text-2xl sm:text-4xl lg:text-5xl min-h-16 h-auto">
             Discover the Best Dining Experiences
           </h1>
         </div>
@@ -41,41 +40,13 @@ export default function Home() {
               Search Restaurants
             </Button>
           </Link>
-          <Link href="/">
+          <Link href={"/partner/become-partner"}>
             <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full">
-              Join as Owner
+              Become Partner
             </Button>
           </Link>
         </div>
       </div>
-      {/* <div className="pt-24 p-5">
-        <div className="flex justify-center items-center gap-2">
-          <h1 className="flex justify-center items-center font-bold ">
-            Explore by cuisine
-          </h1>
-          <CookingPot className="w-7 h-7" />
-        </div>
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 pt-5">
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Indian</p>
-          </div>
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Chinese</p>
-          </div>
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Italian</p>
-          </div>
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Mexican</p>
-          </div>
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Japanese</p>
-          </div>
-          <div className="flex justify-center items-center bg-gray-100 p-3 rounded">
-            <p className="text-center">Thai</p>
-          </div>
-        </div>
-      </div> */}
       <div className="bg-background py-12 md:py-20 lg:py-24">
         <div className="container mx-auto px-6 md:px-10">
           <div className="flex flex-col items-center space-y-8">

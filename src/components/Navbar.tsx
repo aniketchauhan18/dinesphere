@@ -39,7 +39,7 @@ export default async function Navbar() {
                   href={`/user/${user?._id}/orders`}
                   className="text-neutral-700 text-sm "
                 >
-                  Orders
+                  My Orders
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
                   <SignOutButton />
@@ -52,7 +52,7 @@ export default async function Navbar() {
                   Restaurants
                 </Link>
                 <Link href="/restaurants" className="text-neutral-700 text-sm ">
-                  Orders
+                  My Orders
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
                   <SignInButton />
@@ -76,7 +76,7 @@ export default async function Navbar() {
           </Link>
           <Link href={`/user/${user?._id}/orders`} className={linkClasses}>
             <ShoppingBag className="w-5 h-5" />
-            <p className="text-xs mt-1">Orders</p>
+            <p className="text-xs mt-1">My Orders</p>
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>
