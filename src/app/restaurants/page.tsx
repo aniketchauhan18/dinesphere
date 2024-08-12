@@ -23,7 +23,7 @@ export interface RestaurantProps {
   number: String;
   email: String;
   websiteURL: String | null;
-  imageUrls: String[];
+  imageUrls?: String[];
   cuisine: String[];
 }
 
@@ -34,7 +34,9 @@ export default async function Restaurants({
 }) {
   const query = searchParams.query || ".*";
   const cuisine = searchParams.cuisine || ".*";
+
   // const restaurants: RestaurantProps[] = await fetchRestaurants();
+
   const filteredRestaurants = await fetchFilteredRestuarants(query, cuisine);
   const cuisines = await fetchRestaurantsCuisines();
 

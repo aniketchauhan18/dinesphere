@@ -50,9 +50,9 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
           <p className="font-bold text-neutral-800 text-lg">
             {restaurant.name}
           </p>
-          <p className="text-neutral-700">
-            {restaurant.description.length > 35
-              ? restaurant.description.slice(0, 35) + "..."
+          <p className="text-neutral-700 text-sm">
+            {restaurant.description.length > 25
+              ? restaurant.description.slice(0, 25) + "..."
               : restaurant.description}
           </p>
           <div className="flex items-center justify-between text-neutral-500">

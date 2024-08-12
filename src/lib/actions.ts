@@ -19,6 +19,7 @@ import { redirect } from "next/navigation";
 //   }),
 //   date: z.string(),
 // });
+
 export type State = {
   message: string | null;
 };
@@ -55,11 +56,9 @@ export async function createRestaurant(userId: string, formData: FormData) {
     number: formData.get("number"),
     email: formData.get("email"),
     websiteUrl: formData.get("websiteUrl"),
-    cuisine: formData.getAll("cuisine"),
   });
 
-  console.log(error?.errors[0].message);
-  console.log(error?.errors);
+  // add cuisine option later
   if (!success) {
     return {
       // errors: validatedFields.error.flatten().fieldErrors,
@@ -78,8 +77,11 @@ export async function createRestaurant(userId: string, formData: FormData) {
         message: "Failed to create restaurant",
       };
     }
+    console.log(restaurant);
+    if (restaurant) {
+      redirect(`/restaurants/${restaurant._id}`);
+    }
     revalidatePath("/restaurants");
-    redirect(`/restaurants/${restaurant._id}`);
   } catch (err) {
     return {
       message: "Database Error: Failed to create restaurant",

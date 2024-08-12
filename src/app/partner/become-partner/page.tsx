@@ -7,6 +7,7 @@ import {
   SettingsIcon,
   StarIcon,
 } from "lucide-react";
+import Link from "next/link";
 
 export interface PartnerCardContent {
   id: number;
@@ -120,9 +121,11 @@ export default async function PartnerPage() {
         </div>
         <div className="flex justify-center ">
           <div className="flex justify-center items-center  gap-4 w-full">
-            <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
-              Partner with us
-            </Button>
+            <Link href="/partner/become-partner/details/restaurant">
+              <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
+                Partner with us
+              </Button>
+            </Link>
             <Button variant="outline" className="text-xs sm:text-sm">
               Learn More
             </Button>

@@ -3,22 +3,54 @@ import { Input } from "../input";
 import { Button } from "../button";
 import { Textarea } from "../textarea";
 import { Label } from "../label";
-import { createRestaurant, State } from "@/lib/actions";
-import { useFormStatus } from "react-dom";
 import { LoaderCircleIcon } from "lucide-react";
+import { useState } from "react";
 
 export default function CreateForm({ userId }: { userId: string }) {
-  const createRestaurantWithUserId = createRestaurant.bind(null, userId);
-  const { pending } = useFormStatus();
-  const commonInputClasses: string = "text-sm text-neutral-700";
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const commonInputClasses: string =
+    "text-sm text-neutral-700 bg-zinc-100/30 shadow-none";
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setIsLoading(true);
+    const formData = new FormData(e.currentTarget);
+
+    const formObj = {
+      userId,
+      name: formData.get("name"),
+      country: formData.get("country"),
+      city: formData.get("city"),
+      state: formData.get("state"),
+      address: formData.get("address"),
+      number: formData.get("number"),
+      email: formData.get("email"),
+      websiteUrl: formData.get("websiteUrl"),
+      description: formData.get("description"),
+    };
+
+    const response = await fetch("/api/restaurant", {
+      method: "POST",
+      headers: {
+        "Contenr-Type": "application/json",
+      },
+      body: JSON.stringify(formObj),
+    });
+
+    if (!response.ok) {
+      alert("Error while creating restaurnat please try again !!");
+    }
+    setIsLoading(false);
+    // redirect to dashboard
+  };
 
   return (
     <form
-      action={createRestaurantWithUserId}
+      onSubmit={handleSubmit}
       className="flex flex-col justify-center items-center gap-3 sm:gap-5 w-full p-3"
     >
       <div className="grid sm:grid-cols-2 w-full gap-5">
-        <div className="space-y-3">
+        <div className="flex flex-col justify-between gap-2">
           <div className="w-full space-y-0.5">
             <Label>Restaurant Name</Label>
             <Input
@@ -44,7 +76,7 @@ export default function CreateForm({ userId }: { userId: string }) {
             <Input
               type="text"
               name="city"
-              placeholder="City"
+              placeholder="Palampur"
               required
               className={commonInputClasses}
             />
@@ -60,18 +92,6 @@ export default function CreateForm({ userId }: { userId: string }) {
             />
           </div>
           <div className="w-full space-y-0.5">
-            <Label>Website Url</Label>
-            <Input
-              type="text"
-              name="websiteUrl"
-              placeholder="https://dineshere.vercel.app"
-              required
-              className={commonInputClasses}
-            />
-          </div>
-        </div>
-        <div className="space-y-3">
-          <div className="w-full space-y-0.5">
             <Label>Address</Label>
             <Textarea
               name="address"
@@ -80,15 +100,8 @@ export default function CreateForm({ userId }: { userId: string }) {
               className={`min-h-24 ${commonInputClasses}`}
             />
           </div>
-          <div className="w-full space-y-0.5">
-            <Label>Description</Label>
-            <Textarea
-              name="description"
-              placeholder="Description"
-              required
-              className={`min-h-24 ${commonInputClasses}`}
-            />
-          </div>
+        </div>
+        <div className="space-y-3 flex justify-between flex-col">
           <div className="w-full space-y-0.5">
             <Label>Contact No.</Label>
             <Input
@@ -109,15 +122,34 @@ export default function CreateForm({ userId }: { userId: string }) {
               className={commonInputClasses}
             />
           </div>
+          <div className="w-full space-y-0.5">
+            <Label>Website Url</Label>
+            <Input
+              type="text"
+              name="websiteUrl"
+              placeholder="https://dineshere.vercel.app"
+              required
+              className={commonInputClasses}
+            />
+          </div>
+          <div className="w-full space-y-0.5">
+            <Label>Description</Label>
+            <Textarea
+              name="description"
+              placeholder="Description"
+              required
+              className={`min-h-24 ${commonInputClasses}`}
+            />
+          </div>
         </div>
       </div>
       <div className="flex justify-end w-full">
         <Button
           type="submit"
-          disabled={pending}
+          disabled={isLoading}
           className="bg-gradient-to-b from-orange-600 to-orange-500 shadow-none "
         >
-          {pending ? (
+          {isLoading ? (
             <div className="flex items-center">
               <LoaderCircleIcon className="animate-spin h-5 w-5 mr-2" />
               Submiting

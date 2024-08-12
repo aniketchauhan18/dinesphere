@@ -48,10 +48,11 @@ async function MenuCard({ menu }: { menu: MenuProps }) {
         />
         <div className="p-3 space-y-0.5">
           <p className="font-bold text-neutral-800 text-lg">{menu.name}</p>
-          <p className="text-neutral-700">
-            {menu.description.length > 35
+          <p className="text-neutral-700 text-sm">
+            {/* {menu.description.length > 25
               ? menu.description.slice(0, 35) + "..."
-              : menu.description}
+              : menu.description} */}
+            {menu.description}
           </p>
           <div className="flex items-center justify-between text-neutral-800 py-1">
             <div className="flex items-center">
