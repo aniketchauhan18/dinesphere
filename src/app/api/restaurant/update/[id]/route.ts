@@ -1,9 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createRestaurantSchema } from "../../route";
+import { createRestaurantSchema } from "@/lib/definition";
 import Restaurant from "@/lib/models/restaurant.model";
 import { connect } from "@/lib/db";
 
-export const UpdateRestaurantSchema = createRestaurantSchema.omit({
+const UpdateRestaurantSchema = createRestaurantSchema.omit({
   userId: true,
 });
 

@@ -7,8 +7,6 @@ import { Button } from "../button";
 import { Textarea } from "../textarea";
 import { LoaderCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { createRestaurantSchema } from "@/app/api/restaurant/route";
-
 // omitting out few fields
 
 export default function RestaurantUpdateForm({

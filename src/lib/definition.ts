@@ -1,3 +1,5 @@
+import z from "zod";
+
 export interface UserDetails {
   _id: string;
   clerkId: string;
@@ -99,3 +101,22 @@ export interface RestaurantImageResponse {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export const createRestaurantSchema = z.object({
+  userId: z.string({ required_error: "UserId is requried" }),
+  name: z
+    .string({ required_error: "Restaurants name is required" })
+    .min(3, "Name must be at least 3 characters long"),
+  country: z
+    .string({ required_error: "Country is required" })
+    .min(2, "Please enter correct country name"),
+  city: z.string({ required_error: "City is required" }),
+  state: z.string({ required_error: "State is required" }),
+  address: z.string({ required_error: "Address is required" }),
+  description: z.string({ required_error: "Description is required" }),
+  number: z.string({ required_error: "Number is required" }),
+  email: z.string({ required_error: "Email is required" }),
+  websiteUrl: z.string().optional(),
+  cuisine: z.array(z.string()).optional(),
+});
+export type RestaurantSchema = z.infer<typeof createRestaurantSchema>;

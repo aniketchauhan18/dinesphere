@@ -1,6 +1,7 @@
 "use server";
 import { MenuOrderItemProps } from "@/lib/definition";
 import Image from "next/image";
+import { PlusIcon, MinusIcon, TrashIcon } from "lucide-react";
 
 export async function OrdersCards({
   orders,
@@ -38,18 +39,33 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
         </div>
         <div className="flex flex-col gap-1 sm:gap-2 w-full justify-between">
           <div className="space-y-0.5">
-            <p className="font-bold sm:text-lg">{order.menuId.name}</p>
+            <div className="flex justify-between">
+              <p className="font-bold text-sm sm:text-lg">
+                {order.menuId.name}
+              </p>
+              <p className="font-semibold text-xs sm:text-base min-w-12">
+                ₹ {order.price.toFixed(2).toString()}
+              </p>
+            </div>
             <p className="text-neutral-700 text-xs sm:text-sm">
               {order.menuId.description}
             </p>
           </div>
           <div className="flex justify-between items-center">
-            <p className="font-semibold text-sm sm:text-base ">
-              ₹ {order.price.toFixed(2).toString()}
-            </p>
+            <div className="flex items-center space-x-2">
+              <div className="rounded-full bg-neutral-900 p-0.5">
+                <PlusIcon className="w-4 h-4 text-white hover:cursor-pointer" />
+              </div>
+              <div>
+                <p>{order.quantity.toString()}</p>
+              </div>
+              <div className="rounded-full bg-neutral-900 p-0.5">
+                <MinusIcon className="w-4 h-4 text-white hover:cursor-pointer" />
+              </div>
+            </div>
             {/* <Button variant="destructive" className="text-sm">Remove</Button> */}
             <p className="text-neutral-700 text-sm">
-              Quantity: {order.quantity.toString()}
+              <TrashIcon className="w-5 h-5 text-red-400 hover:cursor-pointer" />
             </p>
           </div>
         </div>

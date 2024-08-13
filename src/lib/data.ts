@@ -295,7 +295,8 @@ export async function fetchPopulatedOrderById(id: string) {
       },
     ]);
     // for one order know can add further in future
-    console.log(order[0]);
+    // console.log(order[0]);
+    console.log(order);
 
     return order[0]; // returning one order for development purposes
   } catch (err) {
