@@ -89,3 +89,13 @@ export interface CloudinaryResponse {
   original_filename: string;
   api_key: string;
 }
+
+export interface RestaurantImageResponse {
+  _id: string;
+  url: string;
+  restaurantId: string;
+  height: number;
+  width: number;
+  createdAt: Date;
+  updatedAt: Date;
+}

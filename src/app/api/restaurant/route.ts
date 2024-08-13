@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Restaurant from "@/lib/models/restaurant.model";
 import { connect } from "@/lib/db";
 
-const createRestaurantSchema = z.object({
+export const createRestaurantSchema = z.object({
   userId: z.string({ required_error: "UserId is requried" }),
   name: z
     .string({ required_error: "Restaurants name is required" })

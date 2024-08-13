@@ -1,14 +1,21 @@
 "use client";
+import { RestaurantProps } from "@/app/restaurants/page";
+import React, { useState } from "react";
+import { Label } from "../label";
 import { Input } from "../input";
 import { Button } from "../button";
 import { Textarea } from "../textarea";
-import { Label } from "../label";
 import { LoaderCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import UploadImage from "@/components/UploadImage";
+import { createRestaurantSchema } from "@/app/api/restaurant/route";
 
-export default function CreateForm({ userId }: { userId: string }) {
+// omitting out few fields
+
+export default function RestaurantUpdateForm({
+  restaurant,
+}: {
+  restaurant: RestaurantProps;
+}) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
 
@@ -19,9 +26,7 @@ export default function CreateForm({ userId }: { userId: string }) {
     e.preventDefault();
     setIsLoading(true);
     const formData = new FormData(e.currentTarget);
-
     const formObj = {
-      userId,
       name: formData.get("name"),
       country: formData.get("country"),
       city: formData.get("city"),
@@ -32,24 +37,27 @@ export default function CreateForm({ userId }: { userId: string }) {
       websiteUrl: formData.get("websiteUrl"),
       description: formData.get("description"),
     };
+    console.log("formObj", formObj);
 
-    const response = await fetch("/api/restaurant", {
+    const response = await fetch(`/api/restaurant/update/${restaurant._id}`, {
       method: "POST",
       headers: {
-        "Contenr-Type": "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(formObj),
     });
-
     const data = await response.json();
+    console.log(data);
     if (!response.ok) {
-      alert("Error while creating restaurnat please try again !!");
+      alert("Error while updating restaurant with new data , Kindly try again");
+      setIsLoading(false);
+      return;
     }
-    setIsLoading(false);
-    // redirect to dashboard
-    router.push(`/restaurant/${data._id}`);
-  };
 
+    setIsLoading(false);
+    alert("Restaurant data updated");
+    router.refresh();
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -64,6 +72,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               name="name"
               placeholder="DineSphere"
               required
+              defaultValue={restaurant.name}
               className={commonInputClasses}
             />
           </div>
@@ -74,6 +83,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               name="country"
               placeholder="India"
               required
+              defaultValue={restaurant.country}
               className={commonInputClasses}
             />
           </div>
@@ -83,6 +93,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               type="text"
               name="city"
               placeholder="Palampur"
+              defaultValue={restaurant.city}
               required
               className={commonInputClasses}
             />
@@ -93,6 +104,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               type="text"
               name="state"
               placeholder="State"
+              defaultValue={restaurant.state}
               required
               className={commonInputClasses}
             />
@@ -103,6 +115,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               name="address"
               placeholder="Address"
               required
+              defaultValue={restaurant.address}
               className={`min-h-24 ${commonInputClasses}`}
             />
           </div>
@@ -115,6 +128,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               name="number"
               placeholder="Number"
               required
+              defaultValue={restaurant.number}
               className={commonInputClasses}
             />
           </div>
@@ -125,6 +139,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               name="email"
               placeholder="Email"
               required
+              defaultValue={restaurant.email}
               className={commonInputClasses}
             />
           </div>
@@ -134,6 +149,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               type="text"
               name="websiteUrl"
               placeholder="https://dineshere.vercel.app"
+              defaultValue={restaurant.websiteURL as string}
               required
               className={commonInputClasses}
             />
@@ -145,6 +161,7 @@ export default function CreateForm({ userId }: { userId: string }) {
               placeholder="Description"
               required
               className={`min-h-24 ${commonInputClasses}`}
+              defaultValue={restaurant.description}
             />
           </div>
         </div>

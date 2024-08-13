@@ -2,7 +2,7 @@
 const nextConfig = {
   // permission for using domain assets
   images: {
-    domains: ["images.pexels.com", "img.clerk.com"],
+    domains: ["images.pexels.com", "img.clerk.com", "res.cloudinary.com"],
   },
   experimental: {
     urlImports: [

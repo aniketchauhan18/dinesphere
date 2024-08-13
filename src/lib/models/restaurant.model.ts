@@ -45,9 +45,6 @@ const restaurantSchema = new Schema(
     websiteURL: {
       type: String,
     },
-    imageUrls: {
-      type: [String],
-    },
     cuisine: {
       type: [String],
     },

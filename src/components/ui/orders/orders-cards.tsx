@@ -36,11 +36,13 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
             placeholder="empty"
           />
         </div>
-        <div className="flex flex-col gap-1 sm:gap-2 w-full">
-          <p className="font-bold sm:text-lg">{order.menuId.name}</p>
-          <p className="text-neutral-700 text-xs sm:text-sm">
-            {order.menuId.description}
-          </p>
+        <div className="flex flex-col gap-1 sm:gap-2 w-full justify-between">
+          <div className="space-y-0.5">
+            <p className="font-bold sm:text-lg">{order.menuId.name}</p>
+            <p className="text-neutral-700 text-xs sm:text-sm">
+              {order.menuId.description}
+            </p>
+          </div>
           <div className="flex justify-between items-center">
             <p className="font-semibold text-sm sm:text-base ">
               ₹ {order.price.toFixed(2).toString()}

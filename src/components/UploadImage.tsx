@@ -4,6 +4,7 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { ImageUpIcon, LoaderCircleIcon } from "lucide-react";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { useRouter } from "next/navigation";
 
 export default function UploadImage({
   placeholderId,
@@ -14,6 +15,7 @@ export default function UploadImage({
 }) {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
 
   console.log(placeholderId);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -47,6 +49,7 @@ export default function UploadImage({
       const data = await response.json();
       if (response.ok) {
         setIsLoading(false);
+        router.refresh();
       }
     } catch (err) {
       console.log(err);
@@ -54,7 +57,56 @@ export default function UploadImage({
   };
 
   return (
-    <main className="p-4">
+    <main className="p-4 bg-white/20 border rounded-xl ">
+      <div className="flex flex-col gap-2 justify-center items-center p-5 rounded-lg">
+        <section className="w-full">
+          <form
+            className="flex flex-col gap-4 items-center "
+            onSubmit={handleSubmit}
+          >
+            <Label
+              htmlFor="image-input"
+              className="flex flex-col gap-2 p-5 border border-dashed  rounded-md w-full"
+            >
+              <ImageUpIcon className="text-neutral-100 w-7 h-7" />
+              <div className="text-xs sm:text-sm text-neutral-100 flex gap-5 justify-between items-center">
+                <p>{image ? image.name : "Drag and drop image here"}</p>
+                <p className="text-neutral-100 sm:hover:border-b sm:hover:border-neutral-100 sm:duration-75">
+                  {image ? "Choose another file" : "Select File"}
+                </p>
+              </div>
+            </Label>
+            <Input
+              className="pt-1.5 w-auto cursor-pointer hidden"
+              type="file"
+              id="image-input"
+              onChange={handleChange}
+            />
+            <div className="flex justify-between w-full gap-3">
+              <Button
+                type="submit"
+                disabled={isLoading}
+                className="bg-gradient-to-b w-full  from-orange-600 to-orange-500"
+              >
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <LoaderCircleIcon className="animate-spin h-5 w-5 mr-2" />
+                    Uploading...
+                  </div>
+                ) : (
+                  "Upload"
+                )}
+              </Button>
+            </div>
+          </form>
+        </section>
+      </div>
+    </main>
+  );
+}
+
+{
+  /* <main className="p-4">
       <div className="flex flex-col gap-2 justify-center items-center border p-5 rounded-lg">
         <section className="flex flex-col w-full gap-2">
           <div className=" flex justify-start">
@@ -108,6 +160,5 @@ export default function UploadImage({
           </form>
         </section>
       </div>
-    </main>
-  );
+    </main> */
 }

@@ -12,19 +12,18 @@ import React from "react";
 import Filter from "@/components/Filter";
 
 export interface RestaurantProps {
-  _id: String;
-  userId: String;
-  name: String;
-  country: String;
-  city: String;
-  state: String;
-  address: String;
-  description: String;
-  number: String;
-  email: String;
-  websiteURL: String | null;
-  imageUrls?: String[];
-  cuisine: String[];
+  _id: string;
+  userId: string;
+  name: string;
+  country: string;
+  city: string;
+  state: string;
+  address: string;
+  description: string;
+  number: string;
+  email: string;
+  websiteURL: string | null;
+  cuisine: string[];
 }
 
 export default async function Restaurants({
