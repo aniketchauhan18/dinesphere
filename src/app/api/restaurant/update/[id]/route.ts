@@ -8,7 +8,10 @@ const UpdateRestaurantSchema = createRestaurantSchema.omit({
 });
 
 // to do => write restaurant updation schema in
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(
+  req: NextRequest,
+  res: NextResponse,
+): Promise<Response> {
   try {
     // extracting id from url
     await connect();
@@ -17,8 +20,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const id = segments[segments.length - 1]; // restaurant id extraction
 
     const body = await req.json();
-
-    console.log("body", body);
     // validating user request
     const { success, data } = UpdateRestaurantSchema.safeParse(body);
     if (!success) {
@@ -39,7 +40,6 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
       { new: true },
     );
-    console.log(updateRestaurant);
     if (updateRestaurant) {
       return NextResponse.json(
         {
@@ -60,6 +60,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       },
     );
   } catch (err) {
-    return NextResponse.json;
+    return NextResponse.json(
+      {
+        message: "Internal server error while updating the restaurat",
+      },
+      {
+        status: 500,
+      },
+    );
   }
 }
