@@ -3,7 +3,7 @@ import Restaurant from "@/lib/models/restaurant.model";
 import { connect } from "@/lib/db";
 import { createRestaurantSchema } from "../../../lib/definition";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     //  userId,
     // name: formData.get("name"),
