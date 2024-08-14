@@ -86,6 +86,18 @@ export default async function PartnerPage() {
             </h1>
           </div>
         </div>
+        <div className="flex justify-center ">
+          <div className="flex justify-center items-center  gap-4 w-full">
+            <Link href="/partner/become-partner/details/restaurant">
+              <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
+                Partner with us
+              </Button>
+            </Link>
+            <Button variant="outline" className="text-xs sm:text-sm">
+              Learn More
+            </Button>
+          </div>
+        </div>
         <div className="px-5 sm:px-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5 py-10">
           {data.map((card) => {
             return (
@@ -118,18 +130,6 @@ export default async function PartnerPage() {
               </div>
             );
           })}
-        </div>
-        <div className="flex justify-center ">
-          <div className="flex justify-center items-center  gap-4 w-full">
-            <Link href="/partner/become-partner/details/restaurant">
-              <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
-                Partner with us
-              </Button>
-            </Link>
-            <Button variant="outline" className="text-xs sm:text-sm">
-              Learn More
-            </Button>
-          </div>
         </div>
       </section>
     </main>

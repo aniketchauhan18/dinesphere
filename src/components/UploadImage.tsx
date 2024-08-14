@@ -39,6 +39,9 @@ export default function UploadImage({
       formData.append("image", image);
       formData.append("placeholderId", placeholderId);
       // making req to img bb api key to get the details of the image
+
+      // image is present in different model in the database
+
       const response = await fetch(
         `/api/upload-image/${placeholder.toLowerCase()}`,
         {
@@ -47,17 +50,18 @@ export default function UploadImage({
         },
       );
       const data = await response.json();
-      if (response.ok) {
-        setIsLoading(false);
-        router.refresh();
+      if (!response.ok) {
+        alert("Error while uplaoding image");
       }
+      setIsLoading(false);
+      router.refresh();
     } catch (err) {
       console.log(err);
     }
   };
 
   return (
-    <main className="p-4 bg-white/20 border rounded-xl ">
+    <main className="p-4 bg-white/20 rounded-xl ">
       <div className="flex flex-col gap-2 justify-center items-center p-5 rounded-lg">
         <section className="w-full">
           <form
@@ -68,10 +72,10 @@ export default function UploadImage({
               htmlFor="image-input"
               className="flex flex-col gap-2 p-5 border border-dashed  rounded-md w-full"
             >
-              <ImageUpIcon className="text-neutral-100 w-7 h-7" />
-              <div className="text-xs sm:text-sm text-neutral-100 flex gap-5 justify-between items-center">
+              <ImageUpIcon className="text-neutral-500 w-7 h-7" />
+              <div className="text-xs sm:text-sm text-neutral-500 flex gap-5 justify-between items-center">
                 <p>{image ? image.name : "Drag and drop image here"}</p>
-                <p className="text-neutral-100 sm:hover:border-b sm:hover:border-neutral-100 sm:duration-75">
+                <p className="text-neutral-500 sm:hover:border-b sm:hover:border-neutral-500 sm:duration-75">
                   {image ? "Choose another file" : "Select File"}
                 </p>
               </div>

@@ -8,7 +8,7 @@ const UpdateRestaurantSchema = createRestaurantSchema.omit({
 });
 
 // to do => write restaurant updation schema in
-export async function POST(
+export async function PATCH(
   req: NextRequest,
   res: NextResponse,
 ): Promise<Response> {

@@ -3,6 +3,8 @@ import { RestaurantProps } from "@/app/restaurants/page";
 import { MapPinIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { fetchRestaurantImagesById } from "@/lib/data";
+import { RestaurantImageResponse } from "@/lib/definition";
 
 export default async function RestaurantCards({
   restaurants,
@@ -12,7 +14,7 @@ export default async function RestaurantCards({
   return (
     <div>
       {restaurants.length > 0 ? (
-        <div className="py-16 px-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+        <div className="px-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {restaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant._id.toString()}
@@ -30,21 +32,34 @@ export default async function RestaurantCards({
 }
 
 async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
+  let restarantImages: RestaurantImageResponse[] = [];
+
+  try {
+    restarantImages = await fetchRestaurantImagesById(restaurant._id);
+  } catch (error) {
+    console.error("Error fetching images:", error);
+  }
+
+  const firstImageUrl =
+    restarantImages[0]?.url ||
+    "https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1";
+
   return (
     <div className="p-5 flex justify-center">
       <Link
         href={`/restaurants/${restaurant._id}`}
-        className=" rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs"
+        className="rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs"
       >
         <Image
-          src="https://images.pexels.com/photos/67468/pexels-photo-67468.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          src={firstImageUrl}
           alt="restaurant-image"
           className="rounded-t-lg"
           width="400"
           sizes="100%"
-          height="150"
+          height="200"
           objectFit="cover"
           placeholder="empty"
+          loading="lazy"
         />
         <div className="p-3 space-y-0.5">
           <p className="font-bold text-neutral-800 text-lg">

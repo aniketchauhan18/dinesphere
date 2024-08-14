@@ -38,7 +38,7 @@ export default function RestaurantUpdateForm({
     console.log("formObj", formObj);
 
     const response = await fetch(`/api/restaurant/update/${restaurant._id}`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
@@ -173,10 +173,10 @@ export default function RestaurantUpdateForm({
           {isLoading ? (
             <div className="flex items-center">
               <LoaderCircleIcon className="animate-spin h-5 w-5 mr-2" />
-              Submiting
+              Updating
             </div>
           ) : (
-            "Submit"
+            "Update"
           )}
         </Button>
       </div>

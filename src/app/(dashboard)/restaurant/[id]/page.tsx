@@ -1,8 +1,9 @@
 import { RestaurantProps } from "@/app/restaurants/page";
 import RestaurantUpdateForm from "@/components/ui/restaurants/update-form";
 import { fetchRestaurantById, fetchRestaurantImagesById } from "@/lib/data";
-import { MailIcon } from "lucide-react";
+import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import UploadImage from "@/components/UploadImage";
+import UpdateRestaurantImage from "@/components/ui/restaurants/update-image";
 import Image from "next/image";
 import { RestaurantImageResponse } from "@/lib/definition";
 
@@ -33,10 +34,11 @@ export default async function RestaurantDetailsPage({
             {imageUrl ? (
               <Image
                 src={imageUrl}
-                width={300}
+                width={140}
                 height={300}
                 className="w-full h-44 sm:h-80 lg:h-96 object-cover object-center rounded-lg"
                 alt="Restaurant Logo"
+                priority
               />
             ) : (
               <UploadImage
@@ -73,17 +75,33 @@ export default async function RestaurantDetailsPage({
           </div>
         </div> */}
       </section>
+      {/* <UpdateRestaurantImage restaurantId={restaurant._id.toString()} /> */}
+      {imageUrl && (
+        <section className="p-2">
+          <div className="flex justify-end">
+            <div className="text-xs sm:text-sm flex border p-2 rounded-md shadow-sm items-center hover:bg-neutral-100 duration-75">
+              <UpdateRestaurantImage restaurantId={restaurant._id.toString()} />
+            </div>
+          </div>
+        </section>
+      )}
       <section className="p-3 sm:p-10 grid grid-cols-2">
         <div className="flex justify-start">
           <div className="flex flex-col space-y-2">
-            <h1 className="text-lg font-bold">Address</h1>
+            <h1 className="text-lg font-bold flex items-center">
+              <MapPinIcon className="w-4 h-4 text-neutral-800 mr-1" />
+              Address
+            </h1>
             <p className="text-sm text-neutral-700">{restaurant.address}</p>
           </div>
         </div>
         <div className="flex justify-start">
           <div className="flex flex-col space-y-2">
-            <h1 className="text-lg font-bold">Contact</h1>
-            <p className="text-sm text-neutral-700">{restaurant.number}</p>
+            <h1 className="text-lg font-bold"> Contact</h1>
+            <p className="text-sm text-neutral-700 flex items-center">
+              <PhoneIcon className="w-4 h-4 text-neutral-800 mr-1" />
+              {restaurant.number}
+            </p>
             <div className="text-sm flex items-center text-neutral-700 hover:cursor-pointer">
               <MailIcon className="w-4 h-4 mr-1" />
               <a href={`mailto:${restaurant.email}`}>{restaurant.email}</a>

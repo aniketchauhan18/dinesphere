@@ -32,7 +32,7 @@ export default function UpdateOrder({
     if (response.ok) {
       router.refresh(); // refresh for ui consistency with data
     }
-  }, 300);
+  }, 200);
 
   const decrementOrderQuantity = useDebouncedCallback(async () => {
     if (parseInt(quantity) === 1) {
