@@ -10,6 +10,7 @@ export interface User {
   imageUrl: string;
   clerkId: string;
   username: string;
+  address?: string;
   role: ["admin", "user"];
 }
 

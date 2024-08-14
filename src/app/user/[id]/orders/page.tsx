@@ -6,14 +6,9 @@ import CheckoutButton, { User } from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
+import { totalAmountWithGST } from "@/lib/utils/gstCalculator";
 
 export const revalidate = 0;
-
-function totalAmountWithGST(price: number) {
-  const gstAmount = (price * 18) / 100;
-  const total = gstAmount + price;
-  return total.toFixed(2); // total amount rounded to 2 decimal
-}
 
 export default async function Orders({ params }: { params: { id: string } }) {
   const [user, menuOrders]: [User, MenuOrderItemProps[]] = await Promise.all([

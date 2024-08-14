@@ -1,8 +1,14 @@
 "use server";
 import { RestaurantProps } from "@/app/restaurants/page";
-import { fetchRestaurantById } from "@/lib/data";
-import { TrackOrderItemProps } from "@/lib/definition";
+import {
+  fetchPopulatedOrderById,
+  fetchRestaurantById,
+  fetchUserById,
+} from "@/lib/data";
+import { TrackOrderItemProps, TrackOrderProps } from "@/lib/definition";
 import Link from "next/link";
+import OrderInvoice from "./order-invoice";
+import { User } from "./checkout-button";
 
 export default async function TrackCards({
   orderId,
@@ -21,12 +27,17 @@ export default async function TrackCards({
   date: Date;
   userId: string;
 }) {
-  const restautant: RestaurantProps = await fetchRestaurantById(restaurantId);
+  const [user, order, restaurant]: [User, TrackOrderProps, RestaurantProps] =
+    await Promise.all([
+      fetchUserById(userId),
+      fetchPopulatedOrderById(orderId),
+      fetchRestaurantById(restaurantId),
+    ]);
 
   return (
     <div className="mt-10 border p-5 rounded-lg shadow-sm">
       <div className="flex justify-between">
-        <p className="font-semibold text-xl">{restautant.name.toString()}</p>
+        <p className="font-semibold text-xl">{restaurant.name.toString()}</p>
         <div className="flex justify-center items-center">
           <p className="px-2 py-1 rounded-md text-xs font-medium bg-red-500 text-white">
             {status}
@@ -51,10 +62,11 @@ export default async function TrackCards({
         </div>
         <div className="flex justify-between items-center text-xs text-neutral-500">
           <p>Ordered on {date.toDateString()}</p>
-          <p className="hover:border-b border-neutral-500 text-xs duration-75 ">
-            <Link href={`/user/${userId}/orders/${orderId}/status`}>
+          <p className="text-xs">
+            {/* <Link href={`/user/${userId}/orders/${orderId}/status`}>
               View Details
-            </Link>
+            </Link> */}
+            <OrderInvoice user={user} order={order} />
           </p>
         </div>
       </div>

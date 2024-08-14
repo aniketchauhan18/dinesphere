@@ -44,8 +44,8 @@ export interface OrderProps {
   status: string;
   orderItems: string[];
   paymentId: string;
-  createdAt: string;
-  updatedAt: string;
+  createdAt: Date;
+  updatedAt: Date;
   __v: number;
 }
 
