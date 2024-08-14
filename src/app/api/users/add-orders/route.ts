@@ -2,7 +2,7 @@ import { connect } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import OrderItem from "../../../../lib/models/orderItem.model";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     // connect to database
     await connect();
@@ -80,7 +80,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     );
   } catch (err) {
     console.log("Inside add-order api call");
-    NextResponse.json(
+    return NextResponse.json(
       {
         message: "Error adding order item",
       },

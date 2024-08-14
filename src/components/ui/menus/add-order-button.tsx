@@ -1,4 +1,6 @@
 "use client";
+import { useRouter } from "next/navigation";
+
 // change any types here
 export default function AddOrderItemButton({
   userId,
@@ -11,6 +13,8 @@ export default function AddOrderItemButton({
   quantity: number;
   menuId: any;
 }) {
+  const router = useRouter();
+
   const handleAddOrderItem = async () => {
     try {
       const response = await fetch(`/api/users/add-orders`, {
@@ -29,6 +33,7 @@ export default function AddOrderItemButton({
       if (!response.ok) {
         alert("Error adding menu to the orderItem");
       }
+      router.refresh();
       alert("menu adder to the orderItem");
     } catch (err) {
       console.error("Error adding menu item:", err);

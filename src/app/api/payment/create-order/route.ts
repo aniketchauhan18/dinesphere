@@ -16,7 +16,7 @@ const instance = new Razorpay({
   key_secret: razorpayKeySecret,
 });
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     const { totalPrice } = await req.json();
     const options = {

@@ -2,7 +2,10 @@ import Payment from "@/lib/models/payment.model";
 import { connect } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(
+  req: NextRequest,
+  res: NextResponse,
+): Promise<Response> {
   try {
     const { userId, paymentId, paymentOrderId, paymentSignature } =
       await req.json();
@@ -24,7 +27,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (err) {
     console.log("Inside checkout api call");
-    NextResponse.json(
+    return NextResponse.json(
       {
         message: "Error adding order item",
       },

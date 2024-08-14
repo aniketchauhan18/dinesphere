@@ -12,7 +12,7 @@ const userValidationSchema = z.object({
   email: z.string().email("Invalid email address"),
 });
 
-export async function POST(req: NextRequest) {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     // connect to the database
 
@@ -60,5 +60,13 @@ export async function POST(req: NextRequest) {
     );
   } catch (err) {
     console.log(err);
+    return NextResponse.json(
+      {
+        message: "Internal server error while creating user in db",
+      },
+      {
+        status: 500,
+      },
+    );
   }
 }

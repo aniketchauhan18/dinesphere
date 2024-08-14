@@ -2,6 +2,7 @@
 import { MenuOrderItemProps } from "@/lib/definition";
 import Image from "next/image";
 import { PlusIcon, MinusIcon, TrashIcon } from "lucide-react";
+import UpdateOrder from "./order-update";
 
 export async function OrdersCards({
   orders,
@@ -24,6 +25,9 @@ export async function OrdersCards({
 }
 
 function OrderCard({ order }: { order: MenuOrderItemProps }) {
+  const basePrice = order.price / order.quantity;
+  console.log("basePrice -----------------------------------", basePrice);
+
   return (
     <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">
       <div className="flex gap-3">
@@ -51,7 +55,12 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
               {order.menuId.description}
             </p>
           </div>
-          <div className="flex justify-between items-center">
+          <UpdateOrder
+            orderItemId={order._id.toString()}
+            quantity={order.quantity.toString()}
+            basePrice={basePrice}
+          />
+          {/* <div className="flex justify-between items-center">
             <div className="flex items-center space-x-2">
               <div className="rounded-full bg-neutral-900 p-0.5">
                 <PlusIcon className="w-4 h-4 text-white hover:cursor-pointer" />
@@ -64,10 +73,10 @@ function OrderCard({ order }: { order: MenuOrderItemProps }) {
               </div>
             </div>
             {/* <Button variant="destructive" className="text-sm">Remove</Button> */}
-            <p className="text-neutral-700 text-sm">
+          {/* <p className="text-neutral-700 text-sm">
               <TrashIcon className="w-5 h-5 text-red-400 hover:cursor-pointer" />
-            </p>
-          </div>
+            </p> */}
+          {/* </div> */}
         </div>
       </div>
     </div>

@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { UploadImage } from "@/lib/upload-image";
 import { CloudinaryResponse } from "@/lib/definition";
 
-export async function POST(req: NextRequest, res: NextRequest) {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     const formData = await req.formData();
     const image = formData.get("image") as unknown as File;

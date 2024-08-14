@@ -4,7 +4,10 @@ import Order from "@/lib/models/order.model";
 import OrderItem from "@/lib/models/orderItem.model";
 import { revalidatePath } from "next/cache";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(
+  req: NextRequest,
+  res: NextResponse,
+): Promise<Response> {
   try {
     await connect();
 
@@ -69,7 +72,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     });
   } catch (err) {
     console.log("Inside checkout api call");
-    NextResponse.json(
+    return NextResponse.json(
       {
         message: "Error adding order item",
       },

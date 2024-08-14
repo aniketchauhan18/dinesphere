@@ -13,9 +13,9 @@ export default function RestaurantsLayout({
   children: React.ReactNode;
 }) {
   return (
-    <body className={`${inter.className} antialiased min-h-screen`}>
+    <div className={`${inter.className} antialiased min-h-screen`}>
       <Navbar />
       {children}
-    </body>
+    </div>
   );
 }
