@@ -76,7 +76,7 @@ export default async function Navbar() {
           </Link>
           <Link href={`/user/${user?._id}/orders`} className={linkClasses}>
             <ShoppingBag className="w-5 h-5" />
-            <p className="text-xs mt-1">My Orders</p>
+            <p className="text-xs mt-1">Current Orders</p>
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>

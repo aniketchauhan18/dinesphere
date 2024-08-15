@@ -13,6 +13,7 @@ import {
   UserCheck2Icon,
 } from "lucide-react";
 import Link from "next/link";
+import { cedarvilleCursive } from "@/components/fonts";
 
 export default function Home() {
   const cuisineIconClasses: string =
@@ -21,14 +22,30 @@ export default function Home() {
   return (
     <main className="min-h-screen pb-12">
       <Navbar />
-      <div className="grid justify-center p-5">
+      <div className="grid justify-center pt-14 p-5">
         <div className="text-center">
-          <h1 className="flex justify-center items-center font-bold bg-gradient-to-r from-red-500 to-yellow-500 bg-clip-text text-transparent text-2xl sm:text-4xl lg:text-5xl min-h-16 h-auto">
-            Discover the Best Dining Experiences
-          </h1>
+          <div className="flex flex-col justify-center items-center font-bold  text-transparent text-base sm:text-3xl min-h-16 h-auto text-orange-600">
+            <p className="text-orange-600">
+              Empowering restaurants to{" "}
+              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
+                serve
+              </span>{" "}
+              and users
+            </p>
+            <p className="text-orange-600">
+              to{" "}
+              <span className="bg-gradient-to-br from-red-500  to-yellow-500 bg-clip-text text-transparent">
+                indulge
+              </span>
+              ,all in{" "}
+              <span className="bg-gradient-to-br from-red-500  to-yellow-500 bg-clip-text text-transparent">
+                one place
+              </span>
+            </p>
+          </div>
         </div>
-        <div className="text-center  max-w-[900px]">
-          <p className="pt-3 text-neutral-600 flex justify-center items-center text-base sm:text-lg lg:text-xl">
+        <div className="text-center  max-w-[600px] text-xs sm:text-sm">
+          <p className="sm:pt-1 text-neutral-600 flex justify-center items-center">
             Our app connects food enthusiasts with top-rated restaurants, and
             provides restaurant owners with powerful tools to manage and grow
             their business.
@@ -36,12 +53,12 @@ export default function Home() {
         </div>
         <div className="text-center pt-10 space-x-4">
           <Link href="/restaurants">
-            <Button variant="outline" className="rounded-full">
+            <Button variant="outline" className="rounded-full text-xs">
               Search Restaurants
             </Button>
           </Link>
           <Link href={"/partner/become-partner"}>
-            <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full">
+            <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full text-xs">
               Become Partner
             </Button>
           </Link>

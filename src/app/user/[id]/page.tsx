@@ -42,10 +42,10 @@ export default async function Profile({ params }: { params: { id: string } }) {
         </div>
         <div>
           <Link
-            href={`/user/${user._id}/orders/${order[0]._id}/track`}
+            href={`/user/${user._id}/orders/track`}
             className="hover:cursor-pointer"
           >
-            Track Order
+            Track Orders
           </Link>
         </div>
         <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 py-2 text-white w-10/12 max-w-xs bg-gradient-to-b from-orange-600 to-orange-500">

@@ -131,7 +131,6 @@ export async function fetchOrderById(id: string) {
     const order = await Order.findById(id);
     return order;
   } catch (err) {
-    console.log(err);
     throw new Error("Error fetching order details");
   }
 }
@@ -149,15 +148,13 @@ export async function fetchOrderByUserId(id: string) {
         },
       ],
     });
-    console.log(order);
     return order;
   } catch (err) {
-    console.log(err);
     throw new Error("Error fethcing user orders");
   }
 }
 
-export async function fetchPopulatedOrderById(id: string) {
+export async function fetchAggregatedOrdersByUserId(id: string) {
   try {
     await connect();
 
@@ -239,7 +236,7 @@ export async function fetchPopulatedOrderById(id: string) {
     const order = await Order.aggregate([
       {
         $match: {
-          _id: new Types.ObjectId(id),
+          userId: new Types.ObjectId(id),
           status: "pending",
         },
       },
@@ -294,13 +291,8 @@ export async function fetchPopulatedOrderById(id: string) {
         },
       },
     ]);
-    // for one order know can add further in future
-    // console.log(order[0]);
-    console.log(order);
-
-    return order[0]; // returning one order for development purposes
+    return order;
   } catch (err) {
-    console.log(err);
     throw new Error("Error fetching populated orders");
   }
 }
@@ -313,7 +305,6 @@ export async function fetchMenusByRestaurantId(restaurantId: string) {
     });
     return menus;
   } catch (err) {
-    console.log(err);
     throw new Error("Error fetching menus by restaurant Id");
   }
 }
@@ -324,7 +315,6 @@ export async function fetchRestaurantImagesById(restaurantId: string) {
     const restaurantImages = await ImageRestaurant.find({ restaurantId });
     return restaurantImages;
   } catch (err) {
-    console.log(err);
     throw new Error("Error fetching restaurant images");
   }
 }
