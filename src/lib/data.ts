@@ -290,7 +290,14 @@ export async function fetchAggregatedOrdersByUserId(id: string) {
           },
         },
       },
+      {
+        $sort: {
+          createdAt: -1,
+          _id: 1,
+        },
+      },
     ]);
+    console.log(order);
     return order;
   } catch (err) {
     throw new Error("Error fetching populated orders");

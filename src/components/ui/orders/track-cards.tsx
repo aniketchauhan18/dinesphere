@@ -18,13 +18,16 @@ export default async function TrackCards({
   return (
     <div>
       {orders.length >= 1 ? (
-        <div>
+        <div className="grid sm:grid-cols-2 gap-5">
           {orders.map((order) => (
             <TrackCard key={order._id.toString()} order={order} />
           ))}
         </div>
       ) : (
-        <div>No added yet</div>
+        <div className="flex flex-col">
+          You haven&apos;t ordered yet
+          <Link href="/restaurants">Explore Restaurants</Link>
+        </div>
       )}
     </div>
   );

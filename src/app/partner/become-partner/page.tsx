@@ -61,7 +61,7 @@ export default async function PartnerPage() {
   ];
 
   return (
-    <main className="pb-24 p-3">
+    <main className="pb-24 lg:pt-24 p-3">
       <section>
         <div className="grid justify-center p-5">
           <div className="text-center">

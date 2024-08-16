@@ -15,7 +15,7 @@ export default async function TrackOrder({
   );
 
   return (
-    <main className="p-5 min-h-screen pb-24">
+    <main className="p-5 min-h-screen lg:pt-20 pb-24">
       <section>
         <div className="flex justify-between items-center">
           <h1 className="text-lg sm:text-2xl lg:text-3xl font-bold">

@@ -27,7 +27,7 @@ export default async function RestaurantDetailsPage({
 
   // use image url in src in image
   return (
-    <main className="pb-24">
+    <main className="py-24">
       <section className="p-3">
         <div className="flex flex-col justify-center w-full">
           <div className="flex justify-center relative ">

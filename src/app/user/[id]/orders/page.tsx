@@ -30,7 +30,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
   const orderItemsIds = menuOrders.map((menuOrder) => menuOrder._id);
 
   return (
-    <main className="pt-4 px-5">
+    <main className="pt-4 lg:pt-20 px-5">
       <>
         <Script
           id="razorpay-checkout-js"

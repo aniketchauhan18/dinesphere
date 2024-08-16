@@ -3,7 +3,8 @@ import { fetchOrderByUserId, fetchUserById } from "@/lib/data";
 import { OrderProps } from "@/lib/definition";
 import { SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { LogOutIcon } from "lucide-react";
+import { DivideCircleIcon, LogOutIcon } from "lucide-react";
+import { Separator } from "@/components/ui/separator";
 
 export interface UserDetails {
   _id: string;
@@ -24,35 +25,47 @@ export default async function Profile({ params }: { params: { id: string } }) {
     await Promise.all([fetchUserById(id), fetchOrderByUserId(id)]);
 
   return (
-    <div className="pt-10">
-      <div className="flex flex-col gap-5 justify-center items-center h-96">
-        <p className="text-xl font-bold">Hey, {user.firstName}</p>
-        <div>
-          <Link
-            href={`/user/${user._id}/orders`}
-            className="hover:cursor-pointer"
-          >
-            Orders
-          </Link>
+    <main className="min-h-screen p-5 bg-neutral-100 flex flex-col lg:py-20">
+      <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto">
+        <div className="w-auto">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2 relative">
+            <span className="relative z-10 px-3 bg-clip-text text-transparent bg-gradient-to-br from-yellow-400 via-orange-400 to-orange-600 animate-gradient">
+              Hey, {user.firstName} {user.lastName}
+            </span>
+            <span>👋</span>
+          </h1>
+          <Separator className="bg-orange-300" />
         </div>
-        <div>
-          <Link href={`/restaurants`} className="hover:cursor-pointer">
-            Restaurants
-          </Link>
-        </div>
-        <div>
-          <Link
-            href={`/user/${user._id}/orders/track`}
-            className="hover:cursor-pointer"
-          >
-            Track Orders
-          </Link>
-        </div>
-        <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 py-2 text-white w-10/12 max-w-xs bg-gradient-to-b from-orange-600 to-orange-500">
-          <LogOutIcon className="w-4 h-4 mr-1" />
-          <SignOutButton />
+
+        <div className="space-y-8">
+          {[
+            { href: `/user/${user._id}/orders`, icon: "📦", text: "Orders" },
+            { href: "/restaurants", icon: "🍽️", text: "Restaurants" },
+            {
+              href: `/user/${user._id}/orders/track`,
+              icon: "🚚",
+              text: "Track Orders",
+            },
+          ].map((link, index) => (
+            <Link key={link.href} href={link.href} className="group block">
+              <div className="relative overflow-hidden rounded-lg p-4 group">
+                <span className="block text-3xl font-semibold text-gray-700 transition-all duration-300 ease-in-out transform group-hover:translate-x-2 relative z-10">
+                  <span>{link.icon}</span>
+                  <span className="inline-block transition-all duration-300 ease-in-out group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br from-yellow-400 via-orange-500 to-orange-600">
+                    {link.text}
+                  </span>
+                </span>
+                <span className="absolute inset-0 bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 opacity-0 group-hover:opacity-10 transition-opacity duration-300 ease-in-out"></span>
+              </div>
+            </Link>
+          ))}
+
+          <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 py-3 text-white w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700">
+            <LogOutIcon className="w-5 h-5 mr-2" />
+            <SignOutButton />
+          </button>
         </div>
       </div>
-    </div>
+    </main>
   );
 }

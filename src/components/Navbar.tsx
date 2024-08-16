@@ -23,9 +23,11 @@ export default async function Navbar() {
   return (
     <nav className={`${inter.className}`}>
       <header
-        className={`border-b min-h-16 bg-primary-foreground hidden lg:flex z-50  p-3 justify-between items-center gap-5`}
+        className={` fixed inset-x-0  min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
       >
-        <div className={`flex  justify-between items-center gap-5 w-full`}>
+        <div
+          className={`flex justify-between bg-white/60 items-center gap-5 w-full border rounded-full p-3`}
+        >
           <Link href="/" className={`font-semibold  text-neutral-700`}>
             DineSphere
           </Link>
@@ -76,7 +78,7 @@ export default async function Navbar() {
           </Link>
           <Link href={`/user/${user?._id}/orders`} className={linkClasses}>
             <ShoppingBag className="w-5 h-5" />
-            <p className="text-xs mt-1">Current Orders</p>
+            <p className="text-xs mt-1">Bag</p>
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>

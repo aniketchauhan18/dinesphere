@@ -37,12 +37,12 @@ export default async function Restaurants({
   const cuisines = await fetchRestaurantsCuisines();
 
   return (
-    <main>
+    <main className="lg:pt-20">
       <section className="lg:hidden px-5 pt-5">
         <p className="font-bold text-xl">Available Restaurants</p>
         <Separator />
       </section>
-      <section className="pt-5 lg:py-16 lg:bg-neutral-100 flex justify-center items-center w-full flex-col sm:flex-row gap-3">
+      <section className="pt-5 lg:py-16  flex justify-center items-center w-full flex-col sm:flex-row gap-3">
         <Search />
         <div className="w-full sm:w-auto flex justify-end px-5 sm:justify-normal items-center max-w-lg">
           <Filter cuisines={cuisines} />

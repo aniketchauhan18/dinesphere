@@ -8,7 +8,7 @@ export default async function RestaurantDetails() {
   const user: User = await fetchUserByClerkId(userId as string);
 
   return (
-    <main className="pb-24 p-4">
+    <main className="pb-24 lg:pt-24 p-4">
       <div className="flex flex-col pb-1">
         <h1 className="text-lg sm:text-xl font-semibold">Restaurant Details</h1>
         <p className="text-neutral-600 text-xs sm:text-sm">

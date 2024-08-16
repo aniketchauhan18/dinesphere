@@ -11,47 +11,76 @@ import {
   BeanIcon,
   SandwichIcon,
   UserCheck2Icon,
+  Utensils,
+  Tag,
+  Truck,
 } from "lucide-react";
 import Link from "next/link";
 import { cedarvilleCursive } from "@/components/fonts";
+import Image from "next/image";
 
 export default function Home() {
   const cuisineIconClasses: string =
     "flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-orange-500 hover:text-white ease-in-out duration-300";
 
+  const cuisineData = [
+    {
+      id: 1,
+      src: "https://images.pexels.com/photos/4491395/pexels-photo-4491395.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      cuisine: "Sandwich",
+    },
+    {
+      id: 2,
+      src: "https://images.pexels.com/photos/1049626/pexels-photo-1049626.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      cuisine: "Pizza",
+    },
+    {
+      id: 3,
+      src: "https://images.pexels.com/photos/3147493/pexels-photo-3147493.jpeg?auto=compress&cs=tinysrgb&w=600",
+      cuisine: "Sushi",
+    },
+    {
+      id: 4,
+      src: "https://images.pexels.com/photos/905847/pexels-photo-905847.jpeg?auto=compress&cs=tinysrgb&w=750",
+      cuisine: "Mexican",
+    },
+    {
+      id: 5,
+      src: "https://images.pexels.com/photos/2474658/pexels-photo-2474658.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      cuisine: "Asian",
+    },
+    {
+      id: 6,
+      src: "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+      cuisine: "Healthy",
+    },
+  ];
+
   return (
     <main className="min-h-screen pb-12">
       <Navbar />
-      <div className="grid justify-center pt-14 p-5">
+      <div className="grid justify-center lg:pt-24 p-5">
         <div className="text-center">
-          <div className="flex flex-col justify-center items-center font-bold  text-transparent text-base sm:text-3xl min-h-16 h-auto text-orange-600">
-            <p className="text-orange-600">
+          <div className="flex flex-col justify-center items-center font-bold text-orange-600 text-center px-4 py-6">
+            <p className="text-xl sm:text-xl lg:text-3xl">
               Empowering restaurants to{" "}
               <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
                 serve
-              </span>{" "}
-              and users
+              </span>
             </p>
-            <p className="text-orange-600">
-              to{" "}
-              <span className="bg-gradient-to-br from-red-500  to-yellow-500 bg-clip-text text-transparent">
+            <p className="hidden sm:block 3xl sm:text-xl lg:text-3xl">
+              and users to{" "}
+              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
                 indulge
               </span>
-              ,all in{" "}
-              <span className="bg-gradient-to-br from-red-500  to-yellow-500 bg-clip-text text-transparent">
+              , all in{" "}
+              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
                 one place
               </span>
             </p>
           </div>
         </div>
-        <div className="text-center  max-w-[600px] text-xs sm:text-sm">
-          <p className="sm:pt-1 text-neutral-600 flex justify-center items-center">
-            Our app connects food enthusiasts with top-rated restaurants, and
-            provides restaurant owners with powerful tools to manage and grow
-            their business.
-          </p>
-        </div>
-        <div className="text-center pt-10 space-x-4">
+        <div className="text-center space-x-4">
           <Link href="/restaurants">
             <Button variant="outline" className="rounded-full text-xs">
               Search Restaurants
@@ -64,107 +93,102 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="bg-background py-12 md:py-20 lg:py-24">
+      <div className="bg-background py-12">
         <div className="container mx-auto px-6 md:px-10">
           <div className="flex flex-col items-center space-y-8">
             <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+              <h2 className="text-3xl font-bold lg:text-4xl">
                 Explore Cuisines
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-base text-muted-foreground">
                 Find the perfect meal for any craving.
               </p>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-3">
-              <Link href="/" className={cuisineIconClasses}>
-                <SandwichIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Sandwich</span>
-              </Link>
-              <Link href="/" className={cuisineIconClasses}>
-                <PizzaIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Pizza</span>
-              </Link>
-              <Link href="/" className={cuisineIconClasses}>
-                <FishIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Sushi</span>
-              </Link>
-              <Link href="/" className={cuisineIconClasses}>
-                <TurtleIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Mexican</span>
-              </Link>
-              <Link href="/" className={cuisineIconClasses}>
-                <BeanIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Asian</span>
-              </Link>
-              <Link href="/" className={cuisineIconClasses}>
-                <SaladIcon className="w-8 h-8" />
-                <span className="text-sm font-medium">Healthy</span>
-              </Link>
+              {cuisineData.map((item) => (
+                <Link href="/" key={item.id}>
+                  <div className="relative overflow-hidden group">
+                    <Image
+                      src={item.src}
+                      alt={`${item.cuisine}-image`}
+                      width={400}
+                      sizes="100%"
+                      className="rounded-lg"
+                      height={250}
+                      objectFit="cover"
+                      placeholder="empty"
+                      loading="lazy"
+                    />
+                    <span className="absolute bottom-0 left-0 w-full py-2 text-sm font-medium text-white bg-neutral-600/60 border-t border-white/30 bg-opacity-50 text-center transform translate-y-full transition-transform duration-300 group-hover:translate-y-0 rounded-b-lg">
+                      {item.cuisine}
+                    </span>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="py-10 px-5 grid justify-center bg-neutral-50">
+      <div className="py-10 px-5 grid justify-center">
         <div className="text-center">
-          <h1 className="flex justify-center text-2xl sm:text-3xl lg:text-4xl items-center font-bold ">
-            How it works?
+          <h1 className="flex justify-center text-2xl lg:text-4xl items-center font-bold text-orange-600">
+            Hungry? We&apos;ve Got You Covered!
           </h1>
         </div>
         <div className="flex justify-center">
-          <p className="pt-3 text-neutral-600 text-center text-base sm:text-lg l max-w-[700px]">
-            Our app makes it easy for food enthusiasts to discover the best
-            restaurants and for restaurant owners to manage and grow their
-            business.
+          <p className="pt-3 text-gray-700 text-center text-sm sm:text-base max-w-[550px]">
+            From local favorites to gourmet delights, satisfy your cravings with
+            just a few taps!
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 pt-5">
-          <div className="bg-white border border-zinc-50 shadow rounded p-3">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-10">
+          <div className=" rounded-lg p-6">
             <div className="flex justify-center w-full">
-              <SearchIcon className="text-3xl" />
+              <Utensils className="w-5 h-5 text-yellow-500" />
             </div>
-            <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold text-neutral-700">
-                Search & Discover
-              </h1>
-              <p className="text-center text-neutral-600">
-                Browse our extensive database of restaurants and filter by
-                cuisine, location, and more.
+            <div className="pt-4 space-y-3">
+              <h2 className="text-center font-bold text-xl text-red-600">
+                Quick & Easy Ordering
+              </h2>
+              <p className="text-center text-sm text-gray-600">
+                Browse menus, customize your order, and checkout in minutes.
+                Your favorite meals are just a few clicks away!
               </p>
             </div>
           </div>
-          <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
+          <div className=" rounded-lg p-6 ">
             <div className="flex justify-center w-full">
-              <SettingsIcon className="text-3xl" />
+              <Tag className="w-5 h-5 text-green-500" />
             </div>
-            <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold text-neutral-700">
-                Manage Your Business
-              </h1>
-              <p className="text-center text-neutral-600">
-                Restaurant owners can use our app to manage orders, update
-                menus, and more.
+            <div className="pt-4 space-y-3">
+              <h2 className="text-center font-bold text-xl text-red-600">
+                Exclusive Deals & Discounts
+              </h2>
+              <p className="text-center text-sm text-gray-600">
+                Enjoy special promotions, loyalty rewards, and personalized
+                offers. Save big on your favorite dishes!
               </p>
             </div>
           </div>
-          <div className="bg-white border border-zinc-50 shadow rounded p-3 text-neutral-700">
+          <div className="rounded-lg p-6 ">
             <div className="flex justify-center w-full">
-              <StarIcon className="text-3xl" />
+              <Truck className="w-5 h-5 text-blue-500" />
             </div>
-            <div className="pt-2 space-y-2">
-              <h1 className="text-center font-bold">Review</h1>
-              <p className="text-center text-neutral-600">
-                Share your dining experiences and help others discover the best
-                restaurants.
+            <div className="pt-4 space-y-3">
+              <h2 className="text-center font-bold text-xl text-red-600">
+                Fast & Reliable Delivery
+              </h2>
+              <p className="text-center text-sm text-gray-600">
+                Track your order in real-time and get your food delivered hot
+                and fresh. Satisfaction guaranteed!
               </p>
             </div>
           </div>
-          {/*
-           */}
         </div>
       </div>
       <div className="grid py-10 px-5">
         <div className="text-center">
-          <h1 className="flex justify-center text-2xl sm:text-3xl lg:text-4xl items-center font-bold">
+          <h1 className="flex justify-center text-xl sm:text-3xl lg:text-4xl items-center font-bold">
             What Our Users Say
           </h1>
         </div>

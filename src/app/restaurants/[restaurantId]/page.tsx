@@ -21,7 +21,7 @@ export default async function RestaurantPage({
 
   // console.log(menus);
   return (
-    <main className="pt-5 px-5">
+    <main className="pt-5 lg:pt-20 px-5">
       <section className="lg:hidden">
         <p className="font-bold text-lg">{restaurant.name}</p>
         <Separator />
