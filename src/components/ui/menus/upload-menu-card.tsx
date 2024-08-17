@@ -21,7 +21,7 @@ export default async function UploadMenuCards({
       {menus.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {menus.map((menu) => (
-            <MenuCard key={menu._id} menu={menu} />
+            <MenuCard key={menu._id} menu={JSON.parse(JSON.stringify(menu))} />
           ))}
           <div className="bg-gray-100 rounded-lg flex justify-center items-center min-h-60">
             <CreateMenu restaurantId={menus[0].restaurantId.toString()} />

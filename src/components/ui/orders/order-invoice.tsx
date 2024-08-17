@@ -67,7 +67,7 @@ export default function OrderInvoice({
     invoice: {
       label: "Invoice #: ",
       num: 1,
-      invDate: `Payment Date: ${order.createdAt.toDateString()}`,
+      invDate: `Payment Date: ${new Date(order.createdAt).toDateString()}`,
       invGenDate: `Invoice Date: ${new Date().toDateString()}`,
       headerBorder: false,
       tableBodyBorder: false,

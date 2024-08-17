@@ -11,16 +11,15 @@ export default async function TrackCards({
 }: {
   orders: TrackOrderProps[];
 }) {
-  console.log(
-    orders,
-    "asdakjbcbcasjh bcbcjysccsVD CHS BCKSjdhbc uysvc hsckwEVHG",
-  );
   return (
     <div>
       {orders.length >= 1 ? (
         <div className="grid sm:grid-cols-2 gap-5">
           {orders.map((order) => (
-            <TrackCard key={order._id.toString()} order={order} />
+            <TrackCard
+              key={order._id.toString()}
+              order={JSON.parse(JSON.stringify(order))}
+            />
           ))}
         </div>
       ) : (
@@ -66,12 +65,15 @@ export async function TrackCard({ order }: { order: TrackOrderProps }) {
           <p className="font-semibold">₹ {order.totalPrice.toString()}</p>
         </div>
         <div className="flex justify-between items-center text-xs text-neutral-500">
-          <p>Ordered on {order.createdAt.toDateString()}</p>
+          <p>Ordered on {new Date(order.createdAt).toDateString()}</p>
           <p className="text-xs">
             {/* <Link href={`/user/${userId}/orders/${orderId}/status`}>
               View Details
             </Link> */}
-            <OrderInvoice user={user} order={order} />
+            <OrderInvoice
+              user={user}
+              order={JSON.parse(JSON.stringify(order))}
+            />
           </p>
         </div>
       </div>

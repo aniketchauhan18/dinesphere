@@ -14,7 +14,10 @@ export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
       {menus.length > 0 ? (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
           {menus.map((menu) => (
-            <MenuCard key={menu._id.toString()} menu={menu} />
+            <MenuCard
+              key={menu._id.toString()}
+              menu={JSON.parse(JSON.stringify(menu))}
+            />
           ))}
         </div>
       ) : (

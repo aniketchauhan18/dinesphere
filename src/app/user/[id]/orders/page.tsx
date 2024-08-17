@@ -44,7 +44,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
       {menuOrders.length > 0 ? (
         <div className="w-full pb-24">
           <section className="pt-3">
-            <OrdersCards orders={menuOrders} />
+            <OrdersCards orders={JSON.parse(JSON.stringify(menuOrders))} />
           </section>
           <section className="pt-3">
             <div className="p-3 border rounded-lg">
@@ -66,7 +66,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
               </div>
               <div className="flex justify-center w-full pt-2">
                 <CheckoutButton
-                  user={user}
+                  user={JSON.parse(JSON.stringify(user))}
                   restaurantId={menuOrders[0].menuId.restaurantId.toString()}
                   totalPrice={totalWithGST.toString()}
                   status="pending"

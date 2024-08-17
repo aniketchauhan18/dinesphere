@@ -49,7 +49,9 @@ export default async function Restaurants({
         </div>
       </section>
       <section className="pb-24 pt-5">
-        <RestauranCards restaurants={filteredRestaurants} />
+        <RestauranCards
+          restaurants={JSON.parse(JSON.stringify(filteredRestaurants))}
+        />
       </section>
     </main>
   );

@@ -9,7 +9,10 @@ export default function EditMenuCards({ menus }: { menus: MenuProps[] }) {
       {menus.length > 1 ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {menus.map((menu) => (
-            <EditMenuCard key={menu._id.toString()} menu={menu} />
+            <EditMenuCard
+              key={menu._id.toString()}
+              menu={JSON.parse(JSON.stringify(menu))}
+            />
           ))}
         </div>
       ) : (

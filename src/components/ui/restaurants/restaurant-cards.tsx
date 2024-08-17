@@ -18,7 +18,7 @@ export default async function RestaurantCards({
           {restaurants.map((restaurant) => (
             <RestaurantCard
               key={restaurant._id.toString()}
-              restaurant={restaurant}
+              restaurant={JSON.parse(JSON.stringify(restaurant))}
             />
           ))}
         </div>

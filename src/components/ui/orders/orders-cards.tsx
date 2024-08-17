@@ -14,7 +14,10 @@ export async function OrdersCards({
       {orders.length > 0 ? (
         <div className="grid grid-cols-1 lg:grid-cols-2  gap-5">
           {orders.map((order) => (
-            <OrderCard key={order._id.toString()} order={order} />
+            <OrderCard
+              key={order._id.toString()}
+              order={JSON.parse(JSON.stringify(order))}
+            />
           ))}
         </div>
       ) : (
@@ -26,7 +29,6 @@ export async function OrdersCards({
 
 function OrderCard({ order }: { order: MenuOrderItemProps }) {
   const basePrice = order.price / order.quantity;
-  console.log("basePrice -----------------------------------", basePrice);
 
   return (
     <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">

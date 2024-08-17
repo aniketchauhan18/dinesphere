@@ -31,7 +31,7 @@ export default async function TrackOrder({
         </div>
         <Separator className="mt-1" />
       </section>
-      <TrackCards orders={orders} />
+      <TrackCards orders={JSON.parse(JSON.stringify(orders))} />
     </main>
   );
 }

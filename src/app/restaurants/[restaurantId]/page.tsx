@@ -161,7 +161,7 @@ export default async function RestaurantPage({
       </section> */}
       <section className="pt-5 pb-24">
         <h1>Our Menu</h1>
-        <MenuCards menus={menus} />
+        <MenuCards menus={JSON.parse(JSON.stringify(menus))} />
       </section>
     </main>
   );

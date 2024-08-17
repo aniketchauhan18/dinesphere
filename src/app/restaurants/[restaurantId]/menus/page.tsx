@@ -23,7 +23,7 @@ export default async function Menus({
         </Button>
       </section>
       <section className="pt-5">
-        <EditMenuCards menus={menus} />
+        <EditMenuCards menus={JSON.parse(JSON.stringify(menus))} />
       </section>
     </main>
   );
