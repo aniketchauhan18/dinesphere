@@ -41,7 +41,7 @@ export default function UpdateOrder({
     const newQuantity = parseInt(quantity) - 1;
 
     const response = await fetch(`/api/order-item/${orderItemId}/update`, {
-      method: "POST",
+      method: "PATCH",
       headers: {
         "Content-Type": "application/json",
       },
