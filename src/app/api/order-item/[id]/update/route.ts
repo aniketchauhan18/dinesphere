@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import OrderItem from "@/lib/models/orderItem.model";
+import { connect } from "@/lib/db";
 // to do =>  validate the req:
 
 export async function PATCH(req: NextRequest): Promise<Response> {
   try {
+    await connect();
     const { quantity, orderItemId, basePrice } = await req.json();
 
     const updatedPrice = parseFloat((quantity * basePrice).toFixed(2));
