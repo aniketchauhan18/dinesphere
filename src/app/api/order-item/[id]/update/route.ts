@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import OrderItem from "@/lib/models/orderItem.model";
 // to do =>  validate the req:
 
-export async function POST(req: NextRequest): Promise<Response> {
+export async function PATCH(req: NextRequest): Promise<Response> {
   try {
     const { quantity, orderItemId, basePrice } = await req.json();
 
