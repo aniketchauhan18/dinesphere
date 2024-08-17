@@ -9,7 +9,7 @@ import { inter } from "./fonts";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import Image from "next/image";
-import { fetchUserByClerkId } from "@/lib/data";
+import { fetchUserByClerkId, fetchUserOrderMenuItems } from "@/lib/data";
 
 export default async function Navbar() {
   const { userId } = auth();
@@ -18,12 +18,13 @@ export default async function Navbar() {
   if (userId) {
     user = await fetchUserByClerkId(userId as string);
   }
+  const orderItems = await fetchUserOrderMenuItems(user?._id);
 
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (
     <nav className={`${inter.className}`}>
       <header
-        className={` fixed inset-x-0  min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
+        className={` fixed inset-x-0   min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
       >
         <div
           className={`flex justify-between bg-white/60 items-center gap-5 w-full border rounded-full p-3`}
@@ -76,9 +77,15 @@ export default async function Navbar() {
             <Search className="w-5 h-5" />
             <p className="text-xs mt-1">Search</p>
           </Link>
-          <Link href={`/user/${user?._id}/orders`} className={linkClasses}>
+          <Link
+            href={`/user/${user?._id}/orders`}
+            className={`${linkClasses} relative inline-block`}
+          >
             <ShoppingBag className="w-5 h-5" />
             <p className="text-xs mt-1">Bag</p>
+            {orderItems.length >= 1 && (
+              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 bg-opacity-90 rounded-full"></span>
+            )}
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>

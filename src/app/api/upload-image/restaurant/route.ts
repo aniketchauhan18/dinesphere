@@ -49,6 +49,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       height,
       restaurantId,
     });
+    console.log(storeImage);
 
     if (!storeImage) {
       return NextResponse.json(

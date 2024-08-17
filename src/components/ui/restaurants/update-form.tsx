@@ -37,7 +37,7 @@ export default function RestaurantUpdateForm({
     };
     console.log("formObj", formObj);
 
-    const response = await fetch(`/api/restaurant/update/${restaurant._id}`, {
+    const response = await fetch(`/api/restaurant/${restaurant._id}/update`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

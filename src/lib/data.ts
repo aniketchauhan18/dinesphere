@@ -7,6 +7,7 @@ import { revalidatePath } from "next/cache";
 import Order from "./models/order.model";
 import { Types } from "mongoose";
 import { ImageRestaurant } from "./models/image.model";
+import { ImageMenu } from "./models/image.model";
 
 export async function fetchUserByClerkId(clerkId: string) {
   await connect();
@@ -323,5 +324,15 @@ export async function fetchRestaurantImagesById(restaurantId: string) {
     return restaurantImages;
   } catch (err) {
     throw new Error("Error fetching restaurant images");
+  }
+}
+
+export async function fetchMenuImagesByMenuId(menuId: string) {
+  try {
+    await connect();
+    const menuImages = await ImageMenu.find({ menuId: menuId });
+    return menuImages[0];
+  } catch (err) {
+    throw new Error("Error fetching menu images");
   }
 }

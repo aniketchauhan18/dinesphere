@@ -55,6 +55,7 @@ export default function UpdateRestaurantImage({
         alert("Error while uploading new image");
       }
       setIsLoading(false);
+      alert("Image uploaded successfully");
       router.refresh();
     } catch (err) {
       console.log(err);
@@ -79,7 +80,7 @@ export default function UpdateRestaurantImage({
             >
               <Label
                 htmlFor="image-input"
-                className="flex flex-col gap-2 p-5 border border-dashed  rounded-md w-full"
+                className="flex flex-col gap-2 p-5 border border-dashed hover:cursor-pointer rounded-md w-full"
               >
                 <ImageUpIcon className="text-neutral-600 w-7 h-7" />
                 <div className="text-xs sm:text-sm text-neutral-600 flex gap-5 justify-between items-center">

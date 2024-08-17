@@ -16,8 +16,6 @@ export default function UploadImage({
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-
-  console.log(placeholderId);
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
       setImage(e.target.files[0]);
@@ -50,9 +48,11 @@ export default function UploadImage({
         },
       );
       const data = await response.json();
+      console.log(data);
       if (!response.ok) {
         alert("Error while uplaoding image");
       }
+      alert("Image uploaded");
       setIsLoading(false);
       router.refresh();
     } catch (err) {

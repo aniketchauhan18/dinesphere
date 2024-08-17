@@ -17,7 +17,7 @@ export async function PATCH(
     await connect();
     const { pathname } = req.nextUrl;
     const segments = pathname.split("/");
-    const id = segments[segments.length - 1]; // restaurant id extraction
+    const id = segments[segments.length - 2]; // restaurant id extraction
 
     const body = await req.json();
     // validating user request

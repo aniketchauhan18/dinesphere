@@ -120,3 +120,14 @@ export const createRestaurantSchema = z.object({
   cuisine: z.array(z.string()).optional(),
 });
 export type RestaurantSchema = z.infer<typeof createRestaurantSchema>;
+
+export interface MenuImageProps {
+  _id: string;
+  publicId: string;
+  url: string;
+  menuId: string;
+  height: number;
+  width: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
