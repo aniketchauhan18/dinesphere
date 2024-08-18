@@ -7,10 +7,10 @@ export async function POST(
   res: NextResponse,
 ): Promise<Response> {
   try {
+    await connect();
+
     const { userId, paymentId, paymentOrderId, paymentSignature } =
       await req.json();
-
-    await connect();
 
     // creating payment document in the databasee
 

@@ -6,7 +6,6 @@ import { Label } from "../label";
 import { LoaderCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import UploadImage from "@/components/UploadImage";
 
 export default function CreateForm({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);

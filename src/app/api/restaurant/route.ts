@@ -16,6 +16,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     // websiteUrl: formData.get("websiteUrl"),
     // description: formData.get("description"),
 
+    await connect();
     const reqBody = await req.json();
 
     // validating the input
@@ -31,8 +32,6 @@ export async function POST(req: NextRequest): Promise<Response> {
         },
       );
     }
-
-    await connect();
 
     const restaurant = await Restaurant.create(data);
     return NextResponse.json(

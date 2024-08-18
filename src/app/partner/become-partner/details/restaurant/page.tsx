@@ -1,11 +1,11 @@
-import { User } from "@/components/ui/orders/checkout-button";
+import { UserProps } from "@/components/ui/orders/checkout-button";
 import CreateForm from "@/components/ui/restaurants/create-form";
 import { fetchUserByClerkId } from "@/lib/data";
 import { auth } from "@clerk/nextjs/server";
 
 export default async function RestaurantDetails() {
   const { userId } = auth();
-  const user: User = await fetchUserByClerkId(userId as string);
+  const user: UserProps = await fetchUserByClerkId(userId as string);
 
   return (
     <main className="pb-24 lg:pt-24 p-4">

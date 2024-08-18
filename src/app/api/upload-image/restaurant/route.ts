@@ -2,9 +2,12 @@ import { ImageRestaurant } from "@/lib/models/image.model";
 import { UploadImage } from "@/lib/upload-image";
 import { NextRequest, NextResponse } from "next/server";
 import { CloudinaryResponse } from "@/lib/definition";
+import { connect } from "@/lib/db";
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
+    await connect();
+
     const formData = await req.formData();
     const image = formData.get("image") as unknown as File;
     // console.log(image)

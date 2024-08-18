@@ -3,6 +3,7 @@ import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 const isProctectedRoutes = createRouteMatcher([
   "/restaurants/(.*)",
   "/user/(.*)",
+  "/partner/become-partner/(.*)",
   "/user",
 ]);
 

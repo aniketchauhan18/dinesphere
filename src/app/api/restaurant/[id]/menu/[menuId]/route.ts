@@ -1,12 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
 import { MenuProps } from "@/lib/definition";
 import Menu from "@/lib/models/menu.model";
+import { connect } from "@/lib/db";
 
 export async function PATCH(
   req: NextRequest,
   { params }: { params: { id: string; menuId: string } },
 ): Promise<Response> {
   try {
+    await connect();
     const { menuId } = params;
     const { name, description, price } = await req.json();
 

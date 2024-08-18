@@ -1,7 +1,8 @@
 "use client";
+import { useUser } from "@/app/hooks/UserContext";
 import { Button } from "../button";
 import { useRouter } from "next/navigation";
-export interface User {
+export interface UserProps {
   firstName: string;
   lastName: string;
   email: string;
@@ -15,7 +16,6 @@ export interface User {
 }
 
 export interface CheckOutOrderProps {
-  user: User;
   restaurantId: string;
   totalPrice: string;
   status: string;
@@ -64,7 +64,6 @@ declare global {
 // const initialUserState: User | null = null;
 
 export default function CheckoutButton({
-  user,
   restaurantId,
   totalPrice,
   status,
@@ -72,6 +71,7 @@ export default function CheckoutButton({
 }: CheckOutOrderProps) {
   // userId, restaurantId, totalPrice, status, orderItems
   const router = useRouter();
+  const user: UserProps = useUser() as UserProps;
 
   const handleAddOrder = async (totalPrice: number | string) => {
     try {

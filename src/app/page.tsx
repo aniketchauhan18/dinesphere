@@ -1,22 +1,9 @@
 import Navbar from "../components/Navbar";
 import { Button } from "../components/ui/button";
-import {
-  SearchIcon,
-  SettingsIcon,
-  StarIcon,
-  PizzaIcon,
-  FishIcon,
-  TurtleIcon,
-  SaladIcon,
-  BeanIcon,
-  SandwichIcon,
-  UserCheck2Icon,
-  Utensils,
-  Tag,
-  Truck,
-} from "lucide-react";
+import { Separator } from "@/components/ui/separator";
+import { UserCheck2Icon, Utensils, Tag, Truck } from "lucide-react";
 import Link from "next/link";
-import { cedarvilleCursive } from "@/components/fonts";
+import { montserrat } from "@/components/fonts";
 import Image from "next/image";
 
 export default function Home() {
@@ -61,16 +48,18 @@ export default function Home() {
       <Navbar />
       <div className="grid justify-center lg:pt-24 p-5">
         <div className="text-center">
-          <div className="flex flex-col justify-center items-center font-bold text-orange-600 text-center px-4 py-6">
-            <p className="text-xl sm:text-xl lg:text-3xl">
+          <div
+            className={`flex flex-col justify-center items-center font-bold text-orange-600 text-center px-4 py-6 ${montserrat.className}`}
+          >
+            <p className="text-3xl  lg:text-4xl">
               Empowering restaurants to{" "}
-              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-b from-red-500  to-yellow-500 bg-clip-text text-transparent animate-gradient">
                 serve
               </span>
             </p>
-            <p className="hidden sm:block 3xl sm:text-xl lg:text-3xl">
+            <p className="text-3xl lg:text-4xl">
               and users to{" "}
-              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient">
                 indulge
               </span>
               , all in{" "}
@@ -93,20 +82,20 @@ export default function Home() {
           </Link>
         </div>
       </div>
-      <div className="bg-background py-12">
+      <div className="bg-background py-6">
         <div className="container mx-auto px-6 md:px-10">
           <div className="flex flex-col items-center space-y-8">
-            <div className="space-y-4 text-center">
-              <h2 className="text-3xl font-bold lg:text-4xl">
+            {/* <div className="space-y-1 text-center">
+              <h2 className="text-3xl font-bold lg:text-4xl text-orange-00">
                 Explore Cuisines
               </h2>
-              <p className="text-base text-muted-foreground">
+              <p className="text-xs sm:text-sm text-muted-foreground">
                 Find the perfect meal for any craving.
               </p>
-            </div>
+            </div> */}
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 p-3">
               {cuisineData.map((item) => (
-                <Link href="/" key={item.id}>
+                <div key={item.id}>
                   <div className="relative overflow-hidden group">
                     <Image
                       src={item.src}
@@ -123,7 +112,7 @@ export default function Home() {
                       {item.cuisine}
                     </span>
                   </div>
-                </Link>
+                </div>
               ))}
             </div>
           </div>
@@ -144,9 +133,11 @@ export default function Home() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 pt-10">
           <div className=" rounded-lg p-6">
             <div className="flex justify-center w-full">
-              <Utensils className="w-5 h-5 text-yellow-500" />
+              <div className="p-2 bg-yellow-500 rounded-full">
+                <Utensils className="w-5 h-5 text-white" />
+              </div>
             </div>
-            <div className="pt-4 space-y-3">
+            <div className="pt-4 space-y-1">
               <h2 className="text-center font-bold text-xl text-red-600">
                 Quick & Easy Ordering
               </h2>
@@ -156,11 +147,13 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className=" rounded-lg p-6 ">
+          <div className="p-6 sm:border-l border-t sm:border-t-0">
             <div className="flex justify-center w-full">
-              <Tag className="w-5 h-5 text-green-500" />
+              <div className="p-2 bg-green-500 rounded-full">
+                <Tag className="w-5 h-5 text-white" />
+              </div>
             </div>
-            <div className="pt-4 space-y-3">
+            <div className="pt-4 space-y-1">
               <h2 className="text-center font-bold text-xl text-red-600">
                 Exclusive Deals & Discounts
               </h2>
@@ -170,11 +163,13 @@ export default function Home() {
               </p>
             </div>
           </div>
-          <div className="rounded-lg p-6 ">
-            <div className="flex justify-center w-full">
-              <Truck className="w-5 h-5 text-blue-500" />
+          <div className="p-6 lg:border-l border-t sm:border-t-0">
+            <div className="flex justify-center w-full ">
+              <div className="p-2 bg-blue-500 rounded-full">
+                <Truck className="w-5 h-5 text-white" />
+              </div>
             </div>
-            <div className="pt-4 space-y-3">
+            <div className="pt-4 space-y-1">
               <h2 className="text-center font-bold text-xl text-red-600">
                 Fast & Reliable Delivery
               </h2>
@@ -188,7 +183,7 @@ export default function Home() {
       </div>
       <div className="grid py-10 px-5">
         <div className="text-center">
-          <h1 className="flex justify-center text-xl sm:text-3xl lg:text-4xl items-center font-bold">
+          <h1 className="flex justify-center text-2xl lg:text-4xl items-center font-bold">
             What Our Users Say
           </h1>
         </div>
@@ -199,13 +194,13 @@ export default function Home() {
                 <UserCheck2Icon className="text-3xl text-neutral-600" />
                 <div>
                   <p className="font-semibold">Aniket Chauhan</p>
-                  <p className="text-neutral-500">Food Enthusiast</p>
+                  <p className="text-neutral-500 text-snm">Food Enthusiast</p>
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;Delicious Bites has made it so easy to discover new
-                restaurants and book reservations. I&apos;ve found some amazing
-                places I never would have known about otherwise.&quot;
+                &quot;DineSphere has made it so easy to discover new restaurants
+                and book reservations. I&apos;ve found some amazing places I
+                never would have known about otherwise.&quot;
               </p>
             </div>
           </div>
@@ -215,7 +210,7 @@ export default function Home() {
                 <UserCheck2Icon className="text-3xl text-neutral-600" />
                 <div>
                   <p className="font-semibold">Phunsuk Wangdu</p>
-                  <p className="text-neutral-500">Restaurant Owner</p>
+                  <p className="text-neutral-500 text-sm">Restaurant Owner</p>
                 </div>
               </div>
               <p className="text-neutral-700">
@@ -231,7 +226,7 @@ export default function Home() {
                 <UserCheck2Icon className="text-3xl text-neutral-600" />
                 <div>
                   <p className="font-semibold">Choocha Fukrey</p>
-                  <p className="text-neutral-500">Reviewer</p>
+                  <p className="text-neutral-500 text-sm">Reviewer</p>
                 </div>
               </div>
               <p className="text-neutral-700">

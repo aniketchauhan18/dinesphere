@@ -1,10 +1,9 @@
 "use server";
 import { RestaurantProps } from "@/app/restaurants/page";
-import { fetchRestaurantById, fetchUserById } from "@/lib/data";
-import { TrackOrderItemProps, TrackOrderProps } from "@/lib/definition";
+import { fetchRestaurantById } from "@/lib/data";
+import { TrackOrderProps } from "@/lib/definition";
 import Link from "next/link";
 import OrderInvoice from "./order-invoice";
-import { User } from "./checkout-button";
 
 export default async function TrackCards({
   orders,
@@ -33,8 +32,7 @@ export default async function TrackCards({
 }
 
 export async function TrackCard({ order }: { order: TrackOrderProps }) {
-  const [user, restaurant]: [User, RestaurantProps] = await Promise.all([
-    fetchUserById(order.userId),
+  const [restaurant]: [RestaurantProps] = await Promise.all([
     fetchRestaurantById(order.restaurantId),
   ]);
 
@@ -70,10 +68,7 @@ export async function TrackCard({ order }: { order: TrackOrderProps }) {
             {/* <Link href={`/user/${userId}/orders/${orderId}/status`}>
               View Details
             </Link> */}
-            <OrderInvoice
-              user={user}
-              order={JSON.parse(JSON.stringify(order))}
-            />
+            <OrderInvoice order={JSON.parse(JSON.stringify(order))} />
           </p>
         </div>
       </div>

@@ -1,4 +1,5 @@
 import { ClerkProvider } from "@clerk/nextjs";
+import { UserProvider } from "./hooks/UserContext";
 import "./globals.css";
 import { inter } from "../components/fonts";
 import { Metadata } from "next";
@@ -24,7 +25,7 @@ export default function RootLayout({
           <title>DineSphere</title>
         </head>
         <body className={`${inter.className} antialiased min-h-screen`}>
-          {children}
+          <UserProvider>{children}</UserProvider>
         </body>
       </html>
     </ClerkProvider>

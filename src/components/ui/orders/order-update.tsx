@@ -54,7 +54,7 @@ export default function UpdateOrder({
     if (response.ok) {
       router.refresh();
     }
-  }, 300);
+  }, 200);
 
   const deleteOrderItem = useDebouncedCallback(async () => {
     const response = await fetch(`/api/order-item/${orderItemId}/update`, {
@@ -70,7 +70,7 @@ export default function UpdateOrder({
     if (response.ok) {
       router.refresh();
     }
-  }, 300);
+  }, 200);
 
   return (
     <div>

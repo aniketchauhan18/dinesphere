@@ -4,22 +4,18 @@ import jsPDFInvoiceTemplate, {
   OutputType,
   jsPDF,
 } from "jspdf-invoice-template";
-import { User } from "./checkout-button";
-import { OrderProps, TrackOrderProps } from "@/lib/definition";
-import { Button } from "../button";
+import { UserProps } from "./checkout-button";
+import { TrackOrderProps } from "@/lib/definition";
+import { useUser } from "@/app/hooks/UserContext";
 
 // userId, orderId
-export default function OrderInvoice({
-  user,
-  order,
-}: {
-  user: User;
-  order: TrackOrderProps;
-}) {
+export default function OrderInvoice({ order }: { order: TrackOrderProps }) {
   // const [user, order]: [User, OrderProps] = await Promise.all([
   //   fetchUserById(userId),
   //   fetchOrderById(orderId)
   // ])
+
+  const user = useUser() as UserProps;
 
   // const currentDate = new Date().getDate();
   let props = {
@@ -59,10 +55,10 @@ export default function OrderInvoice({
     },
     contact: {
       label: "Invoice issued for:",
-      name: `${user.firstName} ${user.lastName}`,
-      address: `${user.address || "Address not provided by user"}`,
+      name: `${user?.firstName} ${user?.lastName}`,
+      address: `${user?.address || "Address not provided by user"}`,
       // phone: "(+355) 069 22 22 222", // will add this later
-      email: `${user.email}`,
+      email: `${user?.email}`,
     },
     invoice: {
       label: "Invoice #: ",
@@ -125,11 +121,11 @@ export default function OrderInvoice({
     return jsPDFInvoiceTemplate(props); // Returns number of pages created
   };
   return (
-    <div
+    <button
       className="text-xs cursor-pointer text-neutral-800 font-medium hover:border-b duration-75 hover:border-neutral-800"
       onClick={createInvoice}
     >
       Download invoice
-    </div>
+    </button>
   );
 }

@@ -3,9 +3,8 @@
 import { MenuImageProps, MenuProps } from "@/lib/definition";
 import Image from "next/image";
 import { auth } from "@clerk/nextjs/server";
-import { fetchMenuImagesByMenuId, fetchUserByClerkId } from "@/lib/data";
+import { fetchMenuImagesByMenuId } from "@/lib/data";
 import AddOrderItemButton from "./add-order-button";
-import { User } from "../orders/checkout-button";
 
 // import { Button } from "../button";
 export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
@@ -35,8 +34,7 @@ export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
 
 async function MenuCard({ menu }: { menu: MenuProps }) {
   const { userId } = auth();
-  const [user, menuImage]: [User, MenuImageProps] = await Promise.all([
-    fetchUserByClerkId(userId as string),
+  const [menuImage]: [MenuImageProps] = await Promise.all([
     fetchMenuImagesByMenuId(menu._id.toString()),
   ]);
 
@@ -81,7 +79,6 @@ async function MenuCard({ menu }: { menu: MenuProps }) {
           <AddOrderItemButton
             quantity={1}
             price={menu.price}
-            userId={user._id.toString()}
             menuId={menu._id.toString()}
           />
         </div>

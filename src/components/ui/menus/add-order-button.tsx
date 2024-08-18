@@ -1,19 +1,20 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
+import { UserProps } from "../orders/checkout-button";
+import { useUser } from "@/app/hooks/UserContext";
 // change any types here
 export default function AddOrderItemButton({
-  userId,
   price,
   quantity = 1,
   menuId,
 }: {
-  userId: any;
   price: any;
   quantity: number;
   menuId: any;
 }) {
   const router = useRouter();
+  const user = useUser() as UserProps;
 
   const handleAddOrderItem = useDebouncedCallback(async () => {
     try {
@@ -23,7 +24,7 @@ export default function AddOrderItemButton({
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId,
+          userId: user._id,
           price,
           quantity: 1, // 1 by default
           menuId,

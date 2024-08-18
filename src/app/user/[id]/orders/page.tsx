@@ -2,7 +2,9 @@ import { fetchUserOrderMenuItems, fetchUserById } from "@/lib/data";
 import { MenuOrderItemProps } from "@/lib/definition";
 import { OrdersCards } from "@/components/ui/orders/orders-cards";
 import { Button } from "@/components/ui/button";
-import CheckoutButton, { User } from "@/components/ui/orders/checkout-button";
+import CheckoutButton, {
+  UserProps,
+} from "@/components/ui/orders/checkout-button";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
@@ -11,10 +13,11 @@ import { totalAmountWithGST } from "@/lib/utils/gstCalculator";
 export const revalidate = 0;
 
 export default async function Orders({ params }: { params: { id: string } }) {
-  const [user, menuOrders]: [User, MenuOrderItemProps[]] = await Promise.all([
-    fetchUserById(params.id),
-    fetchUserOrderMenuItems(params.id),
-  ]);
+  const [user, menuOrders]: [UserProps, MenuOrderItemProps[]] =
+    await Promise.all([
+      fetchUserById(params.id),
+      fetchUserOrderMenuItems(params.id),
+    ]);
 
   if (!user || !menuOrders) {
     notFound();
@@ -66,7 +69,6 @@ export default async function Orders({ params }: { params: { id: string } }) {
               </div>
               <div className="flex justify-center w-full pt-2">
                 <CheckoutButton
-                  user={JSON.parse(JSON.stringify(user))}
                   restaurantId={menuOrders[0].menuId.restaurantId.toString()}
                   totalPrice={totalWithGST.toString()}
                   status="pending"

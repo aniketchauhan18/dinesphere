@@ -9,7 +9,6 @@ export async function GET(
   try {
     await connect();
     const { id } = params;
-    console.log(id);
     const user = await User.findById(id);
     if (!user) {
       return NextResponse.json({ message: "User not found" });
@@ -19,6 +18,9 @@ export async function GET(
     });
   } catch (err) {
     console.log(err);
-    return NextResponse.json({ message: "Error fetching user details" });
+    return NextResponse.json(
+      { message: "Error fetching user details" },
+      { status: 500 },
+    );
   }
 }

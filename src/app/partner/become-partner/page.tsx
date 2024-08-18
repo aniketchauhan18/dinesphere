@@ -88,7 +88,7 @@ export default async function PartnerPage() {
         </div>
         <div className="flex justify-center ">
           <div className="flex justify-center items-center  gap-4 w-full">
-            <Link href="/partner/become-partner/details/restaurant">
+            <Link href="/partner/become-partner/details/partnership">
               <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
                 Partner with us
               </Button>
