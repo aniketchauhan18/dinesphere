@@ -9,6 +9,8 @@ import { RestaurantImageResponse } from "@/lib/definition";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import UploadMenuCards from "@/components/ui/menus/upload-menu-card";
+import { redirect } from "next/navigation";
+import { checkRole } from "@/lib/utils/role";
 
 export default async function RestaurantDetailsPage({
   params,
@@ -22,6 +24,10 @@ export default async function RestaurantDetailsPage({
     fetchRestaurantById(params.id),
     fetchRestaurantImagesById(params.id),
   ]);
+
+  if (!checkRole("admin")) {
+    redirect("/");
+  }
 
   const imageUrl = restaurantImages[0]?.url ?? undefined; // Use  nullish coalescing
 

@@ -2,6 +2,7 @@ import z from "zod";
 import { NextRequest, NextResponse } from "next/server";
 import { connect } from "../../../../lib/db";
 import User from "@/lib/models/user.model";
+import { clerkClient } from "@clerk/nextjs/server";
 
 const userValidationSchema = z.object({
   clerkId: z.string({ required_error: "Clerk ID is required" }),
@@ -51,9 +52,15 @@ export async function POST(req: NextRequest): Promise<Response> {
       lastName,
       email,
     };
-    console.log(newUser);
 
     const userToReturn = await User.create(newUser);
+
+    // default role to user in clerk metaData `
+    await clerkClient.users.updateUserMetadata(clerkId, {
+      publicMetadata: {
+        role: "user",
+      },
+    });
     return NextResponse.json(
       { message: "User created successfully", user: userToReturn },
       { status: 201 },

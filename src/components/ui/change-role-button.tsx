@@ -16,6 +16,7 @@ export default function ChangeRoleButton() {
       },
       body: JSON.stringify({
         role: "admin",
+        clerkId: user.clerkId,
       }),
     });
 

@@ -1,5 +1,6 @@
 import { connect } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
+import { clerkClient } from "@clerk/nextjs/server";
 import User from "@/lib/models/user.model";
 
 export async function PATCH(
@@ -11,7 +12,7 @@ export async function PATCH(
 
     const { id } = params;
 
-    let { role } = await req.json();
+    let { role, clerkId } = await req.json();
     if (!role) {
       return NextResponse.json(
         {
@@ -27,6 +28,13 @@ export async function PATCH(
       { role: role },
       { new: true },
     );
+
+    await clerkClient.users.updateUserMetadata(clerkId, {
+      publicMetadata: {
+        role,
+      },
+    });
+
     return NextResponse.json({
       message: "User role changed successfully",
       data: user,
