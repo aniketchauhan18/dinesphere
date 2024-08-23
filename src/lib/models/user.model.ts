@@ -22,6 +22,9 @@ const UserSchema = new Schema(
     imageUrl: {
       type: String,
     },
+    address: {
+      type: String,
+    },
     role: {
       type: String,
       enum: ["admin", "user"],

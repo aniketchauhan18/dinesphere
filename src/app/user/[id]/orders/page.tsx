@@ -9,6 +9,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { totalAmountWithGST } from "@/lib/utils/gstCalculator";
+import BackButton from "@/components/ui/back-button";
 
 export const revalidate = 0;
 
@@ -40,8 +41,9 @@ export default async function Orders({ params }: { params: { id: string } }) {
           src="https://checkout.razorpay.com/v1/checkout.js"
         />
       </>
-      <section className="flex justify-start">
+      <section className="flex justify-between items-center">
         <h1 className="text-xl font-bold">Your Orders</h1>
+        <BackButton />
       </section>
       <div className="pt-3 border-b" />
       {menuOrders.length > 0 ? (
@@ -50,9 +52,11 @@ export default async function Orders({ params }: { params: { id: string } }) {
             <OrdersCards orders={JSON.parse(JSON.stringify(menuOrders))} />
           </section>
           <section className="pt-3">
-            <div className="p-3 border rounded-lg">
-              <p className="font-bold text-lg">CheckOut</p>
-              <div className="flex flex-col gap-3">
+            <div className="border rounded-lg">
+              <p className="font-bold text-lg p-3 bg-neutral-200/80 rounded-t-lg">
+                CheckOut
+              </p>
+              <div className="flex flex-col gap-3 p-3 ">
                 <div className="flex justify-between pt-3">
                   <p className="font-semibold">Subtotal</p>
                   <p>₹ {totalAmount.toFixed(2)}</p>
@@ -67,7 +71,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
                   <p>₹ {totalWithGST.toFixed(2)}</p>
                 </div>
               </div>
-              <div className="flex justify-center w-full pt-2">
+              <div className="flex justify-center w-full pt-2 p-2">
                 <CheckoutButton
                   restaurantId={menuOrders[0].menuId.restaurantId.toString()}
                   totalPrice={totalWithGST.toString()}

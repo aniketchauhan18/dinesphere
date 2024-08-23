@@ -1,7 +1,10 @@
+"use client";
 import { HomeIcon, FaceIcon } from "@radix-ui/react-icons";
 import { Metadata } from "next";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { UndoIcon } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Not Found - DineSphere",
@@ -10,6 +13,8 @@ export const metadata: Metadata = {
 };
 
 export default function NotFound() {
+  const router = useRouter();
+
   return (
     <div className="flex min-h-[100dvh] flex-col items-center justify-center bg-background px-4 py-12 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-md text-center">
@@ -21,11 +26,20 @@ export default function NotFound() {
           The page you&apos;re looking for doesn&apos;t exist or has been moved.
           Let&apos;s get you back on track.
         </p>
-        <div className="mt-6">
+        <div className="mt-6 flex justify-center gap-3">
           <Link href="/" className="">
             <Button className="gap-3 bg-orange-500 hover:bg-orange-400">
               <HomeIcon />
               Go to Home
+            </Button>
+          </Link>
+          <Link href="/" className="">
+            <Button
+              className="gap-3 bg-orange-500 hover:bg-orange-400"
+              onClick={() => router.back()}
+            >
+              <UndoIcon className="w-4 h-4" />
+              Back
             </Button>
           </Link>
         </div>

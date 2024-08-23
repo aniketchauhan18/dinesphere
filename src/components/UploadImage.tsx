@@ -9,9 +9,11 @@ import { useRouter } from "next/navigation";
 export default function UploadImage({
   placeholderId,
   placeholder,
+  method = "POST",
 }: {
   placeholderId: string;
   placeholder: string;
+  method: string;
 }) {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -29,8 +31,9 @@ export default function UploadImage({
     }
     setIsLoading(true);
     try {
-      console.log(image);
+      // console.log(image);
       if (!image) {
+        setIsLoading(false);
         return;
       }
       const formData = new FormData();
@@ -43,7 +46,7 @@ export default function UploadImage({
       const response = await fetch(
         `/api/upload-image/${placeholder.toLowerCase()}`,
         {
-          method: "POST",
+          method: method,
           body: formData,
         },
       );
@@ -70,13 +73,13 @@ export default function UploadImage({
           >
             <Label
               htmlFor="image-input"
-              className="flex flex-col gap-2 p-5 border border-dashed  rounded-md w-full"
+              className="flex flex-col gap-2 p-5 border border-dashed text-sm rounded-md w-full"
             >
               <ImageUpIcon className="text-neutral-500 w-7 h-7" />
-              <div className="text-xs sm:text-sm text-neutral-500 flex gap-5 justify-between items-center">
+              <div className="text-xs text-neutral-500 flex gap-5 justify-between items-center">
                 <p>{image ? image.name : "Drag and drop image here"}</p>
                 <p className="text-neutral-500 sm:hover:border-b sm:hover:border-neutral-500 sm:duration-75">
-                  {image ? "Choose another file" : "Select File"}
+                  {image ? "Another Image" : "Select File"}
                 </p>
               </div>
             </Label>

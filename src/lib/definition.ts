@@ -9,6 +9,7 @@ export interface UserDetails {
   lastName: string;
   imageUrl: string | null;
   number?: string;
+  address?: string;
   role: ["user", "admin"];
   __v: number | null;
 }

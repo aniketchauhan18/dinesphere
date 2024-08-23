@@ -24,3 +24,51 @@ export async function GET(
     );
   }
 }
+
+export async function PATCH(
+  req: NextRequest,
+  { params }: { params: { id: string } },
+): Promise<Response> {
+  try {
+    await connect();
+    const body = await req.json();
+    if (!body) {
+      return NextResponse.json(
+        {
+          message: "Ivalid req body",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
+
+    const user = await User.findByIdAndUpdate(params.id, body, { new: true });
+    if (!user) {
+      return NextResponse.json(
+        {
+          message:
+            "Invalid user or user is not registered | not found in database",
+        },
+        {
+          status: 404,
+        },
+      );
+    }
+
+    return NextResponse.json({
+      message: "User updated successfully",
+      data: user,
+    });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json(
+      {
+        message: "Error updating user information",
+      },
+      {
+        status: 500,
+      },
+    );
+  }
+}

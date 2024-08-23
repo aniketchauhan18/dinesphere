@@ -74,6 +74,11 @@ export default function CheckoutButton({
   const user: UserProps = useUser() as UserProps;
 
   const handleAddOrder = async (totalPrice: number | string) => {
+    if (user.address?.trim() === "") {
+      alert("Please add address");
+      return;
+    }
+
     try {
       const orderResponse = await fetch(`/api/payment/create-order`, {
         method: "POST",

@@ -5,23 +5,16 @@ import { SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { DivideCircleIcon, LogOutIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { UserProps } from "@/components/ui/orders/checkout-button";
 
-export interface UserDetails {
-  _id: string;
-  clerkId: string;
-  email: string;
-  username: string | null;
-  firstName: string;
-  lastName: string;
-  imageUrl: string | null;
-  role: ["user", "admin"];
-  __v: number | null;
-}
-
-export default async function Profile({ params }: { params: { id: string } }) {
+export default async function MoreDetails({
+  params,
+}: {
+  params: { id: string };
+}) {
   const { id } = params;
   // const user: UserDetails = await fetchUserById(id);
-  const [user, order]: [user: UserDetails, order: OrderProps[]] =
+  const [user, order]: [user: UserProps, order: OrderProps[]] =
     await Promise.all([fetchUserById(id), fetchOrderByUserId(id)]);
 
   return (
@@ -39,18 +32,21 @@ export default async function Profile({ params }: { params: { id: string } }) {
 
         <div className="space-y-8">
           {[
-            { href: `/user/${user._id}/orders`, icon: "📦", text: "Orders" },
-            { href: "/restaurants", icon: "🍽️", text: "Restaurants" },
+            { href: `/user/${user._id}/orders`, text: "Orders" },
+            { href: "/restaurants", text: "Restaurants" },
             {
               href: `/user/${user._id}/orders/track`,
-              icon: "🚚",
               text: "Track Orders",
+            },
+            {
+              href: `/user/${user._id}/profile`,
+              text: "Profile",
             },
           ].map((link, index) => (
             <Link key={link.href} href={link.href} className="group block">
               <div className="relative overflow-hidden rounded-lg p-4 group">
                 <span className="block text-3xl font-semibold text-gray-700 transition-all duration-300 ease-in-out transform group-hover:translate-x-2 relative z-10">
-                  <span>{link.icon}</span>
+                  {/* <span>{link.icon}</span> */}
                   <span className="inline-block transition-all duration-300 ease-in-out group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-br from-yellow-400 via-orange-500 to-orange-600">
                     {link.text}
                   </span>

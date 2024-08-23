@@ -4,7 +4,13 @@ import {
   SignOutButton,
   SignInButton,
 } from "@clerk/nextjs";
-import { HomeIcon, Search, ShoppingBag, UserIcon } from "lucide-react";
+import {
+  HomeIcon,
+  Search,
+  ShoppingBag,
+  UserIcon,
+  MenuIcon,
+} from "lucide-react";
 import { inter } from "./fonts";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
@@ -89,18 +95,8 @@ export default async function Navbar() {
           </Link>
           <SignedIn>
             <Link href={`/user/${user?._id}`} className={linkClasses}>
-              {user ? (
-                <Image
-                  src={user?.imageUrl}
-                  alt="profile photo"
-                  height={25}
-                  width={25}
-                  className="rounded-full"
-                />
-              ) : (
-                <UserIcon className="w-5 h-5" />
-              )}
-              <p className="text-xs mt-1">Profile</p>
+              <MenuIcon className="w-5 h-5" />
+              <p className="text-xs mt-1">More</p>
             </Link>
           </SignedIn>
           <SignedOut>
