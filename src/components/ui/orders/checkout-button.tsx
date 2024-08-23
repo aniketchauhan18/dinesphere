@@ -74,8 +74,9 @@ export default function CheckoutButton({
   const user: UserProps = useUser() as UserProps;
 
   const handleAddOrder = async (totalPrice: number | string) => {
-    if (user.address?.trim() === "") {
+    if (!user.address || user.address.trim() === "") {
       alert("Please add address");
+      router.push(`/user/${user?._id}/profile`);
       return;
     }
 

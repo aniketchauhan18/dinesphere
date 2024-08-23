@@ -13,7 +13,7 @@ export default function UploadImage({
 }: {
   placeholderId: string;
   placeholder: string;
-  method: string;
+  method?: string;
 }) {
   const [image, setImage] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
