@@ -370,3 +370,19 @@ export async function updateOrderStatus(orderId: string, status: string) {
     throw new Error("Error upading order status");
   }
 }
+
+export async function fetchRestaurantsByUserId(userId: string) {
+  try {
+    await connect();
+    const restaurants = await Restaurant.find({
+      userId,
+    });
+    return {
+      restaurants,
+      length: restaurants.length,
+    };
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error fetching user restaurants count");
+  }
+}

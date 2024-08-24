@@ -8,8 +8,15 @@ import {
   BarChart2Icon,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+// import { auth } from "@clerk/nextjs/server"
+// import { fetchRestaurantsCountByUserId, fetchUserByClerkId } from "@/lib/data";
+// import { UserProps } from "@/components/ui/orders/checkout-button";
 
 export default async function Patnership() {
+  // const { userId } = auth();
+  // const user = await fetchUserByClerkId(userId as string) as UserProps;
+  // const userOwnedRestaurantsCount = await fetchRestaurantsCountByUserId(user?._id);
+
   return (
     <main className="lg:pt-24 pb-24">
       <div className="flex justify-center items-center min-h-[85dvh]">

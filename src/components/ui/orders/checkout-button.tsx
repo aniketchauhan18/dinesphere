@@ -12,7 +12,7 @@ export interface UserProps {
   clerkId: string;
   username: string;
   address?: string;
-  role: ["admin", "user"];
+  role: "admin" | "user";
 }
 
 export interface CheckOutOrderProps {

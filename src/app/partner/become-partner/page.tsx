@@ -1,4 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { UserProps } from "@/components/ui/orders/checkout-button";
+import PartnerButton from "@/components/ui/partner-button";
+import { fetchRestaurantsByUserId, fetchUserByClerkId } from "@/lib/data";
+import { UserRestaurantsProps } from "@/lib/definition";
+import { auth } from "@clerk/nextjs/server";
 import {
   CalendarCheckIcon,
   IndianRupeeIcon,
@@ -7,7 +12,6 @@ import {
   SettingsIcon,
   StarIcon,
 } from "lucide-react";
-import Link from "next/link";
 
 export interface PartnerCardContent {
   id: number;
@@ -60,6 +64,13 @@ export default async function PartnerPage() {
     },
   ];
 
+  const { userId } = auth();
+  const user = (await fetchUserByClerkId(userId as string)) as UserProps;
+  const resData: UserRestaurantsProps = await fetchRestaurantsByUserId(
+    user?._id,
+  );
+  const { length } = resData;
+
   return (
     <main className="pb-24 lg:pt-24 p-3">
       <section>
@@ -88,11 +99,7 @@ export default async function PartnerPage() {
         </div>
         <div className="flex justify-center ">
           <div className="flex justify-center items-center  gap-4 w-full">
-            <Link href="/partner/become-partner/details/partnership">
-              <Button className="bg-red-500 hover:bg-red-500 text-xs sm:text-sm">
-                Partner with us
-              </Button>
-            </Link>
+            <PartnerButton numberOfRestaurants={length} />
             <Button variant="outline" className="text-xs sm:text-sm">
               Learn More
             </Button>

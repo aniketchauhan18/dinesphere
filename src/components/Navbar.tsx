@@ -90,7 +90,7 @@ export default async function Navbar() {
             <ShoppingBag className="w-5 h-5" />
             <p className="text-xs mt-1">Orders</p>
             {orderItems.length >= 1 && (
-              <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 bg-opacity-90 rounded-full"></span>
+              <span className="absolute top-0 right-2 w-2 h-2 bg-red-500 bg-opacity-90 rounded-full"></span>
             )}
           </Link>
           <SignedIn>

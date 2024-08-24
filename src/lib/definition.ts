@@ -1,3 +1,4 @@
+import { RestaurantProps } from "@/app/restaurants/page";
 import z from "zod";
 
 export interface UserDetails {
@@ -131,4 +132,9 @@ export interface MenuImageProps {
   width: number;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface UserRestaurantsProps {
+  restaurants: RestaurantProps[];
+  length: number;
 }

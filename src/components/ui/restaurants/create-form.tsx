@@ -6,6 +6,7 @@ import { Label } from "../label";
 import { LoaderCircleIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { RestaurantProps } from "@/app/restaurants/page";
 
 export default function CreateForm({ userId }: { userId: string }) {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -40,13 +41,13 @@ export default function CreateForm({ userId }: { userId: string }) {
       body: JSON.stringify(formObj),
     });
 
-    const data = await response.json();
+    const { data }: { data: RestaurantProps } = await response.json();
     if (!response.ok) {
       alert("Error while creating restaurnat please try again !!");
     }
     setIsLoading(false);
     // redirect to dashboard
-    router.push(`/restaurant/${data._id}`);
+    router.push(`/dashboard/${data.userId}`);
   };
 
   return (

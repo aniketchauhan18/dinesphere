@@ -8,6 +8,11 @@ export default function ChangeRoleButton() {
   const user = useUser() as UserProps;
   const router = useRouter();
 
+  if (user.role === "admin") {
+    router.push("/partner/become-partner/details/restaurant");
+    return;
+  }
+
   const handleClick = async () => {
     const response = await fetch(`/api/users/${user._id}/change-role`, {
       method: "PATCH",

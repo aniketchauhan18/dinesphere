@@ -1,12 +1,16 @@
 import Navbar from "../components/Navbar";
 import { Button } from "../components/ui/button";
-import { Separator } from "@/components/ui/separator";
 import { UserCheck2Icon, Utensils, Tag, Truck } from "lucide-react";
 import Link from "next/link";
 import { montserrat } from "@/components/fonts";
 import Image from "next/image";
+import BecomePartnerButton from "@/components/ui/become-partner-button";
+import { fetchRestaurantsByUserId, fetchUserByClerkId } from "@/lib/data";
+import { UserProps } from "@/components/ui/orders/checkout-button";
+import { auth } from "@clerk/nextjs/server";
+import { UserRestaurantsProps } from "@/lib/definition";
 
-export default function Home() {
+export default async function Home() {
   const cuisineIconClasses: string =
     "flex flex-col items-center gap-2 p-4 rounded-lg hover:bg-orange-500 hover:text-white ease-in-out duration-300";
 
@@ -43,6 +47,12 @@ export default function Home() {
     },
   ];
 
+  const { userId } = auth();
+
+  const user = (await fetchUserByClerkId(userId as string)) as UserProps;
+  const data: UserRestaurantsProps = await fetchRestaurantsByUserId(user._id);
+  const { length } = data;
+
   return (
     <main className="min-h-screen pb-12">
       <Navbar />
@@ -75,11 +85,7 @@ export default function Home() {
               Search Restaurants
             </Button>
           </Link>
-          <Link href={"/partner/become-partner"}>
-            <Button className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full text-xs">
-              Become Partner
-            </Button>
-          </Link>
+          <BecomePartnerButton userRestaurantsCount={length} />
         </div>
       </div>
       <div className="bg-background py-6">
