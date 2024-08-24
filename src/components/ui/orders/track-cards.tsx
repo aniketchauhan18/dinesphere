@@ -4,6 +4,7 @@ import { fetchRestaurantById } from "@/lib/data";
 import { TrackOrderProps } from "@/lib/definition";
 import Link from "next/link";
 import OrderInvoice from "./order-invoice";
+import clsx from "clsx";
 
 export default async function TrackCards({
   orders,
@@ -35,13 +36,22 @@ export async function TrackCard({ order }: { order: TrackOrderProps }) {
   const [restaurant]: [RestaurantProps] = await Promise.all([
     fetchRestaurantById(order.restaurantId),
   ]);
-
   return (
     <div className="mt-10 border p-5 rounded-lg shadow-sm">
       <div className="flex justify-between">
         <p className="font-semibold text-xl">{restaurant.name.toString()}</p>
         <div className="flex justify-center items-center">
-          <p className="px-2 py-1 rounded-md text-xs font-medium bg-red-500 text-white">
+          <p
+            className={clsx(
+              "px-2 py-1 rounded-md text-xs font-medium text-white",
+              // change order stautus as per needs here in future code
+              order.status == "pending" && "bg-amber-500",
+              order.status == "accepted" && "bg-blue-500",
+              order.status == "processing" && "bg-yellow-500",
+              order.status == "reject" && "bg-red-500",
+              order.status == "delivered" && "bg-green-500",
+            )}
+          >
             {order.status}
           </p>
         </div>

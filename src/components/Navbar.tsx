@@ -4,17 +4,10 @@ import {
   SignOutButton,
   SignInButton,
 } from "@clerk/nextjs";
-import {
-  HomeIcon,
-  Search,
-  ShoppingBag,
-  UserIcon,
-  MenuIcon,
-} from "lucide-react";
+import { HomeIcon, Search, ShoppingBag, MenuIcon } from "lucide-react";
 import { inter } from "./fonts";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
-import Image from "next/image";
 import { fetchUserByClerkId, fetchUserOrderMenuItems } from "@/lib/data";
 
 export default async function Navbar() {
@@ -49,13 +42,13 @@ export default async function Navbar() {
                   className="text-neutral-700 text-sm"
                   prefetch
                 >
-                  My Orders
+                  Orders
                 </Link>
                 <Link
-                  href={`/user/${user?._id}/profile`}
+                  href={`/user/${user?._id}`}
                   className="text-neutral-700 text-sm"
                 >
-                  Profile
+                  More
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
                   <SignOutButton />
@@ -68,7 +61,7 @@ export default async function Navbar() {
                   Restaurants
                 </Link>
                 <Link href="/restaurants" className="text-neutral-700 text-sm ">
-                  My Orders
+                  Orders
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
                   <SignInButton />
@@ -95,7 +88,7 @@ export default async function Navbar() {
             className={`${linkClasses} relative inline-block`}
           >
             <ShoppingBag className="w-5 h-5" />
-            <p className="text-xs mt-1">Bag</p>
+            <p className="text-xs mt-1">Orders</p>
             {orderItems.length >= 1 && (
               <span className="absolute top-0 right-0 w-2 h-2 bg-red-500 bg-opacity-90 rounded-full"></span>
             )}
