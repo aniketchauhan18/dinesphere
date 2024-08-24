@@ -214,9 +214,9 @@ export default function Home() {
                 </div>
               </div>
               <p className="text-neutral-700">
-                &quot;As a restaurant owner, Delicious Bites has been a
-                game-changer. The platform makes it easy to manage reservations,
-                reach new customers, and grow my business.&quot;
+                &quot;As a restaurant owner, DineSphere has been a game-changer.
+                The platform makes it easy to manage reservations, reach new
+                customers, and grow my business.&quot;
               </p>
             </div>
           </div>

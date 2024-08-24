@@ -30,7 +30,7 @@ export default async function Navbar() {
   return (
     <nav className={`${inter.className}`}>
       <header
-        className={` fixed inset-x-0   min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
+        className={`fixed inset-x-0 min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
       >
         <div
           className={`flex justify-between bg-white/60 items-center gap-5 w-full border rounded-full p-3`}
@@ -41,14 +41,21 @@ export default async function Navbar() {
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>
               <div className="flex gap-3 items-center">
-                <Link href="/restaurants" className="text-neutral-700 text-sm ">
+                <Link href="/restaurants" className="text-neutral-700 text-sm">
                   Restaurants
                 </Link>
                 <Link
                   href={`/user/${user?._id}/orders`}
-                  className="text-neutral-700 text-sm "
+                  className="text-neutral-700 text-sm"
+                  prefetch
                 >
                   My Orders
+                </Link>
+                <Link
+                  href={`/user/${user?._id}/profile`}
+                  className="text-neutral-700 text-sm"
+                >
+                  Profile
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">
                   <SignOutButton />
@@ -101,8 +108,8 @@ export default async function Navbar() {
           </SignedIn>
           <SignedOut>
             <Link href="/sign-in" className={linkClasses}>
-              <UserIcon className="w-5 h-5" />
-              <p className="text-xs mt-1">Profile</p>
+              <MenuIcon className="w-5 h-5" />
+              <p className="text-xs mt-1">More</p>
             </Link>
           </SignedOut>
         </div>

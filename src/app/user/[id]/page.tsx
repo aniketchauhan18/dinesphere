@@ -1,9 +1,13 @@
 import { Button } from "../../../components/ui/button";
-import { fetchOrderByUserId, fetchUserById } from "@/lib/data";
+import {
+  fetchOrderByUserId,
+  fetchOrderOlderThan,
+  fetchUserById,
+} from "@/lib/data";
 import { OrderProps } from "@/lib/definition";
 import { SignOutButton } from "@clerk/nextjs";
 import Link from "next/link";
-import { DivideCircleIcon, LogOutIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import { UserProps } from "@/components/ui/orders/checkout-button";
 
@@ -14,8 +18,12 @@ export default async function MoreDetails({
 }) {
   const { id } = params;
   // const user: UserDetails = await fetchUserById(id);
-  const [user, order]: [user: UserProps, order: OrderProps[]] =
-    await Promise.all([fetchUserById(id), fetchOrderByUserId(id)]);
+  const [user, order]: [user: UserProps, order: any] = await Promise.all([
+    fetchUserById(id),
+    fetchOrderOlderThan(15),
+  ]);
+
+  console.log(order);
 
   return (
     <main className="min-h-screen p-5 bg-neutral-100 flex flex-col lg:py-20">
@@ -56,7 +64,7 @@ export default async function MoreDetails({
             </Link>
           ))}
 
-          <div className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 py-3 text-white w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700">
+          <div className="inline-flex hover:cursor-pointer items-center justify-center whitespace-nowrap rounded-md text-lg font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500 disabled:pointer-events-none disabled:opacity-50 py-3 text-white w-full bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700">
             <LogOutIcon className="w-5 h-5 mr-2" />
             <SignOutButton />
           </div>

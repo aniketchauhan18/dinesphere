@@ -61,7 +61,11 @@ export default function UploadProfileImage({ userId }: { userId: string }) {
     <form onSubmit={handleImageSubmit} className="pt-2 lg:pt-5">
       <Dialog>
         <DialogTrigger asChild>
-          <Button variant="outline" className=" h-3 py-3 shadow-none">
+          <Button
+            variant="outline"
+            className=" h-3 py-4 flex items-center shadow-none"
+          >
+            <UploadIcon className="w-4 h-4 mr-2" />
             New Image
           </Button>
         </DialogTrigger>
@@ -69,7 +73,7 @@ export default function UploadProfileImage({ userId }: { userId: string }) {
           <DialogHeader>
             <DialogTitle>New Profile Image</DialogTitle>
           </DialogHeader>
-          {/* <div>
+          {/* <div>a
           <Label
             htmlFor="image"
             className="hover:cursor-pointer text-neutral-700 bg-gray-900"

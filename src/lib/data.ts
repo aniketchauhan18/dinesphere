@@ -336,3 +336,37 @@ export async function fetchMenuImagesByMenuId(menuId: string) {
     throw new Error("Error fetching menu images");
   }
 }
+
+export async function fetchOrderOlderThan(minutes: number) {
+  try {
+    await connect();
+
+    // setting minimun time
+    const timeThreshold = new Date(Date.now() - minutes * 60 * 1000);
+    const orders = await Order.find({ createdAt: { $lt: timeThreshold } });
+    return orders;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Erro fecthing older orders");
+  }
+}
+
+// updating order status
+export async function updateOrderStatus(orderId: string, status: string) {
+  try {
+    await connect();
+
+    // updating order status
+    const updatedOrder = await Order.findByIdAndUpdate(
+      orderId,
+      {
+        status,
+      },
+      { new: true },
+    );
+    return updatedOrder;
+  } catch (err) {
+    console.log(err);
+    throw new Error("Error upading order status");
+  }
+}
