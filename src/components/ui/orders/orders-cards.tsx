@@ -1,8 +1,9 @@
 "use server";
-import { MenuOrderItemProps } from "@/lib/definition";
+import { MenuImageProps, MenuOrderItemProps } from "@/lib/definition";
 import Image from "next/image";
 import { PlusIcon, MinusIcon, TrashIcon } from "lucide-react";
 import UpdateOrder from "./order-update";
+import { fetchMenuImagesByMenuId } from "@/lib/data";
 
 export async function OrdersCards({
   orders,
@@ -27,20 +28,28 @@ export async function OrdersCards({
   );
 }
 
-function OrderCard({ order }: { order: MenuOrderItemProps }) {
+async function OrderCard({ order }: { order: MenuOrderItemProps }) {
   const basePrice = order.price / order.quantity;
+  // "https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
+  const menuImage = (await fetchMenuImagesByMenuId(
+    order.menuId._id,
+  )) as MenuImageProps;
+  console.log(menuImage, menuImage);
 
   return (
     <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">
       <div className="flex gap-3">
-        <div className="flex items-center max-w-[200px]">
+        <div className="relative h-28 w-[200px]">
           <Image
-            src="https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
+            src={
+              menuImage?.url
+                ? menuImage?.url
+                : "https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
+            }
             alt="menu-order-image"
-            className="rounded-lg"
-            width="300"
-            height="150"
-            placeholder="empty"
+            className="object-cover rounded-md"
+            fill
+            priority
           />
         </div>
         <div className="flex flex-col gap-1 sm:gap-2 w-full justify-between">

@@ -2,9 +2,9 @@
 import { fetchMenuImagesByMenuId, fetchMenusByRestaurantId } from "@/lib/data";
 import { MenuProps } from "@/lib/definition";
 import Image from "next/image";
-import { Button } from "../button";
-import { FilePenLineIcon } from "lucide-react";
-import { Dialog } from "../dialog";
+// import { Button } from "../button";
+// import { FilePenLineIcon } from "lucide-react";
+// import { Dialog } from "../dialog";
 import UpdateMenu from "./update-menu";
 import UploadImage from "@/components/UploadImage";
 import CreateMenu from "./create-menu";
@@ -24,11 +24,13 @@ export default async function UploadMenuCards({
             <MenuCard key={menu._id} menu={JSON.parse(JSON.stringify(menu))} />
           ))}
           <div className="bg-gray-100 rounded-lg flex justify-center items-center min-h-60">
-            <CreateMenu restaurantId={menus[0].restaurantId.toString()} />
+            <CreateMenu restaurantId={restaurantId} />
           </div>
         </div>
       ) : (
-        <div></div>
+        <div>
+          <CreateMenu restaurantId={restaurantId} />
+        </div>
       )}
     </div>
   );

@@ -15,14 +15,14 @@ import { checkRole } from "@/lib/utils/role";
 export default async function RestaurantDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: { restaurantId: string };
 }) {
   const [restaurant, restaurantImages]: [
     RestaurantProps,
     RestaurantImageResponse[],
   ] = await Promise.all([
-    fetchRestaurantById(params.id),
-    fetchRestaurantImagesById(params.id),
+    fetchRestaurantById(params.restaurantId),
+    fetchRestaurantImagesById(params.restaurantId),
   ]);
 
   if (!checkRole("admin")) {
@@ -163,13 +163,7 @@ export default async function RestaurantDetailsPage({
       </section>
       <section className="bg-red-400 p-3 mt-5">
         <h1 className="font-bold text-lg text-neutral-100">About Us</h1>
-        <p className="text-sm text-neutral-100">
-          {/* {restaurant.description} */}
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Architecto,
-          perferendis veniam. Ad earum molestiae, reprehenderit suscipit maxime
-          praesentium dolores voluptate recusandae sequi modi voluptas eveniet,
-          nulla voluptatum illum fugit est?
-        </p>
+        <p className="text-sm text-neutral-100">{restaurant.description}</p>
       </section>
       <section className=" pt-10 p-3">
         <h1 className="font-bold tex-lg">Update Restaurant Details</h1>

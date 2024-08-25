@@ -8,9 +8,13 @@ import Order from "./models/order.model";
 import { Types } from "mongoose";
 import { ImageRestaurant } from "./models/image.model";
 import { ImageMenu } from "./models/image.model";
+import { redirect } from "next/navigation";
 
 export async function fetchUserByClerkId(clerkId: string) {
   await connect();
+  if (!clerkId) {
+    redirect("/sign-in");
+  }
   const user = await User.findOne({ clerkId });
   if (!user) {
     throw new Error("User not found");

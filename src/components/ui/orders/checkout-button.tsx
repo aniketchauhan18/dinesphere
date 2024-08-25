@@ -178,7 +178,7 @@ export default function CheckoutButton({
   return (
     <>
       <Button
-        className="w-full max-w-sm bg-gradient-to-b from-orange-500 to-orange-600"
+        className="w-full sm:max-w-[12rem] bg-gradient-to-b from-orange-500 to-orange-600"
         onClick={() => handleAddOrder(totalPrice)}
       >
         Checkout

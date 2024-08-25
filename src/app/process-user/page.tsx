@@ -8,6 +8,8 @@ export default function CreateUser() {
   const router = useRouter();
   const { user } = useUser();
 
+  //check if user is already registered
+
   useEffect(() => {
     const createUserInBackend = async () => {
       if (user) {

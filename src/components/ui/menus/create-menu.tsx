@@ -45,17 +45,18 @@ export default function CreateMenu({ restaurantId }: { restaurantId: string }) {
       //   return
       // }
       const responseData = await response.json();
-      if (response.ok) {
-        alert(responseData.message);
+      if (!response.ok) {
+        // alert("Error");
+        console.log("Full response:", response);
+        console.log("Response status:", response.status);
+        console.log("Response body:", responseData);
         router.refresh();
-        setIsLoading(false);
         return;
       }
-      alert("Error");
+      alert(responseData.message);
       router.refresh();
-      console.log("Full response:", response);
-      console.log("Response status:", response.status);
-      console.log("Response body:", responseData);
+      setIsLoading(false);
+      return;
     } catch (error) {
       alert("Error while creating menu");
     }
@@ -71,7 +72,7 @@ export default function CreateMenu({ restaurantId }: { restaurantId: string }) {
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Update Menu Details</DialogTitle>
+            <DialogTitle>Menu Details</DialogTitle>
             <Separator />
           </DialogHeader>
           <div>

@@ -4,6 +4,7 @@ import { StoreIcon, TrendingUpIcon } from "lucide-react";
 import { UserRestaurantsProps } from "@/lib/definition";
 import DefaultBackButton from "@/components/ui/default-back-button";
 import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
 
 export default async function DashboardPage({
   params,
@@ -67,7 +68,7 @@ export default async function DashboardPage({
         <div className="border rounded-md p-3">
           <h1 className="font-bold text-lg">Your Restaurants</h1>
           <p className="text-sm text-neutral-700">
-            You have 12 registered restaurants.
+            You have {length} registered restaurants.
           </p>
           <div className="space-y-1 pt-2">
             {restaurants.map((restaurant) => {
@@ -80,9 +81,13 @@ export default async function DashboardPage({
                     <StoreIcon className="w-4 h-4 mr-2 text-neutral-600" />
                     <p>{restaurant.name}</p>
                   </div>
-                  <Button variant="link" className="text-sm">
-                    View Details
-                  </Button>
+                  <Link
+                    href={`/dashboard/${params.id}/restaurant/${restaurant._id.toString()}`}
+                  >
+                    <Button variant="link" className="text-sm">
+                      View Details
+                    </Button>
+                  </Link>
                 </div>
               );
             })}

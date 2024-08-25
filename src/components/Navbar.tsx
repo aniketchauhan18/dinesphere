@@ -4,12 +4,17 @@ import {
   SignOutButton,
   SignInButton,
 } from "@clerk/nextjs";
-import { HomeIcon, Search, ShoppingBag, MenuIcon } from "lucide-react";
+import {
+  HomeIcon,
+  Search,
+  ShoppingBag,
+  MenuIcon,
+  StoreIcon,
+} from "lucide-react";
 import { inter } from "./fonts";
 import Link from "next/link";
 import { auth } from "@clerk/nextjs/server";
 import { fetchUserByClerkId, fetchUserOrderMenuItems } from "@/lib/data";
-
 export default async function Navbar() {
   const { userId } = auth();
 
@@ -17,19 +22,22 @@ export default async function Navbar() {
   if (userId) {
     user = await fetchUserByClerkId(userId as string);
   }
+
   const orderItems = await fetchUserOrderMenuItems(user?._id);
 
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (
     <nav className={`${inter.className}`}>
       <header
-        className={`fixed inset-x-0 min-h-16 hidden lg:flex z-50  justify-between items-center gap-5 p-5`}
+        className={`fixed inset-x-0 min-h-16 hidden lg:flex z-50 bg-white/80 border-b backdrop-blur-sm justify-between items-center gap-5 p-5`}
       >
-        <div
-          className={`flex justify-between bg-white/60 items-center gap-5 w-full border rounded-full p-3`}
-        >
-          <Link href="/" className={`font-semibold  text-neutral-700`}>
-            DineSphere
+        <div className={`flex justify-between items-center gap-5 w-full`}>
+          <Link
+            href="/"
+            className="font-semibold text-neutral-700 flex items-center"
+          >
+            <StoreIcon className="w-5 h-3.5 mr-1 " />
+            <p>DineSphere</p>
           </Link>
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>

@@ -65,13 +65,13 @@ export default async function Orders({ params }: { params: { id: string } }) {
                   <p className="font-semibold">GST</p>
                   <p>₹ {(totalWithGST - totalAmount).toFixed(2)}</p>
                 </div>
-                <div className="border-b" />
+                <div className="border-b border-dashed" />
                 <div className="flex justify-between font-semibold">
                   <p>Total</p>
                   <p>₹ {totalWithGST.toFixed(2)}</p>
                 </div>
               </div>
-              <div className="flex justify-center w-full pt-2 p-2">
+              <div className="flex justify-center sm:justify-end w-full pt-2 p-2">
                 <CheckoutButton
                   restaurantId={menuOrders[0].menuId.restaurantId.toString()}
                   totalPrice={totalWithGST.toString()}
