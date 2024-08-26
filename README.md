@@ -14,7 +14,6 @@ DineSphere is a platform where restaurant owners can upload their restaurant det
 
 ## Screenshots
 ![image](https://github.com/user-attachments/assets/14e5af7e-4c2f-472e-b6a0-2e0bc23b89cf)
-![image](https://github.com/user-attachments/assets/48b57837-2cee-4a2f-b242-d888f56ea47a)
 ![image](https://github.com/user-attachments/assets/7152ac85-cde6-41d3-9b78-8376d63dbc18)
 ![image](https://github.com/user-attachments/assets/e6fc7f8b-e55a-46db-8b75-25bdd6d5b781)
 ![image](https://github.com/user-attachments/assets/010e751b-9231-44be-b07c-89a50fb46fc9)
