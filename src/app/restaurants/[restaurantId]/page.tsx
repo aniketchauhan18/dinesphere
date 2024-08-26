@@ -41,9 +41,9 @@ export default async function RestaurantPage({
   // console.log(menus);
   return (
     <main className="pt-5 lg:pt-20 px-5">
-      <section className="lg:hidden">
-        <p className="font-bold text-lg">{restaurant.name}</p>
-        <Separator />
+      <section className="">
+        <p className="font-bold text-lg lg:text-3xl">{restaurant.name}</p>
+        <Separator className="lg:hidden" />
       </section>
       <section className="w-full mt-5 min-h-72 rounded flex items-center">
         {restaurantImages.length > 0 ? (

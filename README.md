@@ -13,6 +13,37 @@ DineSphere is a platform where restaurant owners can upload their restaurant det
 - Clerk is used for user authentication, allowing users to sign up, log in, and manage their profiles.
 
 ## Screenshots
+![image](https://github.com/user-attachments/assets/14e5af7e-4c2f-472e-b6a0-2e0bc23b89cf)
+![image](https://github.com/user-attachments/assets/48b57837-2cee-4a2f-b242-d888f56ea47a)
+![image](https://github.com/user-attachments/assets/7152ac85-cde6-41d3-9b78-8376d63dbc18)
+![image](https://github.com/user-attachments/assets/e6fc7f8b-e55a-46db-8b75-25bdd6d5b781)
+![image](https://github.com/user-attachments/assets/010e751b-9231-44be-b07c-89a50fb46fc9)
+![image](https://github.com/user-attachments/assets/896f99c2-2570-42cd-9123-969b9dd20041)
+![image](https://github.com/user-attachments/assets/a484528f-dbce-4b6a-9e37-1a851013c70d)
+![image](https://github.com/user-attachments/assets/ebf90965-6cd7-4dcc-ab24-7c44c5412cad)
+![image](https://github.com/user-attachments/assets/f6e295be-2f59-4f9c-b102-d4299e16258e)
+![image](https://github.com/user-attachments/assets/df58c8e5-6fc3-4180-a5a8-f63e14132dcd)
+![image](https://github.com/user-attachments/assets/75bd7a5e-2349-46c0-9c3f-9da17b9d96f1)
+![image](https://github.com/user-attachments/assets/dd3e0de1-ba32-49b1-90d6-3897cd2994f6)
+![image](https://github.com/user-attachments/assets/f083b407-8b54-4a17-859a-8bf9277be61b)
+![image](https://github.com/user-attachments/assets/15aad5e9-8dc2-400e-93fc-c1090c41e9bb)
+![image](https://github.com/user-attachments/assets/c0713788-cfbc-4fbf-996b-fd84e76cb42b)
+![image](https://github.com/user-attachments/assets/1bc4d393-6fb2-4d09-9313-79c17924fbda)
+![image](https://github.com/user-attachments/assets/f9fbb2b9-1681-481f-884e-a0230aa4a503)
+![image](https://github.com/user-attachments/assets/f6db6a0a-9402-4ca8-85bd-03d35032299a)
+![image](https://github.com/user-attachments/assets/6d135029-49bc-4993-88e8-e06491f29332)
+![image](https://github.com/user-attachments/assets/d9897144-6f38-467b-81f1-fde30c14b4c3)
+![image](https://github.com/user-attachments/assets/2c354463-5693-439e-8303-5ad1b8c1a965)
+![image](https://github.com/user-attachments/assets/4e1ce741-07c9-49e5-9739-db9192965a25)
+![image](https://github.com/user-attachments/assets/ab1104b2-f7c2-412f-a7a8-0016bf875e9c)
+![image](https://github.com/user-attachments/assets/38c38cda-b3e1-4f53-bf62-110a7b291ca7)
+![image](https://github.com/user-attachments/assets/8bb1f1b1-3b7a-441b-b925-3b3b3f4a1357)
+![image](https://github.com/user-attachments/assets/86b3fcd8-50bc-435c-8bbd-b6881b0baf2e)
+![image](https://github.com/user-attachments/assets/2e199347-6e92-4dc1-b656-5c5a8bc4a420)
+![image](https://github.com/user-attachments/assets/b30d019e-aa3b-4051-bf0b-af480dcc0b07)
+
+## DB Models Connection Diagram
+https://drive.google.com/file/d/1p1u2xU1z47jYR25h3BQjIV0nP9wknzBo/view?usp=sharing
 
 ## Tech Stack
 
