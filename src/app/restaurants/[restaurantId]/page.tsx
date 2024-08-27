@@ -55,7 +55,7 @@ export default async function RestaurantPage({
                     src={image.url}
                     alt="Restaurant Image"
                     fill
-                    sizes="900px"
+                    sizes="100%"
                     style={{
                       objectFit: "cover",
                     }}

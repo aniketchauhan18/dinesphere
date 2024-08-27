@@ -48,34 +48,40 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
     <div className="p-5 flex justify-center">
       <Link
         href={`/restaurants/${restaurant._id}`}
-        className="rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs"
+        className="rounded-lg hover:shadow duration-300 bg-neutral-50 max-w-xs w-full flex flex-col"
       >
-        <Image
-          src={firstImageUrl}
-          alt="restaurant-image"
-          className="rounded-t-lg"
-          width="400"
-          sizes="100%"
-          height="200"
-          objectFit="cover"
-          placeholder="empty"
-          loading="lazy"
-        />
-        <div className="p-3 space-y-0.5">
-          <p className="font-bold text-neutral-800 text-lg">
-            {restaurant.name}
-          </p>
-          <p className="text-neutral-700 text-sm">
-            {restaurant.description.length > 25
-              ? restaurant.description.slice(0, 25) + "..."
-              : restaurant.description}
-          </p>
+        <div className="relative w-full h-48">
+          <Image
+            src={firstImageUrl}
+            alt="restaurant-image"
+            className="rounded-t-lg"
+            layout="fill"
+            objectFit="cover"
+            placeholder="empty"
+            loading="lazy"
+          />
+        </div>
+        <div className="p-3 flex flex-col justify-between flex-grow space-y-2">
+          <div className="space-y-0.5">
+            <p className="font-bold text-neutral-800 text-lg">
+              {restaurant.name}
+            </p>
+            <p className="text-neutral-700 text-sm">
+              {restaurant.description.length > 25
+                ? restaurant.description.slice(0, 25) + "..."
+                : restaurant.description}
+            </p>
+          </div>
           <div className="flex items-center justify-between text-neutral-500">
             <div className="flex items-center">
               <MapPinIcon className="w-4 h-4 mr-1" />
-              <p className="text-sm">{restaurant.address}</p>
+              <p className="text-sm">
+                {restaurant.address.length > 15
+                  ? restaurant.address.slice(0, 15) + "..."
+                  : restaurant.address}
+              </p>
             </div>
-            <div className="flex text-sm items-center ">
+            <div className="flex text-sm items-center">
               <StarIcon className="w-4 h-4 text-green-600" />
               <StarIcon className="w-4 h-4 text-green-600" />
               <StarIcon className="w-4 h-4 text-green-600" />

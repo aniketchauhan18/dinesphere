@@ -61,7 +61,7 @@ export default function UpdateRestaurantImage({
       console.log(err);
     }
   };
-  console.log(image)
+  console.log(image);
 
   return (
     <div>

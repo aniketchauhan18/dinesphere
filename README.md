@@ -1,4 +1,4 @@
-# DineSphere
+# DineSphere ( Next.JS & TypeScript )
 
 DineSphere is a platform where restaurant owners can upload their restaurant details, menu, and users can order food. The application is built using Next.js, TypeScript, MongoDB, Razorpay for payment, Clerk for authentication, and jsPDF for invoice generation. Tailwind CSS and Shadcn UI are used for styling and UI components.
 
@@ -13,6 +13,7 @@ DineSphere is a platform where restaurant owners can upload their restaurant det
 - Clerk is used for user authentication, allowing users to sign up, log in, and manage their profiles.
 
 ## Screenshots
+
 ![image](https://github.com/user-attachments/assets/14e5af7e-4c2f-472e-b6a0-2e0bc23b89cf)
 ![image](https://github.com/user-attachments/assets/7152ac85-cde6-41d3-9b78-8376d63dbc18)
 ![image](https://github.com/user-attachments/assets/e6fc7f8b-e55a-46db-8b75-25bdd6d5b781)
@@ -42,6 +43,7 @@ DineSphere is a platform where restaurant owners can upload their restaurant det
 ![image](https://github.com/user-attachments/assets/b30d019e-aa3b-4051-bf0b-af480dcc0b07)
 
 ## DB Models Connection Diagram
+
 https://drive.google.com/file/d/1p1u2xU1z47jYR25h3BQjIV0nP9wknzBo/view?usp=sharing
 
 ## Tech Stack

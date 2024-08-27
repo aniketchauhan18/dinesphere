@@ -2,7 +2,7 @@
 // remove any from menus and menu types
 import { MenuImageProps, MenuProps } from "@/lib/definition";
 import Image from "next/image";
-import { auth } from "@clerk/nextjs/server";
+// import { auth } from "@clerk/nextjs/server";
 import { fetchMenuImagesByMenuId } from "@/lib/data";
 import AddOrderItemButton from "./add-order-button";
 
@@ -33,16 +33,16 @@ export default async function MenuCards({ menus }: { menus: MenuProps[] }) {
 // we can also use clerk id for searhing for user but using user._id here
 
 async function MenuCard({ menu }: { menu: MenuProps }) {
-  const { userId } = auth();
+  // const { userId } = auth();
   const [menuImage]: [MenuImageProps] = await Promise.all([
     fetchMenuImagesByMenuId(menu._id.toString()),
   ]);
 
   return (
     <div className=" pt-5 flex justify-center">
-      <div className="rounded-lg h-full hover:shadow duration-300 bg-neutral-50 max-w-xs flex flex-col justify-between">
-        <div className="max-w-sm mx-auto overflow-hidden rounded-lg">
-          <div className="relative h-48">
+      <div className="rounded-lg w-full h-full hover:shadow duration-300 bg-neutral-50 max-w-xs flex flex-col justify-between">
+        <div className="max-w-sm mx-auto overflow-hidden rounded-lg w-full">
+          <div className="relative h-48 w-full">
             {menuImage ? (
               <Image
                 src={menuImage.url}
