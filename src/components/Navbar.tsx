@@ -43,7 +43,11 @@ export default async function Navbar() {
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>
               <div className="flex gap-3 items-center">
-                <Link href="/restaurants" className="text-neutral-700 text-sm" prefetch>
+                <Link
+                  href="/restaurants"
+                  className="text-neutral-700 text-sm"
+                  prefetch
+                >
                   Restaurants
                 </Link>
                 <Link
@@ -67,10 +71,18 @@ export default async function Navbar() {
             </SignedIn>
             <SignedOut>
               <div className="flex gap-3 items-center">
-                <Link href="/restaurants" className="text-neutral-700 text-sm ">
+                <Link
+                  href="/restaurants"
+                  className="text-neutral-700 text-sm "
+                  prefetch
+                >
                   Restaurants
                 </Link>
-                <Link href="/restaurants" className="text-neutral-700 text-sm ">
+                <Link
+                  href="/restaurants"
+                  className="text-neutral-700 text-sm "
+                  prefetch
+                >
                   Orders
                 </Link>
                 <div className="text-sm text-neutral-700 min-w-2 items-center">

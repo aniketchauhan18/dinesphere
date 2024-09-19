@@ -3,7 +3,7 @@ import { UserProvider } from "./hooks/UserContext";
 import "./globals.css";
 import { inter } from "../components/fonts";
 import { Metadata } from "next";
-import { Toaster } from "@/components/ui/sonner"
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -27,7 +27,7 @@ export default function RootLayout({
         </head>
         <body className={`${inter.className} antialiased min-h-screen`}>
           <UserProvider>{children}</UserProvider>
-          <Toaster richColors position="top-center"/>
+          <Toaster richColors position="top-center" />
         </body>
       </html>
     </ClerkProvider>

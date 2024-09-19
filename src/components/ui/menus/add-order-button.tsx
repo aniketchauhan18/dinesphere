@@ -38,7 +38,7 @@ export default function AddOrderItemButton({
         toast("Error adding menu to the orderItem");
       }
       router.refresh();
-      toast("<A></A>dded to the orderItem");
+      toast("Added to the orders");
     } catch (err) {
       console.error("Error adding menu item:", err);
     }

@@ -2,6 +2,7 @@
 import { useUser } from "@/app/hooks/UserContext";
 import { Button } from "../button";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 export interface UserProps {
   firstName: string;
   lastName: string;
@@ -162,7 +163,7 @@ export default function CheckoutButton({
           });
           const { order } = await checkoutResponse.json();
           if (checkoutResponse.ok) {
-            alert("Order added sucessfully");
+            toast("Order added sucessfully");
             router.push(`/user/${user._id}/orders/track`);
           }
         },

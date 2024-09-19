@@ -34,7 +34,7 @@ async function OrderCard({ order }: { order: MenuOrderItemProps }) {
   const menuImage = (await fetchMenuImagesByMenuId(
     order.menuId._id,
   )) as MenuImageProps;
-  console.log(menuImage, menuImage);
+  // console.log(menuImage, menuImage);
 
   return (
     <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">
@@ -47,7 +47,7 @@ async function OrderCard({ order }: { order: MenuOrderItemProps }) {
                 : "https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
             }
             alt="menu-order-image"
-            className="object-cover rounded-md"
+            className="h-full w-full object-cover rounded-md"
             fill
             priority
           />
