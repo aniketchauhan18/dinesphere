@@ -27,7 +27,7 @@
     "jspdf-invoice-template": "^1.4.4",
     "lucide-react": "^0.417.0",
     "mongoose": "^8.5.2",
-    "next": "14.2.5",
+    "next": "14.2.12",
     "next-auth": "^4.24.7",
     "razorpay": "^2.9.4",
     "react": "^18",
