@@ -34,6 +34,7 @@ export default async function Navbar() {
         <div className={`flex justify-between items-center gap-5 w-full`}>
           <Link
             href="/"
+            prefetch
             className="font-semibold text-neutral-700 flex items-center"
           >
             <StoreIcon className="w-5 h-3.5 mr-1 " />
@@ -42,7 +43,7 @@ export default async function Navbar() {
           <div className={`hidden sm:flex pr-3`}>
             <SignedIn>
               <div className="flex gap-3 items-center">
-                <Link href="/restaurants" className="text-neutral-700 text-sm">
+                <Link href="/restaurants" className="text-neutral-700 text-sm" prefetch>
                   Restaurants
                 </Link>
                 <Link
@@ -55,6 +56,7 @@ export default async function Navbar() {
                 <Link
                   href={`/user/${user?._id}`}
                   className="text-neutral-700 text-sm"
+                  prefetch
                 >
                   More
                 </Link>

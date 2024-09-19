@@ -3,6 +3,7 @@ import { useRouter } from "next/navigation";
 import { useDebouncedCallback } from "use-debounce";
 import { UserProps } from "../orders/checkout-button";
 import { useUser } from "@/app/hooks/UserContext";
+import { toast } from "sonner";
 // change any types here
 export default function AddOrderItemButton({
   price,
@@ -31,11 +32,13 @@ export default function AddOrderItemButton({
         }),
         cache: "no-cache",
       });
+      const data = await response.json();
+      console.log(data);
       if (!response.ok) {
-        alert("Error adding menu to the orderItem");
+        toast("Error adding menu to the orderItem");
       }
       router.refresh();
-      alert("menu adder to the orderItem");
+      toast("<A></A>dded to the orderItem");
     } catch (err) {
       console.error("Error adding menu item:", err);
     }

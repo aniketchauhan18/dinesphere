@@ -80,7 +80,7 @@ export default async function Home() {
           </div>
         </div>
         <div className="text-center space-x-4">
-          <Link href="/restaurants">
+          <Link href="/restaurants" prefetch>
             <Button variant="outline" className="rounded-full text-xs">
               Search Restaurants
             </Button>
