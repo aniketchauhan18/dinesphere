@@ -137,25 +137,25 @@ export default async function RestaurantDetailsPage({
           </div>
         )}
       </section>
-      <section className="p-3 sm:p-10 grid grid-cols-2">
+      <section className="p-3 sm:p-10 grid grid-cols-2 gap-3 sm:gap-5">
         <div className="flex justify-start">
           <div className="flex flex-col space-y-2">
             <h1 className="text-lg font-bold flex items-center">
               <MapPinIcon className="w-4 h-4 text-neutral-800 mr-1" />
               Address
             </h1>
-            <p className="text-sm text-neutral-700">{restaurant.address}</p>
+            <p className="text-xs sm:text-sm text-neutral-700">{restaurant.address}</p>
           </div>
         </div>
         <div className="flex justify-start">
           <div className="flex flex-col space-y-2">
             <h1 className="text-lg font-bold"> Contact</h1>
-            <p className="text-sm text-neutral-700 flex items-center">
+            <p className="text-xs sm:text-sm text-neutral-700 flex items-center">
               <PhoneIcon className="w-4 h-4 text-neutral-800 mr-1" />
               {restaurant.number}
             </p>
-            <div className="text-sm flex items-center text-neutral-700 hover:cursor-pointer">
-              <MailIcon className="w-4 h-4 mr-1" />
+            <div className="text-xs sm:text-sm flex items-center text-neutral-700 hover:cursor-pointer">
+              <MailIcon className="w-4 h-4 mr-1 " />
               <a href={`mailto:${restaurant.email}`}>{restaurant.email}</a>
             </div>
           </div>
