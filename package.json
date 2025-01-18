@@ -26,7 +26,7 @@
     "jspdf": "^2.5.1",
     "jspdf-invoice-template": "^1.4.4",
     "lucide-react": "^0.417.0",
-    "mongoose": "^8.5.2",
+    "mongoose": "^8.9.5",
     "next": "14.2.20",
     "next-auth": "^4.24.10",
     "next-themes": "^0.3.0",
