@@ -4,10 +4,7 @@ import Order from "@/lib/models/order.model";
 import OrderItem from "@/lib/models/orderItem.model";
 import { revalidatePath } from "next/cache";
 
-export async function POST(
-  req: NextRequest,
-  res: NextResponse,
-): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     await connect();
 

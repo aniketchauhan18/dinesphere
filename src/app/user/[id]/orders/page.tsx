@@ -13,11 +13,15 @@ import BackButton from "@/components/ui/back-button";
 
 export const revalidate = 0;
 
-export default async function Orders({ params }: { params: { id: string } }) {
+export default async function Orders({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
   const [user, menuOrders]: [UserProps, MenuOrderItemProps[]] =
     await Promise.all([
-      fetchUserById(params.id),
-      fetchUserOrderMenuItems(params.id),
+      fetchUserById((await params).id),
+      fetchUserOrderMenuItems((await params).id),
     ]);
 
   if (!user || !menuOrders) {

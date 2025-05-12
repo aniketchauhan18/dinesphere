@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -59,7 +59,6 @@
   }
 
   @keyframes gradient {
-
     0%,
     100% {
       background-size: 200% 200%;
@@ -95,7 +94,6 @@
   color utility to any element that depends on these defaults.
 */
 @layer base {
-
   *,
   ::after,
   ::before,
@@ -111,10 +109,12 @@
 
 @utility animate-shimmer {
   animation: shimmer 3s linear infinite;
-  background: linear-gradient(90deg,
-      rgba(255, 255, 255, 0) 0%,
-      rgba(255, 255, 255, 0.5) 50%,
-      rgba(255, 255, 255, 0) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
   background-size: 1000px 100%;
 }
 
@@ -196,7 +196,6 @@
 
 @layer utilities {
   @keyframes float {
-
     0%,
     100% {
       transform: translateY(0);

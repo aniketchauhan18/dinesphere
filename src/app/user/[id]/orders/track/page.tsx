@@ -8,10 +8,10 @@ import Link from "next/link";
 export default async function TrackOrder({
   params,
 }: {
-  params: { id: string; orderId: string };
+  params: Promise<{ id: string; orderId: string }>;
 }) {
   const orders: TrackOrderProps[] = await fetchAggregatedOrdersByUserId(
-    params.id,
+    (await params).id,
   );
 
   return (

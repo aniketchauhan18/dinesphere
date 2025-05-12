@@ -3,10 +3,7 @@ import { connect } from "@/lib/db";
 import { OrderProps } from "@/lib/definition";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  req: NextRequest,
-  res: NextResponse,
-): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     await connect();
 

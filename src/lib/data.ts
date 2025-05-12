@@ -123,9 +123,10 @@ export async function fetchUserOrderMenuItems(userId: string) {
         },
       ],
     }).populate("menuId"); // populating to get menuId here
-    revalidatePath(`/user/${userId}/orders`);
+    // revalidatePath(`/user/${userId}/orders`);
     return orderItems;
   } catch (err) {
+    console.log(err);
     throw new Error("Error fetching user orderItems");
   }
 }

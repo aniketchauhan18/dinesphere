@@ -8,10 +8,7 @@ const UpdateRestaurantSchema = createRestaurantSchema.omit({
 });
 
 // to do => write restaurant updation schema in
-export async function PATCH(
-  req: NextRequest,
-  res: NextResponse,
-): Promise<Response> {
+export async function PATCH(req: NextRequest): Promise<Response> {
   try {
     // extracting id from url
     await connect();

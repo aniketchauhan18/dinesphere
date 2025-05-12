@@ -10,7 +10,7 @@ export const revalidate = 0;
 export default async function OrderIdPage({
   params,
 }: {
-  params: { orderId: string };
+  params: Promise<{ orderId: string }>;
 }) {
   // order fetch call
 
@@ -53,7 +53,9 @@ export default async function OrderIdPage({
             <Progress value={34} />
           </div>
           <div className="pt-5 flex justify-start text-xs sm:text-sm gap-2">
-            <p className="text-neutral-700">OrderId: {params.orderId}</p>
+            <p className="text-neutral-700">
+              OrderId: {(await params).orderId}
+            </p>
             <CopyButton text={"wehfh928r232dhqoiwurt78"} />
           </div>
           <div className="pt-5">

@@ -2,10 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { connect } from "@/lib/db";
 import { updateOrderStatus } from "@/lib/data";
 
-export async function POST(
-  req: NextRequest,
-  res: NextResponse,
-): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     const { orderId, status } = await req.json();
 

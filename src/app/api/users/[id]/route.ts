@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     await connect();
-    const { id } = params;
+    const { id } = await params;
     const user = await User.findById(id);
     if (!user) {
       return NextResponse.json({ message: "User not found" });
@@ -27,7 +27,7 @@ export async function GET(
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<Response> {
   try {
     await connect();
@@ -43,7 +43,9 @@ export async function PATCH(
       );
     }
 
-    const user = await User.findByIdAndUpdate(params.id, body, { new: true });
+    const user = await User.findByIdAndUpdate((await params).id, body, {
+      new: true,
+    });
     if (!user) {
       return NextResponse.json(
         {

@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<Response> {
   try {
     await connect();
-    const { id } = params;
+    const { id } = await params;
     const { name, description, price } = await req.json();
 
     if (!name || !description || !price) {

@@ -9,9 +9,11 @@ import Link from "next/link";
 export default async function DashboardPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const data: UserRestaurantsProps = await fetchRestaurantsByUserId(params.id);
+  const data: UserRestaurantsProps = await fetchRestaurantsByUserId(
+    (await params).id,
+  );
   const { restaurants, length } = data;
 
   return (
@@ -71,7 +73,7 @@ export default async function DashboardPage({
             You have {length} registered restaurants.
           </p>
           <div className="space-y-1 pt-2">
-            {restaurants.map((restaurant) => {
+            {restaurants.map(async (restaurant) => {
               return (
                 <div
                   key={restaurant._id}
@@ -82,7 +84,7 @@ export default async function DashboardPage({
                     <p>{restaurant.name}</p>
                   </div>
                   <Link
-                    href={`/dashboard/${params.id}/restaurant/${restaurant._id.toString()}`}
+                    href={`/dashboard/${(await params).id}/restaurant/${restaurant._id.toString()}`}
                   >
                     <Button variant="link" className="text-sm">
                       View Details

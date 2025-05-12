@@ -15,14 +15,14 @@ import { checkRole } from "@/lib/utils/role";
 export default async function RestaurantDetailsPage({
   params,
 }: {
-  params: { restaurantId: string };
+  params: Promise<{ restaurantId: string }>;
 }) {
   const [restaurant, restaurantImages]: [
     RestaurantProps,
     RestaurantImageResponse[],
   ] = await Promise.all([
-    fetchRestaurantById(params.restaurantId),
-    fetchRestaurantImagesById(params.restaurantId),
+    fetchRestaurantById((await params).restaurantId),
+    fetchRestaurantImagesById((await params).restaurantId),
   ]);
 
   if (!checkRole("admin")) {
@@ -144,7 +144,9 @@ export default async function RestaurantDetailsPage({
               <MapPinIcon className="w-4 h-4 text-neutral-800 mr-1" />
               Address
             </h1>
-            <p className="text-xs sm:text-sm text-neutral-700">{restaurant.address}</p>
+            <p className="text-xs sm:text-sm text-neutral-700">
+              {restaurant.address}
+            </p>
           </div>
         </div>
         <div className="flex justify-start">

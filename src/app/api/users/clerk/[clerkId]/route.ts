@@ -4,11 +4,11 @@ import User from "@/lib/models/user.model";
 
 export async function GET(
   req: NextRequest,
-  { params }: { params: { clerkId: string } },
+  { params }: { params: Promise<{ clerkId: string }> },
 ): Promise<Response> {
   try {
     await connect();
-    const clerkId = params.clerkId;
+    const clerkId = (await params).clerkId;
     console.log(clerkId);
     if (!clerkId) {
       return NextResponse.json(

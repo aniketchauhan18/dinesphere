@@ -27,16 +27,16 @@ interface RestaurantImageProps {
 export default async function RestaurantPage({
   params,
 }: {
-  params: { restaurantId: string };
+  params: Promise<{ restaurantId: string }>;
 }) {
   const [restaurant, menus, restaurantImages]: [
     RestaurantProps,
     MenuProps[],
     RestaurantImageProps[],
   ] = await Promise.all([
-    fetchRestaurantById(params.restaurantId),
-    fetchRestaurantMenuById(params.restaurantId),
-    fetchRestaurantImagesById(params.restaurantId),
+    fetchRestaurantById((await params).restaurantId),
+    fetchRestaurantMenuById((await params).restaurantId),
+    fetchRestaurantImagesById((await params).restaurantId),
   ]);
   // console.log(menus);
   return (

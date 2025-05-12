@@ -8,10 +8,9 @@ import { Separator } from "@/components/ui/separator";
 export default async function UserProfile({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const user: UserProps = await fetchUserById(params.id);
-
+  const user: UserProps = await fetchUserById((await params).id);
   return (
     <main className="lg:pt-24 pb-20 p-5 min-h-screen">
       <div>
@@ -34,10 +33,10 @@ export default async function UserProfile({
                 placeholder="empty"
               />
             </div>
-            <UploadProfileImage userId={params.id} />
+            <UploadProfileImage userId={(await params).id} />
           </div>
           <div className="flex justify-center min-w-full pt-2 sm:pt-5 lg:pt-10">
-            <UpdateProfile userId={user._id.toString()} />
+            <UpdateProfile userId={(await params).id} />
           </div>
         </div>
       </section>

@@ -1,17 +1,9 @@
 "use client";
 import { HomeIcon, FaceIcon } from "@radix-ui/react-icons";
-import { Metadata } from "next";
 import { Button } from "../components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { UndoIcon } from "lucide-react";
-
-export const metadata: Metadata = {
-  title: "Not Found - DineSphere",
-  description:
-    "The page you're looking for doesn't exist or has been moved. Let's get you back on track.",
-};
-
 export default function NotFound() {
   const router = useRouter();
 

@@ -5,11 +5,11 @@ import { connect } from "@/lib/db";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string; menuId: string } },
+  { params }: { params: Promise<{ id: string; menuId: string }> },
 ): Promise<Response> {
   try {
     await connect();
-    const { menuId } = params;
+    const { menuId } = await params;
     const { name, description, price } = await req.json();
 
     if (!name || !description || !price) {

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import BackButton from "../back-button";
 
 export default function UpdateProfile({ userId }: { userId: string }) {
+  console.log(userId);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
   const currentUserData = useUser() as UserProps;

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default async function CreateRestaurant({
   params,
 }: {
-  params: { userId: string };
+  params: Promise<{ userId: string }>;
 }) {
   // const initialState: State = {message: null} // setting up initial state
   // const createRestaurantWithUserId = createRestaurant.bind(null, params.id);
@@ -26,7 +26,7 @@ export default async function CreateRestaurant({
         Register your restaurant with us
       </section>
       <section className="flex justify-center items-center w-full">
-        <CreateForm userId={params.userId} />
+        <CreateForm userId={(await params).userId} />
       </section>
     </main>
   );

@@ -14,9 +14,9 @@ import { UserProps } from "@/components/ui/orders/checkout-button";
 export default async function MoreDetails({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const { id } = params;
+  const { id } = await params;
   // const user: UserDetails = await fetchUserById(id);
   const [user, order]: [user: UserProps, order: any] = await Promise.all([
     fetchUserById(id),

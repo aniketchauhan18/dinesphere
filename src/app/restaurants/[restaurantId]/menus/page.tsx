@@ -7,10 +7,10 @@ import { MenuProps } from "@/lib/definition";
 export default async function Menus({
   params,
 }: {
-  params: { restaurantId: string };
+  params: Promise<{ restaurantId: string }>;
 }) {
   const menus: MenuProps[] = await fetchMenusByRestaurantId(
-    params.restaurantId,
+    (await params).restaurantId,
   );
 
   return (

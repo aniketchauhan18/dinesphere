@@ -2,10 +2,7 @@ import Payment from "@/lib/models/payment.model";
 import { connect } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(
-  req: NextRequest,
-  res: NextResponse,
-): Promise<Response> {
+export async function POST(req: NextRequest): Promise<Response> {
   try {
     await connect();
 

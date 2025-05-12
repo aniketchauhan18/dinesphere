@@ -5,12 +5,12 @@ import User from "@/lib/models/user.model";
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ): Promise<Response> {
   try {
     await connect();
 
-    const { id } = params;
+    const { id } = await params;
 
     let { role, clerkId } = await req.json();
     if (!role) {

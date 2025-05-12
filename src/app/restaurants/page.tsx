@@ -26,10 +26,10 @@ export interface RestaurantProps {
 export default async function Restaurants({
   searchParams,
 }: {
-  searchParams: { query?: string; cuisine?: string };
+  searchParams: Promise<{ query?: string; cuisine?: string }>;
 }) {
-  const query = searchParams.query || ".*";
-  const cuisine = searchParams.cuisine || ".*";
+  const query = (await searchParams).query || ".*";
+  const cuisine = (await searchParams).cuisine || ".*";
 
   // const restaurants: RestaurantProps[] = await fetchRestaurants();
 
