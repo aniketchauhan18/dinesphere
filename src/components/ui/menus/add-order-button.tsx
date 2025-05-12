@@ -45,7 +45,7 @@ export default function AddOrderItemButton({
   }, 300);
   return (
     <button
-      className="px-3 text-white bg-gradient-to-b from-green-500 to-green-600 py-1 text-sm rounded-sm shadow-sm"
+      className="px-3 text-white bg-linear-to-b from-green-500 to-green-600 py-1 text-sm rounded-sm shadow-xs"
       onClick={() => handleAddOrderItem()}
     >
       Add

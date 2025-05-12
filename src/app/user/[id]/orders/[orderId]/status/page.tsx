@@ -19,7 +19,7 @@ export default async function OrderIdPage({
   return (
     <main className="min-h-[90dvh] p-5 flex items-center justify-center w-full">
       <section className="flex justify-center items-center h-full pb-24 p-3">
-        <div className="max-w-xl border p-3 rounded-lg shadow-sm">
+        <div className="max-w-xl border p-3 rounded-lg shadow-xs">
           <h1 className="font-bold text-xl w-full text-center">Order Status</h1>
           <div className="flex justify-center text-sm">
             Delievered by DineSphere
@@ -60,7 +60,7 @@ export default async function OrderIdPage({
             <Link href="/restaurants" className="flex justify-center w-full">
               <Button
                 variant="outline"
-                className="bg-gradient-to-b from-orange-600 to-orange-500 rounded-full text-white hover:text-white border-none"
+                className="bg-linear-to-b from-orange-600 to-orange-500 rounded-full text-white hover:text-white border-none"
               >
                 Your Orders
               </Button>

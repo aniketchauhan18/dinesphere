@@ -76,7 +76,7 @@ export default async function PartnerPage() {
       <section>
         <div className="grid justify-center p-5">
           <div className="text-center">
-            <h1 className="flex justify-center items-center font-bold bg-gradient-to-r from-yellow-500 via-bg-orange-900 to-orange-600 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl min-h-16 h-auto">
+            <h1 className="flex justify-center items-center font-bold bg-linear-to-r from-yellow-500 via-bg-orange-900 to-orange-600 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl min-h-16 h-auto">
               Grow Your Restaurant
             </h1>
           </div>
@@ -110,7 +110,7 @@ export default async function PartnerPage() {
             return (
               <div
                 key={card.id}
-                className="p-3 border-b sm:border-b sm:border-r rounded-md sm:shadow-sm"
+                className="p-3 border-b sm:border-b sm:border-r rounded-md sm:shadow-xs"
               >
                 <div className="flex items-center">
                   {card.iconName === "MegaphoneIcon" && (

@@ -54,7 +54,7 @@ export default function UpdateMenu({ menu }: { menu: MenuProps }) {
     <div>
       <Dialog>
         <DialogTrigger>
-          <div className="flex items-center border rounded hover:shadow-sm duration-75 text-xs px-2 text-neutral-600 hover:text-neutral-600 h-8 py-0">
+          <div className="flex items-center border rounded hover:shadow-xs duration-75 text-xs px-2 text-neutral-600 hover:text-neutral-600 h-8 py-0">
             <FilePenLineIcon className="w-3 h-3 mr-1 text-neutral-600" />
             <p>Edit</p>
           </div>
@@ -97,7 +97,7 @@ export default function UpdateMenu({ menu }: { menu: MenuProps }) {
                 <div className="flex gap-5 justify-end pt-2">
                   <DialogClose>Cancel</DialogClose>
                   <Button
-                    className="bg-gradient-to-br from-orange-500 to-orange-600"
+                    className="bg-linear-to-br from-orange-500 to-orange-600"
                     type="submit"
                     disabled={isLoading}
                   >

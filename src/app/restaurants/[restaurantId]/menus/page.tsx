@@ -17,7 +17,7 @@ export default async function Menus({
     <main className="min-h-[70dvh] p-5 pb-24">
       <section className="flex justify-between items-center">
         <h1 className="text-lg font-bold">Current Menus</h1>
-        <Button className="bg-gradient-to-b from-orange-500 to-orange-600">
+        <Button className="bg-linear-to-b from-orange-500 to-orange-600">
           <PlusIcon className="w-4 h-4 mr-1" />
           Create Menu
         </Button>

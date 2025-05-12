@@ -21,8 +21,8 @@ export default async function Patnership() {
     <main className="lg:pt-24 pb-24">
       <div className="flex justify-center items-center min-h-[85dvh]">
         <section className="p-3 min-w-sm">
-          <div className="border rounded-md w-full flex flex-col flex-grow">
-            <div className="bg-gradient-to-b from-orange-500 to-orange-600/80 text-white flex justify-between gap-16 p-3 items-center rounded-t-md">
+          <div className="border rounded-md w-full flex flex-col grow">
+            <div className="bg-linear-to-b from-orange-500 to-orange-600/80 text-white flex justify-between gap-16 p-3 items-center rounded-t-md">
               <div>
                 <h1 className="font-semibold text-base">
                   Partner with DineSphere

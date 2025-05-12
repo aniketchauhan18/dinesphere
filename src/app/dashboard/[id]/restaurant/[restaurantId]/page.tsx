@@ -75,7 +75,7 @@ export default async function RestaurantDetailsPage({
                       See Images
                     </Button>
                   </div>
-                  <div className="text-xs sm:text-sm flex border p-2 rounded-md shadow-sm items-center hover:bg-neutral-100 duration-75">
+                  <div className="text-xs sm:text-sm flex border p-2 rounded-md shadow-xs items-center hover:bg-neutral-100 duration-75">
                     <UpdateRestaurantImage restaurantId={restaurant._id.toString()} />
                   </div>
                 </div>
@@ -128,7 +128,7 @@ export default async function RestaurantDetailsPage({
               <div>No images uploaded yet</div>
             )}
             <div className="flex justify-end pt-3">
-              <div className="text-xs sm:text-sm flex border p-2 rounded-md shadow-sm items-center hover:bg-neutral-100 duration-75">
+              <div className="text-xs sm:text-sm flex border p-2 rounded-md shadow-xs items-center hover:bg-neutral-100 duration-75">
                 <UpdateRestaurantImage
                   restaurantId={restaurant._id.toString()}
                 />

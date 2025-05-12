@@ -22,7 +22,7 @@ export default function BecomePartnerButton({
 
   return (
     <Button
-      className="bg-gradient-to-l from-orange-600 to-yellow-500 rounded-full text-xs"
+      className="bg-linear-to-l from-orange-600 to-yellow-500 rounded-full text-xs"
       onClick={handleButtonClick}
     >
       Become Partner

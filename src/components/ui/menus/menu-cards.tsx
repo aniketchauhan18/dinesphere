@@ -40,7 +40,7 @@ async function MenuCard({ menu }: { menu: MenuProps }) {
 
   return (
     <div className=" pt-5 flex justify-center">
-      <div className="rounded-lg w-full h-full hover:shadow duration-300 bg-neutral-50 max-w-xs flex flex-col justify-between">
+      <div className="rounded-lg w-full h-full hover:shadow-sm duration-300 bg-neutral-50 max-w-xs flex flex-col justify-between">
         <div className="max-w-sm mx-auto overflow-hidden rounded-lg w-full">
           <div className="relative h-48 w-full">
             {menuImage ? (

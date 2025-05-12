@@ -168,7 +168,7 @@ export default function RestaurantUpdateForm({
         <Button
           type="submit"
           disabled={isLoading}
-          className="bg-gradient-to-b from-orange-600 to-orange-500 shadow-none "
+          className="bg-linear-to-b from-orange-600 to-orange-500 shadow-none "
         >
           {isLoading ? (
             <div className="flex items-center">

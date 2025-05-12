@@ -37,7 +37,7 @@ export async function TrackCard({ order }: { order: TrackOrderProps }) {
     fetchRestaurantById(order.restaurantId),
   ]);
   return (
-    <div className="mt-10 border p-5 rounded-lg shadow-sm">
+    <div className="mt-10 border p-5 rounded-lg shadow-xs">
       <div className="flex justify-between">
         <p className="font-semibold text-xl">{restaurant.name.toString()}</p>
         <div className="flex justify-center items-center">

@@ -30,7 +30,7 @@ export default function Search() {
         onChange={(e) => handleSearch(e.target.value)}
         defaultValue={searchParams.get("query")?.toString()}
       />
-      <Button className=" rounded-none rounded-r-lg gap-1 flex items-center justify-center bg-gradient-to-r from-orange-400 to-orange-500">
+      <Button className=" rounded-none rounded-r-lg gap-1 flex items-center justify-center bg-linear-to-r from-orange-400 to-orange-500">
         <div className="flex justify-center items-center">
           <SearchIcon className="w-3.5 h-3.5" />
         </div>

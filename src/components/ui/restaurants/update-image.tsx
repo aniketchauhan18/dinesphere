@@ -101,7 +101,7 @@ export default function UpdateRestaurantImage({
                 <Button
                   type="submit"
                   disabled={isLoading}
-                  className="bg-gradient-to-b  from-orange-600 to-orange-500"
+                  className="bg-linear-to-b  from-orange-600 to-orange-500"
                 >
                   {isLoading ? (
                     <div className="flex items-center">
@@ -116,7 +116,7 @@ export default function UpdateRestaurantImage({
             </form>
           </div>
           {/* <DialogFooter>
-              <Button className="bg-gradient-to-b from-red-500 to-orange-500">
+              <Button className="bg-linear-to-b from-red-500 to-orange-500">
                 Upload Image
               </Button>
             </DialogFooter> */}

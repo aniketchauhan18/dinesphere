@@ -37,7 +37,7 @@ async function OrderCard({ order }: { order: MenuOrderItemProps }) {
   // console.log(menuImage, menuImage);
 
   return (
-    <div className="w-full border  rounded-lg p-3 shadow-sm duration-300">
+    <div className="w-full border  rounded-lg p-3 shadow-xs duration-300">
       <div className="flex gap-3">
         <div className="relative h-28 w-[200px]">
           <Image

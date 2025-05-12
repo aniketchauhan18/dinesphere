@@ -29,7 +29,7 @@ export default async function Navbar() {
   return (
     <nav className={`${inter.className}`}>
       <header
-        className={`fixed inset-x-0 min-h-16 hidden lg:flex z-50 bg-white/80 border-b backdrop-blur-sm justify-between items-center gap-5 p-5`}
+        className={`fixed inset-x-0 min-h-16 hidden lg:flex z-50 bg-white/80 border-b backdrop-blur-xs justify-between items-center gap-5 p-5`}
       >
         <div className={`flex justify-between items-center gap-5 w-full`}>
           <Link

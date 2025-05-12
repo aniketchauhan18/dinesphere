@@ -48,7 +48,7 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
     <div className="p-5 flex justify-center">
       <Link
         href={`/restaurants/${restaurant._id}`}
-        className="rounded-lg hover:shadow duration-300 bg-neutral-50 max-w-xs w-full flex flex-col"
+        className="rounded-lg hover:shadow-sm duration-300 bg-neutral-50 max-w-xs w-full flex flex-col"
       >
         <div className="relative w-full h-48">
           <Image
@@ -61,7 +61,7 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
             loading="lazy"
           />
         </div>
-        <div className="p-3 flex flex-col justify-between flex-grow space-y-2">
+        <div className="p-3 flex flex-col justify-between grow space-y-2">
           <div className="space-y-0.5">
             <p className="font-bold text-neutral-800 text-lg">
               {restaurant.name}

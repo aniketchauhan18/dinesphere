@@ -86,7 +86,7 @@ export default async function Orders({ params }: { params: { id: string } }) {
         <div className="flex flex-col min-h-[70dvh] justify-center items-center">
           <p className="pb-5">No orders have been added yet.</p>
           <Link href="/restaurants" prefetch>
-            <Button className="w-full max-w-sm bg-gradient-to-b from-orange-500 to-orange-600">
+            <Button className="w-full max-w-sm bg-linear-to-b from-orange-500 to-orange-600">
               Explore Restaurants
             </Button>
           </Link>

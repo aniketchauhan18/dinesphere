@@ -93,7 +93,7 @@ export default function UploadImage({
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-b w-full  from-orange-600 to-orange-500"
+                className="bg-linear-to-b w-full  from-orange-600 to-orange-500"
               >
                 {isLoading ? (
                   <div className="flex items-center">
@@ -152,7 +152,7 @@ export default function UploadImage({
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-gradient-to-b  from-orange-600 to-orange-500"
+                className="bg-linear-to-b  from-orange-600 to-orange-500"
               >
                 {isLoading ? (
                   <div className="flex items-center">

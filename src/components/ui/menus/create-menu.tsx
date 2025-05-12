@@ -65,7 +65,7 @@ export default function CreateMenu({ restaurantId }: { restaurantId: string }) {
     <form onSubmit={handleSubmit}>
       <Dialog>
         <DialogTrigger>
-          <div className="flex items-center border rounded hover:shadow-sm duration-75 text-xs px-2 text-neutral-600 hover:text-neutral-600 h-8 py-0">
+          <div className="flex items-center border rounded hover:shadow-xs duration-75 text-xs px-2 text-neutral-600 hover:text-neutral-600 h-8 py-0">
             <PlusIcon className="w-3 h-3 mr-1 text-neutral-600" />
             <p>Create Menu</p>
           </div>
@@ -95,7 +95,7 @@ export default function CreateMenu({ restaurantId }: { restaurantId: string }) {
                     Cancel
                   </DialogClose>
                   <Button
-                    className="bg-gradient-to-br from-orange-500 to-orange-600"
+                    className="bg-linear-to-br from-orange-500 to-orange-600"
                     type="submit"
                     disabled={isLoading}
                   >

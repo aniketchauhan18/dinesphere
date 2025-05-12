@@ -63,17 +63,17 @@ export default async function Home() {
           >
             <p className="text-3xl  lg:text-4xl">
               Empowering restaurants to{" "}
-              <span className="bg-gradient-to-b from-red-500  to-yellow-500 bg-clip-text text-transparent animate-gradient">
+              <span className="bg-linear-to-b from-red-500  to-yellow-500 bg-clip-text text-transparent animate-gradient">
                 serve
               </span>
             </p>
             <p className="text-3xl lg:text-4xl">
               and users to{" "}
-              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient">
+              <span className="bg-linear-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent animate-gradient">
                 indulge
               </span>
               , all in{" "}
-              <span className="bg-gradient-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
+              <span className="bg-linear-to-br from-red-500 to-yellow-500 bg-clip-text text-transparent">
                 one place
               </span>
             </p>

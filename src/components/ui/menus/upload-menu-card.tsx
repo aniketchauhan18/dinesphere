@@ -39,7 +39,7 @@ export default async function UploadMenuCards({
 async function MenuCard({ menu }: { menu: MenuProps }) {
   const menuImage = await fetchMenuImagesByMenuId(menu._id.toString());
   return (
-    <div className="border rounded-lg shadow-sm flex flex-col h-full">
+    <div className="border rounded-lg shadow-xs flex flex-col h-full">
       <div className="mb-3 relative w-full h-60">
         {menuImage ? (
           <Image
@@ -61,7 +61,7 @@ async function MenuCard({ menu }: { menu: MenuProps }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col flex-grow p-3">
+      <div className="flex flex-col grow p-3">
         <div className="mb-2">
           <p className="font-semibold text-neutral-800 mb-1">{menu.name}</p>
           <p className="text-neutral-600 text-sm">{menu.description}</p>

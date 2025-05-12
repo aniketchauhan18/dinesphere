@@ -93,7 +93,7 @@ export default function UpdateProfile({ userId }: { userId: string }) {
       <div className="w-full flex justify-center   pt-2">
         <Button
           type="submit"
-          className="bg-gradient-to-br from-orange-500 to-orange-600 w-full max-w-sm"
+          className="bg-linear-to-br from-orange-500 to-orange-600 w-full max-w-sm"
         >
           {isLoading ? (
             <div className="flex items-center">
