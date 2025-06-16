@@ -107,7 +107,7 @@ export default async function Navbar() {
           </Link>
           <Link
             href={`/user/${user?._id}/orders`}
-            className={`${linkClasses} relative inline-block`}
+            className={`${linkClasses} flex items-center relative`}
           >
             <ShoppingBag className="w-5 h-5" />
             <p className="text-xs mt-1">Orders</p>

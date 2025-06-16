@@ -95,7 +95,7 @@ export default function CheckoutButton({
 
       const { order } = await orderResponse.json();
       const options: RazorpayOptions = {
-        key: process.env.RAZORPAY_KEY_ID as string,
+        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID as string,
         amount: totalPrice as number, // Amount should be in currency subunits (e.g., paise for INR)
         currency: "INR",
         name: "DineSphere",
