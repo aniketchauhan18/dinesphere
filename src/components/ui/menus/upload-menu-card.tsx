@@ -47,10 +47,7 @@ async function MenuCard({ menu }: { menu: MenuProps }) {
             alt="Restaurant Image"
             fill
             sizes="900px"
-            style={{
-              objectFit: "cover",
-            }}
-            className="rounded-t-lg"
+            className="rounded-t-lg object-cover"
           />
         ) : (
           <div className="w-full h-full">

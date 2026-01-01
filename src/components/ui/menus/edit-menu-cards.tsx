@@ -31,11 +31,10 @@ function EditMenuCard({ menu }: { menu: MenuProps }) {
         <Image
           src="https://images.pexels.com/photos/2313686/pexels-photo-2313686.jpeg?auto=compress&cs=tinysrgb&w=600"
           alt="menu-image"
-          className="rounded-t-lg"
-          width="400"
+          className="rounded-t-lg object-cover"
+          width={400}
           sizes="100%"
-          height="150"
-          objectFit="cover"
+          height={150}
           placeholder="empty"
         />
         <div className="p-2 bg-primary-foreground rounded-b-lg border border-neutral-100 border-t-none">

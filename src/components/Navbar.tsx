@@ -13,17 +13,23 @@ import {
 } from "lucide-react";
 import { inter } from "./fonts";
 import Link from "next/link";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { fetchUserByClerkId, fetchUserOrderMenuItems } from "@/lib/data";
 export default async function Navbar() {
-  const { userId } = auth();
+  const clerkUser = await currentUser();
+  const userId = clerkUser?.id;
 
   let user;
+  let orderItems: Awaited<ReturnType<typeof fetchUserOrderMenuItems>> = [];
+  
   if (userId) {
-    user = await fetchUserByClerkId(userId as string);
+    try {
+      user = await fetchUserByClerkId(userId);
+      orderItems = await fetchUserOrderMenuItems(user?._id);
+    } catch {
+      // User not found
+    }
   }
-
-  const orderItems = await fetchUserOrderMenuItems(user?._id);
 
   const linkClasses: string = "flex flex-col items-center cursor-pointer";
   return (

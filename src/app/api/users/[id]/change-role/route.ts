@@ -29,7 +29,8 @@ export async function PATCH(
       { new: true },
     );
 
-    await clerkClient.users.updateUserMetadata(clerkId, {
+    const client = await clerkClient();
+    await client.users.updateUserMetadata(clerkId, {
       publicMetadata: {
         role,
       },

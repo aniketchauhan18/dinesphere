@@ -50,7 +50,6 @@ export default function UpdateRestaurantImage({
       });
 
       const data = await response.json();
-      console.log(data, "-----------------------------------");
       if (!response.ok) {
         alert("Error while uploading new image");
       }
@@ -58,10 +57,9 @@ export default function UpdateRestaurantImage({
       alert("Image uploaded successfully");
       router.refresh();
     } catch (err) {
-      console.log(err);
+      // Error handled silently
     }
   };
-  console.log(image);
 
   return (
     <div>

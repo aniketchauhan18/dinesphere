@@ -5,11 +5,11 @@ import User from "@/lib/models/user.model";
 import { clerkClient } from "@clerk/nextjs/server";
 
 const userValidationSchema = z.object({
-  clerkId: z.string({ required_error: "Clerk ID is required" }),
-  imageUrl: z.string({ required_error: "Image URL is required" }),
+  clerkId: z.string().min(1, { message: "Clerk ID is required" }),
+  imageUrl: z.string().min(1, { message: "Image URL is required" }),
   username: z.string().optional(),
-  firstName: z.string({ required_error: "FirstName is required" }),
-  lastName: z.string({ required_error: "LastName is required" }),
+  firstName: z.string().min(1, { message: "FirstName is required" }),
+  lastName: z.string().min(1, { message: "LastName is required" }),
   email: z.string().email("Invalid email address"),
 });
 
@@ -56,7 +56,8 @@ export async function POST(req: NextRequest): Promise<Response> {
     const userToReturn = await User.create(newUser);
 
     // default role to user in clerk metaData `
-    await clerkClient.users.updateUserMetadata(clerkId, {
+    const client = await clerkClient();
+    await client.users.updateUserMetadata(clerkId, {
       publicMetadata: {
         role: "user",
       },

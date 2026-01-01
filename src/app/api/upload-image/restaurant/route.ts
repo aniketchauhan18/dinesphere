@@ -3,17 +3,21 @@ import { UploadImage } from "@/lib/upload-image";
 import { NextRequest, NextResponse } from "next/server";
 import { CloudinaryResponse } from "@/lib/definition";
 import { connect } from "@/lib/db";
+import Restaurant from "@/lib/models/restaurant.model";
+import User from "@/lib/models/user.model";
+import mongoose from "mongoose";
+import { DeleteImageFromCloudinary } from "@/lib/delete-image";
+
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
     await connect();
-
     const formData = await req.formData();
     const image = formData.get("image") as unknown as File;
     // console.log(image)
     const restaurantId = formData.get("placeholderId") as string;
     // const imageBuffer = await image.arrayBuffer();
-    console.log(restaurantId);
+    // console.log(restaurantId);
 
     if (!image || !restaurantId) {
       return NextResponse.json(
@@ -52,7 +56,6 @@ export async function POST(req: NextRequest): Promise<Response> {
       height,
       restaurantId,
     });
-    console.log(storeImage);
 
     if (!storeImage) {
       return NextResponse.json(
@@ -85,46 +88,57 @@ export async function POST(req: NextRequest): Promise<Response> {
   }
 }
 
-// try {
-//   const { public_id, restaurantId, url, height, width } = await req.json();
+// TODO: add a functionality to delete this from the cloudinary also
+export async function DELETE(req: NextRequest): Promise<Response> {
+  try {
+    await connect();
+    const { publicId, restaurantId, userId } = await req.json();
 
-//   if (!url) {
-//     return NextResponse.json(
-//       {
-//         message: "Image url is not provided",
-//       },
-//       {
-//         status: 404,
-//       },
-//     );
-//   }
+    if (!publicId) {
+      return NextResponse.json({ message: "Please provide a public ID" }, { status: 400 });
+    }
 
-//   const restarantImage = await ImageRestaurant.create({
-//     publicId: public_id,
-//     restaurantId,
-//     url,
-//     height,
-//     width,
-//   });
+    const session = await mongoose.startSession();
+    let deletedImage = null;
 
-//   if (!restarantImage) {
-//     return NextResponse.json(
-//       {
-//         message: "Error while adding the image in the db",
-//       },
-//       {
-//         status: 400,
-//       },
-//     );
-//   }
+    try {
+      await session.withTransaction(async () => {
+        const restaurant = await Restaurant.findOne({ id: restaurantId }).session(session);
+        if (!restaurant) {
+          throw new Error("Restaurant not found");
+        }
 
-//   return NextResponse.json(
-//     {
-//       message: "Image added to the db",
-//       data: restarantImage,
-//     },
-//     {
-//       status: 200,
-//     },
-//   );
-// }
+        const user = await User.findOne({ id: userId }).session(session);
+        if (!user) {
+          throw new Error("User not found");
+        }
+
+        // Delete from Cloudinary
+        const cloudinaryResponse = await DeleteImageFromCloudinary(publicId);
+        if (!cloudinaryResponse || (cloudinaryResponse.result !== "ok" && cloudinaryResponse.result !== "not found")) {
+          throw new Error("Error while deleting image from Cloudinary");
+        }
+
+        // Delete from DB
+        deletedImage = await ImageRestaurant.deleteOne({ publicId, restaurantId }).session(session);
+        if (!deletedImage.deletedCount || deletedImage.deletedCount === 0) {
+          throw new Error("Image not found in database");
+        }
+      });
+    } finally {
+      session.endSession();
+    }
+
+    return NextResponse.json({
+      message: "Image deleted successfully",
+      data: deletedImage,
+    });
+  } catch (err) {
+    console.error(err);
+    return NextResponse.json(
+      { message: "Internal server error while deleting restaurant image in db" },
+      { status: 500 }
+    );
+  }
+}
+

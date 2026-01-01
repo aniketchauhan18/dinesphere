@@ -1,7 +1,7 @@
 import { RestaurantProps } from "@/app/restaurants/page";
 import RestaurantUpdateForm from "@/components/ui/restaurants/update-form";
 import { fetchRestaurantById, fetchRestaurantImagesById } from "@/lib/data";
-import { EyeIcon, MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
+import { Delete, EyeIcon, MailIcon, MapPinIcon, PhoneIcon, Trash } from "lucide-react";
 import UploadImage from "@/components/UploadImage";
 import UpdateRestaurantImage from "@/components/ui/restaurants/update-image";
 import Image from "next/image";
@@ -11,11 +11,12 @@ import Link from "next/link";
 import UploadMenuCards from "@/components/ui/menus/upload-menu-card";
 import { redirect } from "next/navigation";
 import { checkRole } from "@/lib/utils/role";
+import DeleteRestaurantImage from "@/components/ui/restaurants/delete-restaurant-image";
 
 export default async function RestaurantDetailsPage({
   params,
 }: {
-  params: Promise<{ restaurantId: string }>;
+  params: Promise<{ restaurantId: string, id: string }>;
 }) {
   const [restaurant, restaurantImages]: [
     RestaurantProps,
@@ -24,6 +25,7 @@ export default async function RestaurantDetailsPage({
     fetchRestaurantById((await params).restaurantId),
     fetchRestaurantImagesById((await params).restaurantId),
   ]);
+  const userId = ( await params).id;
 
   if (!checkRole("admin")) {
     redirect("/");
@@ -33,7 +35,7 @@ export default async function RestaurantDetailsPage({
 
   // use image url in src in image
   return (
-    <main className="lg:py-24 pb-24">
+    <main className="lg:py-16 pb-24">
       {Boolean(imageUrl) || (
         <section className="p-3">
           <div className="flex flex-col justify-center w-full">
@@ -109,17 +111,14 @@ export default async function RestaurantDetailsPage({
                       width={400}
                       height={300}
                       className="object-cover w-full h-60"
-                      style={{ aspectRatio: "400/300", objectFit: "cover" }}
+                      style={{ aspectRatio: "400/300" }}
                     />
                     <div className="absolute inset-0 bg-black/50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                      <Button
-                        variant="ghost"
-                        size="icon"
-                        className="text-white"
-                      >
-                        <EyeIcon className="w-6 h-6" />
-                        <span className="sr-only">View</span>
-                      </Button>
+                      <DeleteRestaurantImage
+                        publicId={image.publicId}
+                        restaurantId={restaurant._id.toString()}
+                        userId={userId}
+                      />
                     </div>
                   </div>
                 ))}

@@ -23,12 +23,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    urlImports: [
-      "https://checkout.razorpay.com/v1/",
-      "https://api.razorpay.com/v2/",
-    ],
-  },
 };
 
 export default nextConfig;

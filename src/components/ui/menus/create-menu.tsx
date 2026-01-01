@@ -46,10 +46,6 @@ export default function CreateMenu({ restaurantId }: { restaurantId: string }) {
       // }
       const responseData = await response.json();
       if (!response.ok) {
-        // alert("Error");
-        console.log("Full response:", response);
-        console.log("Response status:", response.status);
-        console.log("Response body:", responseData);
         router.refresh();
         return;
       }

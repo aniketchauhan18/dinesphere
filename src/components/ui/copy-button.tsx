@@ -10,9 +10,8 @@ export default function CopyButton({ text }: { text: string }) {
       // clipboard api to copy text
       await navigator.clipboard.writeText(text);
       setButtonState((prev) => !prev);
-      console.log("copied to clipboard");
     } catch (err) {
-      console.log("Failed to copy error");
+      // Failed to copy - handled silently
     }
   };
 

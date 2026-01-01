@@ -54,9 +54,8 @@ async function RestaurantCard({ restaurant }: { restaurant: RestaurantProps }) {
           <Image
             src={firstImageUrl}
             alt="restaurant-image"
-            className="rounded-t-lg"
-            layout="fill"
-            objectFit="cover"
+            className="rounded-t-lg object-cover"
+            fill
             placeholder="empty"
             loading="lazy"
           />

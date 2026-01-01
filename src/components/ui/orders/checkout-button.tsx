@@ -3,6 +3,8 @@ import { useUser } from "@/app/hooks/UserContext";
 import { Button } from "../button";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
+import { useState } from "react";
+
 export interface UserProps {
   firstName: string;
   lastName: string;
@@ -49,20 +51,22 @@ interface RazorpayOptions {
     color: string;
   };
   handler: (response: RazorpayResponse) => Promise<void>;
+  modal?: {
+    ondismiss: () => void;
+  };
 }
 
 interface RazorpayInstance {
   open(): void;
+  on(event: string, callback: (response: unknown) => void): void;
 }
 
 // adding razorpay to window
 declare global {
   interface Window {
-    Razorpay: any;
+    Razorpay: new (options: RazorpayOptions) => RazorpayInstance;
   }
 }
-
-// const initialUserState: User | null = null;
 
 export default function CheckoutButton({
   restaurantId,
@@ -70,16 +74,24 @@ export default function CheckoutButton({
   status,
   orderItemsIds,
 }: CheckOutOrderProps) {
-  // userId, restaurantId, totalPrice, status, orderItems
   const router = useRouter();
   const user: UserProps = useUser() as UserProps;
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleAddOrder = async (totalPrice: number | string) => {
     if (!user.address || user.address.trim() === "") {
-      alert("Please add address");
+      toast.error("Please add your delivery address first");
       router.push(`/user/${user?._id}/profile`);
       return;
     }
+
+    // Check if Razorpay script is loaded
+    if (typeof window.Razorpay === "undefined") {
+      toast.error("Payment gateway is loading. Please try again in a moment.");
+      return;
+    }
+
+    setIsLoading(true);
 
     try {
       const orderResponse = await fetch(`/api/payment/create-order`, {
@@ -93,26 +105,45 @@ export default function CheckoutButton({
         cache: "no-cache",
       });
 
-      const { order } = await orderResponse.json();
+      if (!orderResponse.ok) {
+        const errorData = await orderResponse.json();
+        toast.error(errorData.message || "Failed to create order");
+        setIsLoading(false);
+        return;
+      }
+
+      const { order, apikey } = await orderResponse.json();
+      
+      if (!order || !order.id) {
+        toast.error("Failed to create payment order. Please try again.");
+        setIsLoading(false);
+        return;
+      }
+
       const options: RazorpayOptions = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID as string,
-        amount: totalPrice as number, // Amount should be in currency subunits (e.g., paise for INR)
-        currency: "INR",
+        key: apikey || process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID as string,
+        amount: order.amount, // Use amount from order response (already in paise)
+        currency: order.currency || "INR",
         name: "DineSphere",
-        description: "Test Transaction",
-        image:
-          "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yankzbDVYTGZMYktidDhoWGRYY054MUxzdmgifQ",
-        order_id: order.id, // Use the order ID obtained from the response
+        description: "Food Order Payment",
+        image: "/favicon.ico",
+        order_id: order.id,
         prefill: {
-          name: (user?.firstName as string) || "Aniket",
-          email: (user?.email as string) || "workwithaniket18@gmail.com",
-          contact: user?.number || "8580496476",
+          name: `${user?.firstName || ""} ${user?.lastName || ""}`.trim() || "Guest",
+          email: user?.email || "",
+          contact: user?.number || "",
         },
         notes: {
-          address: "HBH",
+          address: user?.address || "Not provided",
         },
         theme: {
-          color: "#3399cc",
+          color: "#f97316", // Orange theme matching the app
+        },
+        modal: {
+          ondismiss: function () {
+            setIsLoading(false);
+            toast.info("Payment cancelled");
+          },
         },
         handler: async function (response: RazorpayResponse) {
           if (
@@ -121,69 +152,90 @@ export default function CheckoutButton({
             !response.razorpay_signature
           ) {
             console.error("Razorpay response is missing required properties.");
-            console.log("Razorpay error");
+            toast.error("Payment verification failed. Please contact support.");
+            setIsLoading(false);
             return;
           }
-          console.log("Payment Successful!");
-          console.log("Payment ID: ", response.razorpay_payment_id);
-          console.log("Order ID: ", response.razorpay_order_id);
-          console.log("Signature: ", response.razorpay_signature);
+          
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
 
-          // store payment api call
+          try {
+            // Store payment in database
+            const storePaymentResponse = await fetch(`/api/payment`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: user._id,
+                paymentId: razorpay_payment_id,
+                paymentOrderId: razorpay_order_id,
+                paymentSignature: razorpay_signature,
+              }),
+            });
 
-          const storePaymentResponse = await fetch(`/api/payment`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userId: user._id,
-              paymentId: razorpay_payment_id,
-              paymentOrderId: razorpay_order_id,
-              paymentSignature: razorpay_signature,
-            }),
-          });
-          // extracting payment from the response this payment contains the payment id
-          const { payment } = await storePaymentResponse.json();
-          const checkoutResponse = await fetch(`/api/checkout`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              userId: user._id,
-              restaurantId,
-              totalPrice,
-              status,
-              orderItems: orderItemsIds,
-              paymentId: payment._id,
-            }),
-          });
-          const { order } = await checkoutResponse.json();
-          if (checkoutResponse.ok) {
-            toast("Order added sucessfully");
-            router.push(`/user/${user._id}/orders/track`);
+            if (!storePaymentResponse.ok) {
+              throw new Error("Failed to store payment");
+            }
+
+            const { payment } = await storePaymentResponse.json();
+
+            // Create the order
+            const checkoutResponse = await fetch(`/api/checkout`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                userId: user._id,
+                restaurantId,
+                totalPrice,
+                status,
+                orderItems: orderItemsIds,
+                paymentId: payment._id,
+              }),
+            });
+
+            if (checkoutResponse.ok) {
+              toast.success("Order placed successfully!");
+              router.push(`/user/${user._id}/orders/track`);
+            } else {
+              throw new Error("Failed to create order");
+            }
+          } catch (error) {
+            console.error("Error processing order:", error);
+            toast.error("Payment received but order creation failed. Please contact support.");
+          } finally {
+            setIsLoading(false);
           }
         },
       };
 
-      const rzp1: RazorpayInstance = new window.Razorpay(options);
+      const rzp1 = new window.Razorpay(options);
+      
+      // Handle payment failures
+      rzp1.on("payment.failed", function (response: unknown) {
+        console.error("Payment failed:", response);
+        toast.error("Payment failed. Please try again.");
+        setIsLoading(false);
+      });
+      
       rzp1.open();
     } catch (err) {
-      console.error("Error adding menu item:", err);
+      console.error("Error initiating payment:", err);
+      toast.error("Failed to initiate payment. Please try again.");
+      setIsLoading(false);
     }
   };
 
   return (
-    <>
-      <Button
-        className="w-full sm:max-w-48 bg-linear-to-b from-orange-500 to-orange-600"
-        onClick={() => handleAddOrder(totalPrice)}
-      >
-        Checkout
-      </Button>
-    </>
+    <Button
+      className="w-full sm:max-w-48 bg-linear-to-b from-orange-500 to-orange-600"
+      onClick={() => handleAddOrder(totalPrice)}
+      disabled={isLoading}
+    >
+      {isLoading ? "Processing..." : "Checkout"}
+    </Button>
   );
 }

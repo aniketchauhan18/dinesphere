@@ -1,8 +1,8 @@
 import { Roles } from "@/types/global";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 
-export const checkRole = (role: Roles) => {
-  const { sessionClaims } = auth();
+export const checkRole = async (role: Roles) => {
+  const user = await currentUser();
 
-  return sessionClaims?.metadata.role === role;
+  return user?.publicMetadata?.role === role;
 };

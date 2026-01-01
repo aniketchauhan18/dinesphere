@@ -39,12 +39,11 @@ export default async function Orders({
 
   return (
     <main className="pt-4 lg:pt-20 px-5">
-      <>
-        <Script
-          id="razorpay-checkout-js"
-          src="https://checkout.razorpay.com/v1/checkout.js"
-        />
-      </>
+      <Script
+        id="razorpay-checkout-js"
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="beforeInteractive"
+      />
       <section className="flex justify-between items-center">
         <h1 className="text-xl font-bold">Your Orders</h1>
         <BackButton />
