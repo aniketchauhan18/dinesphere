@@ -52,7 +52,6 @@ export default function UploadProfileImage({ userId }: { userId: string }) {
       router.refresh();
       setIsLoading(false);
     } catch (err) {
-      console.log(err);
       alert("Error while uploading the image");
     }
   };

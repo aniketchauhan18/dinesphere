@@ -22,7 +22,6 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
       const response = await fetch(`/api/users/clerk/${userId}`);
       const resData = await response.json();
       setUser(resData.data);
-      console.log(resData);
     } catch (err) {
       console.error("Error fetching user data", err);
     }
@@ -33,7 +32,6 @@ export const UserProvider = ({ children }: React.PropsWithChildren) => {
   }, [fetchUser]);
 
   const memoizedUser = useMemo(() => user, [user]);
-  console.log(memoizedUser);
   return (
     <UserContext.Provider value={memoizedUser}>{children}</UserContext.Provider>
   );

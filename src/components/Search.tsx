@@ -17,7 +17,6 @@ export default function Search() {
     } else {
       params.delete("query");
     }
-    console.log(searchParams);
     // replacing current path with new search params
     replace(`${currentPath}?${params.toString()}`);
   }, 300);

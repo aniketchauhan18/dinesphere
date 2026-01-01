@@ -51,7 +51,6 @@ export default function UploadImage({
         },
       );
       const data = await response.json();
-      console.log(data);
       if (!response.ok) {
         alert("Error while uplaoding image");
       }
@@ -59,7 +58,7 @@ export default function UploadImage({
       setIsLoading(false);
       router.refresh();
     } catch (err) {
-      console.log(err);
+      // Error handled silently
     }
   };
 

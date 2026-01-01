@@ -56,10 +56,7 @@ export default async function RestaurantPage({
                     alt="Restaurant Image"
                     fill
                     sizes="100%"
-                    style={{
-                      objectFit: "cover",
-                    }}
-                    className="rounded-lg"
+                    className="rounded-lg object-cover"
                   />
                 </div>
               ))}
@@ -73,10 +70,7 @@ export default async function RestaurantPage({
                     alt="Restaurant Image"
                     fill
                     sizes="900px"
-                    style={{
-                      objectFit: "cover",
-                    }}
-                    className="rounded-lg"
+                    className="rounded-lg object-cover"
                   />
                 </div>
               ))}
@@ -86,10 +80,8 @@ export default async function RestaurantPage({
               <div className="relative w-full h-44 sm:h-96">
                 <Image
                   src={restaurantImages[0].url}
-                  layout="fill"
-                  objectFit="cover"
-                  objectPosition="center"
-                  className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                  fill
+                  className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 object-cover object-center"
                   alt={`Restaurant Image 1`}
                   priority
                 />
@@ -98,10 +90,8 @@ export default async function RestaurantPage({
                 <div className="relative aspect-square sm:aspect-auto w-full">
                   <Image
                     src={restaurantImages[1].url}
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
-                    className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                    fill
+                    className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 object-cover object-center"
                     alt={`Restaurant Image 2`}
                     priority
                   />
@@ -109,10 +99,8 @@ export default async function RestaurantPage({
                 <div className="relative aspect-square sm:aspect-auto w-full">
                   <Image
                     src={restaurantImages[2].url}
-                    layout="fill"
-                    objectFit="cover"
-                    objectPosition="center"
-                    className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300"
+                    fill
+                    className="rounded-lg shadow-md hover:shadow-xl transition-shadow duration-300 object-cover object-center"
                     alt={`Restaurant Image 3`}
                     priority
                   />

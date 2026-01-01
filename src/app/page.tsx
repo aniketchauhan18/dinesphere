@@ -7,7 +7,7 @@ import Image from "next/image";
 import BecomePartnerButton from "@/components/ui/become-partner-button";
 import { fetchRestaurantsByUserId, fetchUserByClerkId } from "@/lib/data";
 import { UserProps } from "@/components/ui/orders/checkout-button";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import { UserRestaurantsProps } from "@/lib/definition";
 
 export default async function Home() {
@@ -47,11 +47,19 @@ export default async function Home() {
     },
   ];
 
-  const { userId } = auth();
+  const user = await currentUser();
+  const userId = user?.id;
 
-  const user = (await fetchUserByClerkId(userId as string)) as UserProps;
-  const data: UserRestaurantsProps = await fetchRestaurantsByUserId(user._id);
-  const { length } = data;
+  let length = 0;
+  if (userId) {
+    try {
+      const user = (await fetchUserByClerkId(userId)) as UserProps;
+      const data: UserRestaurantsProps = await fetchRestaurantsByUserId(user._id);
+      length = data.length;
+    } catch {
+      // User might not exist yet, that's okay
+    }
+  }
 
   return (
     <main className="min-h-screen pb-12">
@@ -108,9 +116,8 @@ export default async function Home() {
                       alt={`${item.cuisine}-image`}
                       width={400}
                       sizes="100%"
-                      className="rounded-lg"
+                      className="rounded-lg object-cover"
                       height={250}
-                      objectFit="cover"
                       placeholder="empty"
                       loading="lazy"
                     />

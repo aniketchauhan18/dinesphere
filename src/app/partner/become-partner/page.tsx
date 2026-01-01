@@ -3,7 +3,7 @@ import { UserProps } from "@/components/ui/orders/checkout-button";
 import PartnerButton from "@/components/ui/partner-button";
 import { fetchRestaurantsByUserId, fetchUserByClerkId } from "@/lib/data";
 import { UserRestaurantsProps } from "@/lib/definition";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
 import {
   CalendarCheckIcon,
   IndianRupeeIcon,
@@ -64,12 +64,19 @@ export default async function PartnerPage() {
     },
   ];
 
-  const { userId } = auth();
-  const user = (await fetchUserByClerkId(userId as string)) as UserProps;
-  const resData: UserRestaurantsProps = await fetchRestaurantsByUserId(
-    user?._id,
-  );
-  const { length } = resData;
+  const user = await currentUser();
+  const userId = user?.id;
+  
+  let length = 0;
+  if (userId) {
+    try {
+      const user = (await fetchUserByClerkId(userId)) as UserProps;
+      const resData: UserRestaurantsProps = await fetchRestaurantsByUserId(user._id);
+      length = resData.length;
+    } catch {
+      // User might not exist yet
+    }
+  }
 
   return (
     <main className="pb-24 lg:pt-24 p-3">

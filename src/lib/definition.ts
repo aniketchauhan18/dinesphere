@@ -97,6 +97,7 @@ export interface CloudinaryResponse {
 export interface RestaurantImageResponse {
   _id: string;
   url: string;
+  publicId: string;
   restaurantId: string;
   height: number;
   width: number;
@@ -105,19 +106,21 @@ export interface RestaurantImageResponse {
 }
 
 export const createRestaurantSchema = z.object({
-  userId: z.string({ required_error: "UserId is requried" }),
+  userId: z.string().min(1, { message: "UserId is requried" }),
   name: z
-    .string({ required_error: "Restaurants name is required" })
+    .string()
+    .min(1, { message: "Restaurants name is required" })
     .min(3, "Name must be at least 3 characters long"),
   country: z
-    .string({ required_error: "Country is required" })
+    .string()
+    .min(1, { message: "Country is required" })
     .min(2, "Please enter correct country name"),
-  city: z.string({ required_error: "City is required" }),
-  state: z.string({ required_error: "State is required" }),
-  address: z.string({ required_error: "Address is required" }),
-  description: z.string({ required_error: "Description is required" }),
-  number: z.string({ required_error: "Number is required" }),
-  email: z.string({ required_error: "Email is required" }),
+  city: z.string().min(1, { message: "City is required" }),
+  state: z.string().min(1, { message: "State is required" }),
+  address: z.string().min(1, { message: "Address is required" }),
+  description: z.string().min(1, { message: "Description is required" }),
+  number: z.string().min(1, { message: "Number is required" }),
+  email: z.string().min(1, { message: "Email is required" }),
   websiteUrl: z.string().optional(),
   cuisine: z.array(z.string()).optional(),
 });

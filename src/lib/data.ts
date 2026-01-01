@@ -346,13 +346,17 @@ export async function fetchOrderOlderThan(minutes: number) {
   try {
     await connect();
 
-    // setting minimun time
+    // setting minimum time
     const timeThreshold = new Date(Date.now() - minutes * 60 * 1000);
-    const orders = await Order.find({ createdAt: { $lt: timeThreshold } });
+    // Fetch orders that are not delivered or rejected, older than the threshold
+    const orders = await Order.find({ 
+      createdAt: { $lt: timeThreshold },
+      status: { $nin: ["delivered", "rejected"] }
+    });
     return orders;
   } catch (err) {
     console.log(err);
-    throw new Error("Erro fecthing older orders");
+    throw new Error("Error fetching older orders");
   }
 }
 

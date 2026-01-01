@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { UploadImage } from "@/lib/upload-image";
 import { CloudinaryResponse } from "@/lib/definition";
 import { connect } from "@/lib/db";
+import { DeleteImageFromCloudinary } from "@/lib/delete-image";
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
@@ -74,6 +75,36 @@ export async function POST(req: NextRequest): Promise<Response> {
     console.log(err);
     return NextResponse.json({
       message: "Internal server error while adding menu image in db",
+    });
+  }
+}
+
+
+export async function DELETE(req: NextRequest): Promise<Response> {
+  try {
+    const { publicId } = await req.json();
+
+    if (!publicId) {
+      return NextResponse.json({
+        message: "Please provide a public ID",
+      });
+    }
+
+    const result = await DeleteImageFromCloudinary(publicId);
+
+    if (!result) {
+      return NextResponse.json({
+        message: "Error while deleting image from cloudinary",
+      });
+    }
+
+    return NextResponse.json({
+      message: "Image deleted successfully",
+    });
+  } catch (err) {
+    console.log(err);
+    return NextResponse.json({
+      message: "Internal server error while deleting menu image in db",
     });
   }
 }

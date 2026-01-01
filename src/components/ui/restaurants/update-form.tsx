@@ -35,7 +35,6 @@ export default function RestaurantUpdateForm({
       websiteUrl: formData.get("websiteUrl"),
       description: formData.get("description"),
     };
-    console.log("formObj", formObj);
 
     const response = await fetch(`/api/restaurant/${restaurant._id}/update`, {
       method: "PATCH",
@@ -45,7 +44,6 @@ export default function RestaurantUpdateForm({
       body: JSON.stringify(formObj),
     });
     const data = await response.json();
-    console.log(data);
     if (!response.ok) {
       alert("Error while updating restaurant with new data , Kindly try again");
       setIsLoading(false);

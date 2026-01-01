@@ -18,7 +18,6 @@ export default async function DashboardPage({
 
   return (
     <main className="lg:pt-20 pb-20 lg:pb-5 p-5">
-      {/* analytics section */}
       <section className="flex justify-between items-center py-3">
         <h1 className="text-xl font-bold">Dashboard</h1>
         <DefaultBackButton />

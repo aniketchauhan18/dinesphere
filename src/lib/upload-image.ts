@@ -1,7 +1,7 @@
 import { cloudinary } from "./cloudinary";
 
 export async function UploadImage(file: File, folder: string): Promise<any> {
-  console.log(file);
+  // console.log(file);
 
   try {
     const buffer = await file.arrayBuffer(); // returns a promise

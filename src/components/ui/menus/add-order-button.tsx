@@ -33,7 +33,6 @@ export default function AddOrderItemButton({
         cache: "no-cache",
       });
       const data = await response.json();
-      console.log(data);
       if (!response.ok) {
         toast("Error adding menu to the orderItem");
       }

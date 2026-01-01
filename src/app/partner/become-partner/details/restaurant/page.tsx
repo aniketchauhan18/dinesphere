@@ -1,11 +1,18 @@
 import { UserProps } from "@/components/ui/orders/checkout-button";
 import CreateForm from "@/components/ui/restaurants/create-form";
 import { fetchUserByClerkId } from "@/lib/data";
-import { auth } from "@clerk/nextjs/server";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 export default async function RestaurantDetails() {
-  const { userId } = auth();
-  const user: UserProps = await fetchUserByClerkId(userId as string);
+  const clerkUser = await currentUser();
+  const userId = clerkUser?.id;
+  
+  if (!userId) {
+    redirect("/sign-in");
+  }
+  
+  const user: UserProps = await fetchUserByClerkId(userId);
 
   return (
     <main className="pb-24 lg:pt-24 p-4">

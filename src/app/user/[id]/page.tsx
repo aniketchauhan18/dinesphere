@@ -23,8 +23,6 @@ export default async function MoreDetails({
     fetchOrderOlderThan(15),
   ]);
 
-  console.log(order);
-
   return (
     <main className="min-h-screen p-5 bg-neutral-100 flex flex-col lg:py-20">
       <div className="flex flex-col gap-8 w-full max-w-3xl mx-auto">
@@ -33,7 +31,6 @@ export default async function MoreDetails({
             <span className="relative z-10 px-3 bg-clip-text text-transparent bg-linear-to-br from-yellow-400 via-orange-400 to-orange-600 animate-gradient">
               Hey, {user.firstName} {user.lastName}
             </span>
-            <span>👋</span>
           </h1>
           <Separator className="bg-orange-300" />
         </div>

@@ -12,7 +12,7 @@ export default async function TrackCards({
   orders: TrackOrderProps[];
 }) {
   return (
-    <div>
+    <div className="mt-10">
       {orders.length >= 1 ? (
         <div className="grid sm:grid-cols-2 gap-5">
           {orders.map((order) => (
@@ -37,7 +37,7 @@ export async function TrackCard({ order }: { order: TrackOrderProps }) {
     fetchRestaurantById(order.restaurantId),
   ]);
   return (
-    <div className="mt-10 border p-5 rounded-lg shadow-xs">
+    <div className="border p-5 rounded-lg shadow-xs">
       <div className="flex justify-between">
         <p className="font-semibold text-xl">{restaurant.name.toString()}</p>
         <div className="flex justify-center items-center">
