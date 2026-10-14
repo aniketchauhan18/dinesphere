@@ -79,7 +79,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log("Inside add-order api call");
+    console.error("Inside add-order api call", err);
     return NextResponse.json(
       {
         message: "Error adding order item",

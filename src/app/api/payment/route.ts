@@ -23,7 +23,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       payment,
     });
   } catch (err) {
-    console.log("Inside checkout api call");
+    console.error("Inside payment api call", err);
     return NextResponse.json(
       {
         message: "Error adding order item",

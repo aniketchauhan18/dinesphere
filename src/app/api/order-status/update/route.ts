@@ -42,7 +42,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         message: "Interal server error while updating order status",

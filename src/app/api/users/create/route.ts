@@ -7,9 +7,9 @@ import { clerkClient } from "@clerk/nextjs/server";
 const userValidationSchema = z.object({
   clerkId: z.string().min(1, { message: "Clerk ID is required" }),
   imageUrl: z.string().min(1, { message: "Image URL is required" }),
-  username: z.string().optional(),
+  username: z.string().optional().nullable(),
   firstName: z.string().min(1, { message: "FirstName is required" }),
-  lastName: z.string().min(1, { message: "LastName is required" }),
+  lastName: z.string().optional().nullable(),
   email: z.string().email("Invalid email address"),
 });
 
@@ -42,8 +42,6 @@ export async function POST(req: NextRequest): Promise<Response> {
 
     // if user doen't exist
 
-    console.log("User not exist, Creating new user");
-
     const newUser = {
       clerkId,
       imageUrl,
@@ -67,7 +65,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       { status: 201 },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         message: "Internal server error while creating user in db",

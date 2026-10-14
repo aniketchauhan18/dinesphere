@@ -61,7 +61,7 @@ export async function PATCH(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json({
       message: "Internal server error while adding user image in db",
     });

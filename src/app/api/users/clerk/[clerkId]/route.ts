@@ -9,7 +9,6 @@ export async function GET(
   try {
     await connect();
     const clerkId = (await params).clerkId;
-    console.log(clerkId);
     if (!clerkId) {
       return NextResponse.json(
         {
@@ -37,7 +36,7 @@ export async function GET(
       data: user[0],
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         message: "Internal server error while quering user data",

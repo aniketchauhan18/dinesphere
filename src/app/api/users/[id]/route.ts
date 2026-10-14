@@ -17,7 +17,7 @@ export async function GET(
       user,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       { message: "Error fetching user details" },
       { status: 500 },
@@ -63,7 +63,7 @@ export async function PATCH(
       data: user,
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         message: "Error updating user information",

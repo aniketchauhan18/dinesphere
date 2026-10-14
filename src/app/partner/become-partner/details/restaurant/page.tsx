@@ -13,6 +13,9 @@ export default async function RestaurantDetails() {
   }
   
   const user: UserProps = await fetchUserByClerkId(userId);
+  if (user.role === "admin") {
+    redirect(`/dashboard/${user._id}`);
+  }
 
   return (
     <main className="pb-24 lg:pt-24 p-4">
