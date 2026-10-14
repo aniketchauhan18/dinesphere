@@ -34,7 +34,6 @@ export async function POST(req: NextRequest): Promise<Response> {
       image,
       "DineSphere-Restaurants",
     );
-    console.log(data);
 
     if (!data) {
       return NextResponse.json(

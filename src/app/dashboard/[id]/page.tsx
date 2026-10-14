@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { fetchRestaurantsByUserId } from "@/lib/data";
+import { fetchDashboardStatsByUserId, fetchRestaurantsByUserId } from "@/lib/data";
 import { StoreIcon, TrendingUpIcon } from "lucide-react";
 import { UserRestaurantsProps } from "@/lib/definition";
 import DefaultBackButton from "@/components/ui/default-back-button";
@@ -11,9 +11,12 @@ export default async function DashboardPage({
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const data: UserRestaurantsProps = await fetchRestaurantsByUserId(
-    (await params).id,
-  );
+  const { id } = await params;
+  const [data, stats]: [UserRestaurantsProps, Awaited<ReturnType<typeof fetchDashboardStatsByUserId>>] =
+    await Promise.all([
+      fetchRestaurantsByUserId(id),
+      fetchDashboardStatsByUserId(id),
+    ]);
   const { restaurants, length } = data;
 
   return (
@@ -31,7 +34,7 @@ export default async function DashboardPage({
           </div>
           <div className="space-y-1">
             <p className="font-bold">{length}</p>
-            <p className="text-xs text-neutral-600">+2 from last month</p>
+            <p className="text-xs text-neutral-600">Registered restaurants</p>
           </div>
         </div>
         <div className="p-3 space-y-4 border rounded-md">
@@ -40,8 +43,14 @@ export default async function DashboardPage({
             <TrendingUpIcon className="text-neutral-600 w-4 h-4" />
           </div>
           <div>
-            <p className="font-bold">$24,780</p>
-            <p className="text-xs text-neutral-600 ">+15% from last month</p>
+            <p className="font-bold">
+              {new Intl.NumberFormat("en-IN", {
+                style: "currency",
+                currency: "INR",
+                maximumFractionDigits: 0,
+              }).format(stats.totalRevenue)}
+            </p>
+            <p className="text-xs text-neutral-600 ">Across all orders</p>
           </div>
         </div>
         <div className="p-3 space-y-4 border rounded-md">
@@ -50,18 +59,20 @@ export default async function DashboardPage({
             {/* <StoreIcon className="text-neutral-600 w-4 h-4" /> */}
           </div>
           <div className="space-y-1">
-            <p className="font-bold">+573</p>
-            <p className="text-xs text-neutral-600">+201 from last hour</p>
+            <p className="font-bold">{stats.activeOrders}</p>
+            <p className="text-xs text-neutral-600">Pending or in progress</p>
           </div>
         </div>
         <div className="p-3 space-y-4 border rounded-md">
           <div className="flex justify-between items-center ">
-            <h2>Customer Satisfaction</h2>
+            <h2>Delivered Orders</h2>
             <StoreIcon className="text-neutral-600 w-4 h-4" />
           </div>
           <div>
-            <p className="font-bold">98%</p>
-            <p className="text-xs text-neutral-600a">+2% from last week</p>
+            <p className="font-bold">{stats.deliveredOrders}</p>
+            <p className="text-xs text-neutral-600">
+              Out of {stats.totalOrders} total orders
+            </p>
           </div>
         </div>
       </section>
@@ -72,7 +83,7 @@ export default async function DashboardPage({
             You have {length} registered restaurants.
           </p>
           <div className="space-y-1 pt-2">
-            {restaurants.map(async (restaurant) => {
+            {restaurants.map((restaurant) => {
               return (
                 <div
                   key={restaurant._id}
@@ -82,9 +93,7 @@ export default async function DashboardPage({
                     <StoreIcon className="w-4 h-4 mr-2 text-neutral-600" />
                     <p>{restaurant.name}</p>
                   </div>
-                  <Link
-                    href={`/dashboard/${(await params).id}/restaurant/${restaurant._id.toString()}`}
-                  >
+                  <Link href={`/dashboard/${id}/restaurant/${restaurant._id.toString()}`}>
                     <Button variant="link" className="text-sm">
                       View Details
                     </Button>

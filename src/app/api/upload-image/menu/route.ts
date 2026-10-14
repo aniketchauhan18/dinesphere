@@ -13,8 +13,6 @@ export async function POST(req: NextRequest): Promise<Response> {
 
     const menuId = formData.get("placeholderId") as string;
 
-    console.log(menuId);
-
     if (!image || !menuId) {
       return NextResponse.json(
         {
@@ -72,7 +70,7 @@ export async function POST(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json({
       message: "Internal server error while adding menu image in db",
     });
@@ -102,7 +100,7 @@ export async function DELETE(req: NextRequest): Promise<Response> {
       message: "Image deleted successfully",
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json({
       message: "Internal server error while deleting menu image in db",
     });

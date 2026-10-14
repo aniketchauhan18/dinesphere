@@ -49,7 +49,7 @@ export async function PATCH(
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         message: "Internal server error while updating menu",

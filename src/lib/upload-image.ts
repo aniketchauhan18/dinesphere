@@ -24,6 +24,6 @@ export async function UploadImage(file: File, folder: string): Promise<any> {
         .end(bytes);
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

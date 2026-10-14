@@ -8,11 +8,18 @@ import {
   BarChart2Icon,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
+import { currentUser } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 // import { auth } from "@clerk/nextjs/server"
 // import { fetchRestaurantsCountByUserId, fetchUserByClerkId } from "@/lib/data";
 // import { UserProps } from "@/components/ui/orders/checkout-button";
 
 export default async function Patnership() {
+  const clerkUser = await currentUser();
+  if (clerkUser?.publicMetadata?.role === "admin") {
+    redirect("/partner/become-partner/details/restaurant");
+  }
+
   // const { userId } = auth();
   // const user = await fetchUserByClerkId(userId as string) as UserProps;
   // const userOwnedRestaurantsCount = await fetchRestaurantsCountByUserId(user?._id);

@@ -126,7 +126,7 @@ export async function fetchUserOrderMenuItems(userId: string) {
     // revalidatePath(`/user/${userId}/orders`);
     return orderItems;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Error fetching user orderItems");
   }
 }
@@ -303,7 +303,6 @@ export async function fetchAggregatedOrdersByUserId(id: string) {
         },
       },
     ]);
-    console.log(order);
     return order;
   } catch (err) {
     throw new Error("Error fetching populated orders");
@@ -355,7 +354,7 @@ export async function fetchOrderOlderThan(minutes: number) {
     });
     return orders;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Error fetching older orders");
   }
 }
@@ -375,7 +374,7 @@ export async function updateOrderStatus(orderId: string, status: string) {
     );
     return updatedOrder;
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Error upading order status");
   }
 }
@@ -391,7 +390,62 @@ export async function fetchRestaurantsByUserId(userId: string) {
       length: restaurants.length,
     };
   } catch (err) {
-    console.log(err);
+    console.error(err);
     throw new Error("Error fetching user restaurants count");
+  }
+}
+
+export async function fetchDashboardStatsByUserId(userId: string) {
+  try {
+    await connect();
+    const restaurants = await Restaurant.find({ userId }).select("_id");
+    const restaurantIds = restaurants.map((restaurant) => restaurant._id);
+
+    if (restaurantIds.length === 0) {
+      return {
+        totalRevenue: 0,
+        activeOrders: 0,
+        deliveredOrders: 0,
+        totalOrders: 0,
+      };
+    }
+
+    const [revenueAggregation, activeOrders, deliveredOrders, totalOrders] =
+      await Promise.all([
+        Order.aggregate([
+          {
+            $match: {
+              restaurantId: { $in: restaurantIds },
+            },
+          },
+          {
+            $group: {
+              _id: null,
+              totalRevenue: { $sum: "$totalPrice" },
+            },
+          },
+        ]),
+        Order.countDocuments({
+          restaurantId: { $in: restaurantIds },
+          status: { $in: ["pending", "accepted", "processing"] },
+        }),
+        Order.countDocuments({
+          restaurantId: { $in: restaurantIds },
+          status: "delivered",
+        }),
+        Order.countDocuments({
+          restaurantId: { $in: restaurantIds },
+        }),
+      ]);
+
+    return {
+      totalRevenue: revenueAggregation[0]?.totalRevenue ?? 0,
+      activeOrders,
+      deliveredOrders,
+      totalOrders,
+    };
+  } catch (err) {
+    console.error(err);
+    throw new Error("Error fetching dashboard stats");
   }
 }

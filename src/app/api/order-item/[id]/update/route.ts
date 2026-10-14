@@ -41,7 +41,7 @@ export async function PATCH(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json(
       {
         messsage: "Internal server error while updating the order",
@@ -75,7 +75,7 @@ export async function DELETE(req: NextRequest): Promise<Response> {
       },
     );
   } catch (err) {
-    console.log(err);
+    console.error(err);
     return NextResponse.json({
       message: "Internal server error while deleting the order",
     });

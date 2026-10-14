@@ -9,9 +9,13 @@ const paymentSchema = new Schema(
     },
     paymentId: {
       type: String,
+      unique: true,
+      sparse: true,
     },
     paymentOrderId: {
       type: String,
+      unique: true,
+      sparse: true,
     },
     paymentSignature: {
       type: String,

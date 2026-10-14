@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import Razorpay from "razorpay";
+import { connect } from "@/lib/db";
+import PaymentAttempt from "@/lib/models/paymentAttempt.model";
 
 const razorpayKeyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
 const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET;
@@ -24,6 +26,8 @@ function getRazorpayInstance(): Razorpay {
 
 export async function POST(req: NextRequest): Promise<Response> {
   try {
+    await connect();
+
     // Validate environment variables
     if (!razorpayKeyId || !razorpayKeySecret) {
       console.error("Razorpay credentials not configured");
@@ -38,7 +42,7 @@ export async function POST(req: NextRequest): Promise<Response> {
     }
 
     const body = await req.json();
-    const { totalPrice } = body;
+    const { totalPrice, userId, restaurantId, orderItems } = body;
 
     // Validate totalPrice
     if (!totalPrice || isNaN(Number(totalPrice)) || Number(totalPrice) <= 0) {
@@ -51,16 +55,25 @@ export async function POST(req: NextRequest): Promise<Response> {
         }
       );
     }
+    if (!userId || !restaurantId || !Array.isArray(orderItems) || orderItems.length === 0) {
+      return NextResponse.json(
+        {
+          message: "Missing order context for payment attempt",
+        },
+        {
+          status: 400,
+        },
+      );
+    }
 
     const amount = Math.round(Number(totalPrice) * 100); // Convert to paise and ensure integer
+    const receipt = `order_${Date.now()}_${userId}`;
 
     const options = {
       amount: amount,
       currency: "INR",
-      receipt: `order_${Date.now()}`,
+      receipt,
     };
-
-    console.log("Creating Razorpay order with options:", options);
 
     const razorpay = getRazorpayInstance();
     const razorpayOrder = await razorpay.orders.create(options);
@@ -77,7 +90,23 @@ export async function POST(req: NextRequest): Promise<Response> {
       );
     }
 
-    console.log("Razorpay order created:", razorpayOrder.id);
+    await PaymentAttempt.findOneAndUpdate(
+      { razorpayOrderId: razorpayOrder.id },
+      {
+        userId,
+        restaurantId,
+        totalPrice: Number(totalPrice),
+        orderItems,
+        receipt,
+        razorpayOrderId: razorpayOrder.id,
+        status: "pending",
+        verificationSource: "client",
+      },
+      {
+        upsert: true,
+        new: true,
+      },
+    );
 
     return NextResponse.json({
       order: razorpayOrder,

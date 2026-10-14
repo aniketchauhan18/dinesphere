@@ -8,16 +8,17 @@ export default function ChangeRoleButton() {
   const user = useUser() as UserProps;
   const router = useRouter();
 
-  if (user.role === "admin") {
-    router.push("/partner/become-partner/details/restaurant");
-    return;
-  }
-
   const handleClick = async () => {
+    if (!user?._id) return;
+    if (user.role === "admin") {
+      router.push("/partner/become-partner/details/restaurant");
+      return;
+    }
+
     const response = await fetch(`/api/users/${user._id}/change-role`, {
       method: "PATCH",
       headers: {
-        Content: "application/json",
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         role: "admin",
@@ -25,7 +26,6 @@ export default function ChangeRoleButton() {
       }),
     });
 
-    const data = await response.json();
     if (response.ok) {
       router.push(`/partner/become-partner/details/restaurant`);
       router.refresh();

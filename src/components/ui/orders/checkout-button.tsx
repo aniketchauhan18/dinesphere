@@ -31,6 +31,8 @@ interface RazorpayResponse {
   razorpay_signature: string;
 }
 
+interface PendingPaymentPayload extends RazorpayResponse {}
+
 interface RazorpayOptions {
   key: string;
   amount: number;
@@ -77,8 +79,67 @@ export default function CheckoutButton({
   const router = useRouter();
   const user: UserProps = useUser() as UserProps;
   const [isLoading, setIsLoading] = useState(false);
+  const pendingPaymentStorageKey = "pending_payment_sync";
+  const [hasPendingSync, setHasPendingSync] = useState<boolean>(() => {
+    if (typeof window === "undefined") return false;
+    return Boolean(window.localStorage.getItem(pendingPaymentStorageKey));
+  });
+
+  const getPendingPaymentPayload = (): PendingPaymentPayload | null => {
+    if (typeof window === "undefined") return null;
+    const payload = window.localStorage.getItem(pendingPaymentStorageKey);
+    if (!payload) return null;
+    try {
+      return JSON.parse(payload) as PendingPaymentPayload;
+    } catch {
+      return null;
+    }
+  };
+
+  const verifyAndFinalizePayment = async (
+    paymentPayload: PendingPaymentPayload,
+  ) => {
+    const verifyResponse = await fetch("/api/payment/verify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(paymentPayload),
+    });
+
+    if (!verifyResponse.ok) {
+      throw new Error("Payment verification failed");
+    }
+  };
+
+  const handleResumePaymentSync = async () => {
+    const pendingPayload = getPendingPaymentPayload();
+    if (!pendingPayload) {
+      setHasPendingSync(false);
+      toast.info("No pending payment sync found");
+      return;
+    }
+
+    setIsLoading(true);
+    try {
+      await verifyAndFinalizePayment(pendingPayload);
+      window.localStorage.removeItem(pendingPaymentStorageKey);
+      setHasPendingSync(false);
+      toast.success("Payment synced and order created successfully!");
+      router.push(`/user/${user._id}/orders/track`);
+    } catch {
+      toast.error("Still unable to sync payment. Please retry in a moment.");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleAddOrder = async (totalPrice: number | string) => {
+    if (hasPendingSync) {
+      await handleResumePaymentSync();
+      return;
+    }
+
     if (!user.address || user.address.trim() === "") {
       toast.error("Please add your delivery address first");
       router.push(`/user/${user?._id}/profile`);
@@ -101,6 +162,10 @@ export default function CheckoutButton({
         },
         body: JSON.stringify({
           totalPrice,
+          userId: user._id,
+          restaurantId,
+          orderItems: orderItemsIds,
+          status,
         }),
         cache: "no-cache",
       });
@@ -160,52 +225,29 @@ export default function CheckoutButton({
           const { razorpay_payment_id, razorpay_order_id, razorpay_signature } =
             response;
 
+          const paymentPayload = {
+            razorpay_payment_id,
+            razorpay_order_id,
+            razorpay_signature,
+          };
+
+          window.localStorage.setItem(
+            pendingPaymentStorageKey,
+            JSON.stringify(paymentPayload),
+          );
+          setHasPendingSync(true);
+
           try {
-            // Store payment in database
-            const storePaymentResponse = await fetch(`/api/payment`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId: user._id,
-                paymentId: razorpay_payment_id,
-                paymentOrderId: razorpay_order_id,
-                paymentSignature: razorpay_signature,
-              }),
-            });
-
-            if (!storePaymentResponse.ok) {
-              throw new Error("Failed to store payment");
-            }
-
-            const { payment } = await storePaymentResponse.json();
-
-            // Create the order
-            const checkoutResponse = await fetch(`/api/checkout`, {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                userId: user._id,
-                restaurantId,
-                totalPrice,
-                status,
-                orderItems: orderItemsIds,
-                paymentId: payment._id,
-              }),
-            });
-
-            if (checkoutResponse.ok) {
-              toast.success("Order placed successfully!");
-              router.push(`/user/${user._id}/orders/track`);
-            } else {
-              throw new Error("Failed to create order");
-            }
+            await verifyAndFinalizePayment(paymentPayload);
+            window.localStorage.removeItem(pendingPaymentStorageKey);
+            setHasPendingSync(false);
+            toast.success("Order placed successfully!");
+            router.push(`/user/${user._id}/orders/track`);
           } catch (error) {
-            console.error("Error processing order:", error);
-            toast.error("Payment received but order creation failed. Please contact support.");
+            console.error("Error processing payment verification:", error);
+            toast.error(
+              "Payment received but sync is pending. Use 'Resume Payment Sync'.",
+            );
           } finally {
             setIsLoading(false);
           }
@@ -235,7 +277,11 @@ export default function CheckoutButton({
       onClick={() => handleAddOrder(totalPrice)}
       disabled={isLoading}
     >
-      {isLoading ? "Processing..." : "Checkout"}
+      {isLoading
+        ? "Processing..."
+        : hasPendingSync
+          ? "Resume Payment Sync"
+          : "Checkout"}
     </Button>
   );
 }

@@ -23,22 +23,32 @@ export default function CreateUser() {
               clerkId: user.id,
               username: user.username,
               firstName: user.firstName,
-              lastName: user.lastName,
+              lastName: user.lastName || "", // Handle null lastName from Google OAuth
               imageUrl: user.imageUrl,
               email: user.emailAddresses[0]?.emailAddress,
             }),
           });
+
+          // Check response status BEFORE accessing data
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error("Failed to create user in backend:", errorData);
+            // Still redirect to home, but don't try to access user data
+            router.push("/");
+            return;
+          }
+
           const data = await response.json();
 
           // store user in the local storage
-
-          localStorage.setItem("dineSphere-userId", data.user._id);
-          if (!response.ok) {
-            console.error("Failed to create user in backend");
+          if (data.user?._id) {
+            localStorage.setItem("dineSphere-userId", data.user._id);
           }
           router.push("/");
         } catch (err) {
-          console.log(err);
+          console.error("Error creating user:", err);
+          // Redirect to home even on error to prevent user getting stuck
+          router.push("/");
         }
       }
     };

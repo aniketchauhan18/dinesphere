@@ -69,7 +69,6 @@ export async function createRestaurant(userId: string, formData: FormData) {
   }
 
   data.userId = userId;
-  console.log(data);
 
   try {
     await connect();
@@ -79,7 +78,6 @@ export async function createRestaurant(userId: string, formData: FormData) {
         message: "Failed to create restaurant",
       };
     }
-    console.log(restaurant);
     if (restaurant) {
       redirect(`/restaurants/${restaurant._id}`);
     }

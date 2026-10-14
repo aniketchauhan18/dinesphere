@@ -1,12 +1,11 @@
 import { RestaurantProps } from "@/app/restaurants/page";
 import RestaurantUpdateForm from "@/components/ui/restaurants/update-form";
 import { fetchRestaurantById, fetchRestaurantImagesById } from "@/lib/data";
-import { Delete, EyeIcon, MailIcon, MapPinIcon, PhoneIcon, Trash } from "lucide-react";
+import { MailIcon, MapPinIcon, PhoneIcon } from "lucide-react";
 import UploadImage from "@/components/UploadImage";
 import UpdateRestaurantImage from "@/components/ui/restaurants/update-image";
 import Image from "next/image";
 import { RestaurantImageResponse } from "@/lib/definition";
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import UploadMenuCards from "@/components/ui/menus/upload-menu-card";
 import { redirect } from "next/navigation";

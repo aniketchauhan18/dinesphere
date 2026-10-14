@@ -54,7 +54,7 @@ async function updatePendingOrders() {
         const changeKey = `${currentStatus} → ${nextStatus}`;
         updateResults.statusChanges[changeKey] = 
           (updateResults.statusChanges[changeKey] || 0) + 1;
-        console.log(
+        console.info(
           `Order ${order._id} updated from ${currentStatus} to ${nextStatus}`,
         );
       } else {
